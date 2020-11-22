@@ -1,0 +1,319 @@
+﻿@page  "/Patron/Edit/{Id:int}"
+@inject NavigationManager NavigationManager
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@layout SystemAdminLayout
+@inject PatronService PatronService
+@inject LMSDbContext DbContext
+
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>Edit Patron Information</h3>
+        <fieldset>
+
+            <EditForm Model="patron" OnValidSubmit="UpdatePatron">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="first-name">*First Name:</label>
+                    <InputText id="first-name" @bind-Value="patron.FirstName" class="form-control" placeholder="Enter Your Fisrt Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="middle-name">Middle Name:</label>
+                    <InputText id="middle-name" @bind-Value="patron.MiddleName" class="form-control" placeholder="Enter Your Middle Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">*Last Name:</label>
+                    <InputText id="last-name" @bind-Value="patron.LastName" class="form-control" placeholder="Enter Your Last Name" />
+                </div>
+
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Gender:</span>
+                        <RadzenDropDown Data="@gender" @bind-Value="patron.Gender" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">*Date Of Birth:</label>
+                    <InputDate id="date" @bind-Value="patron.DateOfBirth" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Primary Contact Number">*Primary Contact Number:</label>
+                    <InputText id="Primary Contact Number" @bind-Value="patron.PrimaryContactNumber" class="form-control" placeholder="0500000000" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Secondary Contact Number">Secondary Contact Number:</label>
+                    <InputText id="Secondary Contact Number" @bind-Value="patron.SecondaryContactNumber" class="form-control" placeholder="0500000000" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label">*Primary Email: </label>
+                    <InputText type="email" id="email" @bind-Value="patron.PrimaryEmail" class="form-control" placeholder="sam@example.com" />
+                    <ValidationMessage For="@(() => patron.PrimaryEmail)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label">Secondary Email: </label>
+                    <InputText type="email" id="email" @bind-Value="patron.SecondaryEmail" class="form-control" placeholder="sam@example.com" />
+                    <ValidationMessage For="@(() => patron.SecondaryEmail)" />
+                </div>
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Language:</span>
+                        <RadzenDropDown Data="@language" @bind-Value="patron.Language" Style="align-items:center" />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Section:</span>
+                        <RadzenDropDown Data="@patronSection" @bind-Value="patron.Section" Style="align-items:center" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Status:</span>
+                        <RadzenDropDown Data="@status" @bind-Value="patron.Status" Style="align-items:center" />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="registration-date">*Registration Date:</label>
+                    <InputDate id="date" @bind-Value="patron.RegistrationDate" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="username">*Username:</label>
+                    <InputText id="username" @bind-Value="patron.UserName" class="form-control" placeholder="Enter Your Username" />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">*Password:</label>
+                    <InputText type="password" id="password" @bind-Value="patron.Password" class="form-control" placeholder="Enter Your Password" />
+                </div>
+
+                <div class="form-group">
+                    <label for="type">*Patron Type: </label>
+                    <Select @onchange="patronChange">
+                        <option value="">Select Type</option>
+                        @foreach (var type in Enum.GetValues(typeof(PatronType)))
+                        {
+
+
+                            <option value="@(type)"> @(type)</option>
+                        }
+                    </Select>
+                </div>
+                <br>
+
+                @*<div class="form-group">
+                        <label style="display: flex; align-items: center">
+                            <span style="margin-right: 32px">*Patron Type:</span>
+                            <RadzenDropDown Data="@typePatron" @bind-Value="patron.PatronType"  @onchange="patronChange"/>
+                        </label>
+                    </div>*@
+
+
+
+                <div class="form-group">
+                    <label for="type">Image File: </label>
+                    <RadzenFileInput @bind-Value="patron.ImageFile" Style="width:400px" TValue="string" />
+
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="remark">Remark: </label>
+                    <RadzenTextArea @bind-Value="patron.Remark" Cols="30" Rows="3" Style="align-items:center" />
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center" for="library">
+                        <span style="margin-right: 32px">*Library: </span>
+                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Library"
+                                        LoadData="@LibraryLoadData" AllowFiltering="true"
+                                        Data="@patronLibrary" TextProperty="Name" ValueProperty="LibraryId" Style="margin-bottom: 20px" @bind-Value="patron.LibraryId"
+                                        Change="@(args => LibraryChange(args, "DropDown with custom filtering"))" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Address:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int"
+                                        LoadData="@LoadData" AllowFiltering="true"
+                                        Data="@patronAddress" TextProperty="StreetName" ValueProperty="AddressId" Style="margin-bottom: 20px" Placeholder="Select..." @bind-Value="patron.AddressId"
+                                        Change="@(args => Change(args, "Address DropDown "))" />
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Patron/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+
+<br />
+
+<p>@message</p>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    Patron patron = new Patron();
+
+    string message;
+
+    protected override void OnInitialized()
+    {
+        patron = PatronService.GetPatron(Id);
+    }
+
+
+
+
+    public void UpdatePatron()
+    {
+
+        // Edit   Patron
+        PatronService.EditPatron(patron);
+
+        message = "Patron updated successfully";
+        NavigationManager.NavigateTo("Patrons/Search");
+    }
+}
+
+@code
+{
+
+    //code section for input select
+
+    LMSDbContext db = new LMSDbContext();
+
+    string patronType { get; set; }
+
+
+
+    string Teachervisible = "hidden";
+    string Studentvisible = "hidden";
+
+    private List<Student> StudentForm;
+    private List<Teacher> TeacherForm;
+
+    //Method to change patron type
+    private void patronChange(ChangeEventArgs patronEvent)
+    {
+        patronType = (patronEvent.Value.ToString());
+
+        if (patronType == "Student")
+        {
+            Studentvisible = "visible";
+            Teachervisible = "hidden";
+        }
+
+        else if (patronType == "Teacher")
+        {
+            Teachervisible = "visible";
+            Studentvisible = "hidden";
+        }
+
+
+
+    }
+
+}
+
+
+@code{
+
+    IEnumerable<Address> patronAddress;
+    IEnumerable<Library> patronLibrary;
+
+    void Change(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void LoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Address.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        patronAddress = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    void LibraryChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void LibraryLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Library.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        patronLibrary = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    //Code for gender drop down list
+    IEnumerable<PatronGender> gender = Enum.GetValues(typeof(PatronGender)).Cast<PatronGender>();
+
+    //Code for language drop down list
+    IEnumerable<PatronLanguage> language = Enum.GetValues(typeof(PatronLanguage)).Cast<PatronLanguage>();
+
+
+    //Code for employee type drop down list
+    IEnumerable<PatronType> type = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+
+    //Code for section drop down list
+    IEnumerable<PatronSection> patronSection = Enum.GetValues(typeof(PatronSection)).Cast<PatronSection>();
+
+    //Code for status drop down list
+    IEnumerable<PatronStatus> status = Enum.GetValues(typeof(PatronStatus)).Cast<PatronStatus>();
+
+    //Code for type drop down list
+    IEnumerable<PatronType> typePatron = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+
+    //Code for age level drop down list
+    IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
+}

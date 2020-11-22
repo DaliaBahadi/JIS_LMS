@@ -1,0 +1,41 @@
+﻿
+@page "/Publisher/Details/{Id:int}"
+@layout SystemAdminLayout
+@inject PublisherService PublisherService
+
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Publisher Details</h3>
+
+            <table class="table table-hover">
+
+                <tr>
+                    <td>Name: </td>
+                    <td>@publisher.Name</td>
+                </tr>
+
+            </table>
+
+            <a href="/Publisher/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Publishers/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    Publisher publisher = new Publisher();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        publisher = PublisherService.GetPublisher(Id);
+    }
+}

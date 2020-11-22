@@ -1,0 +1,167 @@
+﻿@page "/Library/Edit/{Id:int}"
+@layout SystemAdminLayout
+@inject NavigationManager NavigationManager
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+@inject LibraryService LibraryService
+
+@inject AddressService AddressService
+@inject LMSDbContext DbContext
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>Edit Library Information</h3>
+        <fieldset>
+            
+            <EditForm Model="library" OnValidSubmit="UpdateLibrary">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="name">*Name:</label>
+                    <InputText id="name" @bind-Value="library.Name" class="form-control" placeholder="Enter library Name" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Section:</span>
+                        <RadzenDropDown Data="@librarySection" @bind-Value="library.Section" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Status:</span>
+                        <RadzenDropDown Data="@status" @bind-Value="library.Status" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Address:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int"
+                                        LoadData="@LoadData" AllowFiltering="true"
+                                        Data="@libraryAddress" TextProperty="StreetName" ValueProperty="AddressId" Style="margin-bottom: 20px" @bind-Value="library.AddressId"
+                                        Change="@(args => Change(args, "DropDown with custom filtering"))" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Employee:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int"
+                                        LoadData="@EmployeeLoadData" AllowFiltering="true"
+                                        Data="@libraryEmployee" TextProperty="FirstName" ValueProperty="EmployeeId" Style="margin-bottom: 20px" @bind-Value="library.LibrarianId"
+                                        Change="@(args => EmployeeChange(args, "DropDown with custom filtering"))" />
+                    </label>
+                </div>
+
+
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Libraries" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+
+
+<br />
+
+<p>@message</p>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    Library library = new Library();
+
+
+    string message;
+
+    protected override void OnInitialized()
+    {
+        library = LibraryService.GetLibrary(Id);
+       
+    }
+
+
+ 
+
+    public void UpdateLibrary()
+    {
+
+
+
+        // Edit library
+        LibraryService.EditLibrary(library);
+
+        message = "Library/Address updated successfully";
+        NavigationManager.NavigateTo("Libraries/Serach");
+    }
+}
+
+
+@code{
+
+    IEnumerable<Address> libraryAddress;
+    IEnumerable<Employee> libraryEmployee;
+
+    void Change(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void LoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Address.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        libraryAddress = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    void EmployeeChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void EmployeeLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Employee.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        libraryEmployee = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+    //Code for section drop down list
+    IEnumerable<LibrarySection> librarySection = Enum.GetValues(typeof(LibrarySection)).Cast<LibrarySection>();
+
+    //Code for status drop down list
+    IEnumerable<LibraryStatus> status = Enum.GetValues(typeof(LibraryStatus)).Cast<LibraryStatus>();
+
+
+
+}

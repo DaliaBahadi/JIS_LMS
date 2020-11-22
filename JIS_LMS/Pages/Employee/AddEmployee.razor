@@ -1,0 +1,152 @@
+﻿
+@page "/Employee/Add"
+@layout SystemAdminLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@using Microsoft.AspNetCore.Components.Forms
+@using Radzen.Blazor.Rendering
+
+
+@inject EmployeeService EmployeeService
+
+@inject NavigationManager NavigationManager
+
+
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <legend>Add New Employee</legend>
+            <EditForm Model="employee" OnValidSubmit="CreateEmployee">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="first-name">*First Name:</label>
+                    <InputText id="first-name" @bind-Value="employee.FirstName" class="form-control" placeholder="Enter Your Fisrt Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="middle-name">Middle Name:</label>
+                    <InputText id="middle-name" @bind-Value="employee.MiddleName" class="form-control" placeholder="Enter Your Middle Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">*Last Name:</label>
+                    <InputText id="last-name" @bind-Value="employee.LastName" class="form-control" placeholder="Enter Your Last Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">*Date Of Birth:</label>
+                    <InputDate id="date" @bind-Value="employee.DateOfBirth" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label">Email: </label>
+                    <InputText type="email" id="email" @bind-Value="employee.Email" class="form-control" placeholder="sam@example.com" />
+                    <ValidationMessage For="@(() => employee.Email)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">*Mobile:</label>
+                    <InputText id="mobile" @bind-Value="employee.Mobile" class="form-control" placeholder="0500000000" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Language:</span>
+                        <RadzenDropDown Data="@language" @bind-Value="employee.Language" />
+                    </label>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Gender:</span>
+                        <RadzenDropDown Data="@gender" @bind-Value="employee.Gender" />
+                    </label>
+                </div>
+
+               
+
+                <div class="form-group">
+                    <label for="PhoneExtension">Phone Extension:</label>
+                    <InputText id="PhoneExtension" @bind-Value="employee.PhoneExtension" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Employee Type:</span>
+                        <RadzenDropDown Data="@type" @bind-Value="employee.EmployeeType" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">*Username:</label>
+                    <InputText id="username" @bind-Value="employee.UserName" class="form-control" placeholder="Enter Your Username" />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">*Password:</label>
+                    <InputText type="password" id="password" @bind-Value="employee.Password" class="form-control" placeholder="Enter Your Password" />
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Employees" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+@code {
+    Employee employee = new Employee();
+
+
+    private List<Employee> employees = new List<Employee>();
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+
+        employees = EmployeeService.GetEmployees();
+    }
+
+   
+
+    private void CreateEmployee()
+    {
+       
+
+        EmployeeService.AddNewEmployee(employee);
+
+        // To empty the form, find more elegant why
+        employee = new Employee();
+
+        // May navigate to the Employees component
+        NavigationManager.NavigateTo("/Employees");
+    }
+}
+
+@code
+{
+
+    //Code for gender drop down list
+    IEnumerable<EmployeeGender> gender = Enum.GetValues(typeof(EmployeeGender)).Cast<EmployeeGender>();
+
+    //Code for language drop down list
+    IEnumerable<EmployeeLanguage> language = Enum.GetValues(typeof(EmployeeLanguage)).Cast<EmployeeLanguage>();
+
+
+    //Code for employee type drop down list
+    IEnumerable<EmployeeType> type = Enum.GetValues(typeof(EmployeeType)).Cast<EmployeeType>();
+
+    //ParentGender genderParent = ParentGender.Female;
+}

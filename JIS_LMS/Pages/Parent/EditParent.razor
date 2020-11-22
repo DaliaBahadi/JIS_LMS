@@ -1,0 +1,196 @@
+﻿@page  "/Parent/Edit/{Id:int}"
+@inject NavigationManager NavigationManager
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@layout SystemAdminLayout
+@inject ParentService ParentService
+@inject LMSDbContext DbContext
+
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>Edit Parent Information</h3>
+        <fieldset>
+
+            <EditForm Model="parent" OnValidSubmit="UpdateParent">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+
+                <div class="form-group">
+                    <label for="first-name">*First Name:</label>
+                    <InputText id="first-name" @bind-Value="parent.FirstName" class="form-control" placeholder="Enter Your Fisrt Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="middle-name">Middle Name:</label>
+                    <InputText id="middle-name" @bind-Value="parent.MiddleName" class="form-control" placeholder="Enter Your Middle Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">*Last Name:</label>
+                    <InputText id="last-name" @bind-Value="parent.LastName" class="form-control" placeholder="Enter Your Last Name" />
+                </div>
+
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Relation:</span>
+                        <RadzenDropDown Data="@relation" @bind-Value="@relationParent" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Language:</span>
+                        <RadzenDropDown Data="@language" @bind-Value="@languageParent" />
+                    </label>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Gender:</span>
+                        <RadzenDropDown Data="@gender" @bind-Value="@genderParent" />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Primary Contact Number">*Primary Contact Number:</label>
+                    <InputText id="Primary Contact Number" @bind-Value="parent.PrimaryContactNumber" class="form-control" placeholder="0500000000" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Secondary Contact Number">Secondary Contact Number:</label>
+                    <InputText id="Secondary Contact Number" @bind-Value="parent.SecondaryContactNumber" class="form-control" placeholder="0500000000" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label">*Primary Email: </label>
+                    <InputText type="email" id="email" @bind-Value="parent.PrimaryEmail" class="form-control" placeholder="sam@example.com" />
+                    <ValidationMessage For="@(() => parent.PrimaryEmail)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label">Secondary Email: </label>
+                    <InputText type="email" id="email" @bind-Value="parent.SecondaryEmail" class="form-control" placeholder="sam@example.com" />
+                    <ValidationMessage For="@(() => parent.SecondaryEmail)" />
+                </div>
+
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Address:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int"
+                                        LoadData="@LoadData" AllowFiltering="true"
+                                        Data="@parentAddresses" TextProperty="StreetName" ValueProperty="AddressId" @bind-Value="parent.AddressId" Style="margin-bottom: 20px"
+                                        Change="@(args => Change(args, "DropDown with custom filtering"))" />
+                    </label>
+                </div>
+                <br />
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Parents/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+
+<br />
+
+<p>@message</p>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    Parent parent = new Parent();
+
+    string message;
+
+    protected override void OnInitialized()
+    {
+        parent = ParentService.GetParent(Id);
+    }
+
+    // Used to handle parent gender using radio buttons
+    //ParentGender gender = PatronGender.Female;
+
+    //void SelectGender(ChangeEventArgs args)
+    //{
+    //    Enum.TryParse(args.Value.ToString(), out gender);
+    //}
+
+    //ParentLanguage language = ParentLanguage.English;
+
+    //private void SelectLanguage(ChangeEventArgs args)
+    //{
+    //    Enum.TryParse(args.Value.ToString(), out language);
+    //}
+
+
+
+    public void UpdateParent()
+    {
+
+
+
+        // Edit Parent
+        ParentService.EditParent(parent);
+
+        message = "Parent updated successfully";
+        NavigationManager.NavigateTo("Parents/Search");
+    }
+}
+
+@code
+{
+
+
+
+    //Code for gender drop down list
+    IEnumerable<ParentGender> gender = Enum.GetValues(typeof(ParentGender)).Cast<ParentGender>();
+
+    //Code for language drop down list
+    IEnumerable<ParentLanguage> language = Enum.GetValues(typeof(ParentLanguage)).Cast<ParentLanguage>();
+
+    //Code for relation drop down list
+    IEnumerable<ParentRelation> relation = Enum.GetValues(typeof(ParentRelation)).Cast<ParentRelation>();
+
+    ParentGender genderParent = ParentGender.Female;
+
+    ParentLanguage languageParent = ParentLanguage.English;
+
+    ParentRelation relationParent = ParentRelation.Father;
+
+    IEnumerable<Address> parentAddresses;
+
+    void Change(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void LoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Address.AsQueryable();
+
+        //if (!string.IsNullOrEmpty(args.Filter))
+        //{
+        //    query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.AddressName.ToLower().Contains(args.Filter.ToLower()));
+        //}
+
+        parentAddresses = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+}

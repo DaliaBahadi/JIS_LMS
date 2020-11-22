@@ -1,0 +1,160 @@
+﻿@page "/Employees/Login"
+
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+
+
+
+<div class="limiter1">
+    <div class="container-loginpage" style="align-content:center">
+        <div class="wrap-loginpage ">
+            <EditForm Model="db.Patron" class="loginpage-form">
+
+                <fieldset>
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+
+                    <span class="loginpage-form-title" style=" color: #013E7E; font-family:'Bookman'; text-align:center;margin-bottom:2em">
+                        Employees Login
+                    </span>
+
+
+                    <div style="margin-bottom: 7em">
+                        <div style="margin-top: 3em">
+                            <div class="form-group col-12">
+                                <label class="txt-1 m-b-12" for="username">Username:</label>
+
+                                <InputText type="text" id="username" name="username" @bind-Value="@username" class="form-control"></InputText>
+
+
+                            </div>
+                            <br><br>
+                            <div class="form-group col-12">
+                                <label class="txt-1 m-b-12" for="password">Password:</label>
+                                <InputText type="password" id="password" name="password" @bind-Value="@password" class="form-control"></InputText>
+                            </div>
+
+
+                            <div>
+                                <label class="form-control-label" style="color:red;font:smaller;transition-duration:initial"> @message </label>
+                            </div>
+
+                        </div>
+
+                        <div class="container-login0-form-btn" style="margin-top:5em">
+                            <button class="login0-form-btn" @onclick="loginButtonClicked">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+@code {
+
+    LMSDbContext db = new LMSDbContext();
+
+
+
+    private List<Model.Employee> employeeList;
+    private List<Model.Patron> patronList;
+    private List<Teacher> TeacherList;
+
+
+
+
+    int patronid;
+    int employeeid;
+    string username;
+    string password;
+    int patrontype;
+    int employeetype;
+    string message;
+    bool found = false;
+    string teacherName;
+    string librarianName;
+    string systemAdminName;
+
+    protected void loginButtonClicked()
+    {
+
+        patronList = db.Patron.Where(c => c.UserName == username && c.Password == password).ToList();
+
+        employeeList = db.Employee.Where(c => c.UserName == username && c.Password == password).ToList();
+
+
+        if (patronList.Count != 0)
+        {
+            patrontype = patronList[0].PatronType;
+
+            patronid = patronList[0].PatronId;
+
+            if (patrontype == 2)
+            {
+                TeacherList = db.Teacher.Where(c => c.PatronId == patronid).ToList();
+
+                //teacherName = patronList[0].FirstName + " " + patronList[0].LastName;
+
+                navigationManager.NavigateTo($"/Employees");
+            }
+
+            else
+            {
+                message = "Invalid username or password";
+            }
+
+        }
+
+        else if (employeeList.Count != 0)
+        {
+            employeetype = employeeList[0].EmployeeType;
+
+            employeeid = employeeList[0].EmployeeId;
+
+            if (employeetype == 1)
+            {
+                employeeList = db.Employee.Where(c => c.EmployeeId == employeeid).ToList();
+
+                //librarianName = employeeList[0].FirstName + " " + employeeList[0].LastName;
+
+                navigationManager.NavigateTo($"/Employees");
+            }
+
+            else if (employeetype == 2)
+            {
+                employeeList = db.Employee.Where(c => c.EmployeeId == employeeid).ToList();
+
+                systemAdminName = employeeList[0].FirstName + " " + employeeList[0].LastName;
+
+                navigationManager.NavigateTo($"/Employees");
+            }
+        }
+
+        else
+        {
+            message = "Invalid username or password";
+        }
+
+    }
+
+}
+
+
+
+
+

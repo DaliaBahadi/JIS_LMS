@@ -1,0 +1,253 @@
+﻿
+@page "/Library/Add"
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@layout SystemAdminLayout
+
+@inject LibraryService LibraryService
+@inject AddressService AddressService
+@inject NavigationManager NavigationManager
+@inject LMSDbContext DbContext
+
+<RadzenTabs>
+
+    <Tabs>
+        <RadzenTabsItem Text="Add Address">
+            <div class="container-fluid container-contact100">
+                <div class="wrap-contact100">
+
+                    <fieldset>
+                        <legend>Add Library Address</legend>
+                        <EditForm Model="address" OnValidSubmit="CreateAddress">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <div class="form-group">
+                                <label for="building-number">*Building Number:</label>
+                                <InputNumber id="building-number" @bind-Value="address.BuildingNumber" class="form-control" placeholder="Enter Building Number" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="unit-number">Unit Number:</label>
+                                <InputNumber id="unit-number" @bind-Value="address.UnitNumber" class="form-control" placeholder="Enter Unit Number" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="street-name">*Street Name:</label>
+                                <InputText id="street-name" @bind-Value="address.StreetName" class="form-control" placeholder="Enter Street Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="zip-code">Zip Code:</label>
+                                <InputText id="zip-code" @bind-Value="address.ZipCode" class="form-control" placeholder="Enter Zip Code" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">*City:</label>
+                                <InputText id="city" @bind-Value="address.City" class="form-control" placeholder="Enter City" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="country">*Country:</label>
+                                <InputText id="country" @bind-Value="address.Country" class="form-control" placeholder="Enter Country" />
+                            </div>
+                            <br />
+                            <div class="mt-4"></div>
+                            <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                            <a href="Employees" class="btn btn-outline-secondary">Cancel</a>
+                        </EditForm>
+                    </fieldset>
+                </div>
+            </div>
+        </RadzenTabsItem>
+
+        <RadzenTabsItem Text="Add Library">
+            <div class="container-fluid container-contact100">
+                <div class="wrap-contact100">
+
+                    <fieldset>
+                        <legend>Add New Library</legend>
+                        <EditForm Model="library" OnValidSubmit="CreateLibrary">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <div class="form-group">
+                                <label for="name">*Name:</label>
+                                <InputText id="name" @bind-Value="library.Name" class="form-control" placeholder="Enter library Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center">
+                                    <span style="margin-right: 32px">*Section:</span>
+                                    <RadzenDropDown Data="@librarySection" @bind-Value="library.Section" />
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center">
+                                    <span style="margin-right: 32px">*Status:</span>
+                                    <RadzenDropDown Data="@status" @bind-Value="library.Status" />
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center">
+                                    <span style="margin-right: 32px">*Address:</span>
+                                    <RadzenDropDown AllowClear="true" TValue="int"
+                                                    LoadData="@LoadData" AllowFiltering="true"
+                                                    Data="@libraryAddress" TextProperty="StreetName" ValueProperty="AddressId" Style="margin-bottom: 20px" @bind-Value="library.AddressId"
+                                                    Change="@(args => Change(args, "DropDown with custom filtering"))" />
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center">
+                                    <span style="margin-right: 32px">*Library Employee:</span>
+                                    <RadzenDropDown AllowClear="true" TValue="int"
+                                                    LoadData="@EmployeeLoadData" AllowFiltering="true"
+                                                    Data="@libraryEmployee" TextProperty="FullName" ValueProperty="EmployeeId" Style="margin-bottom: 20px" @bind-Value="library.LibrarianId"
+                                                    Change="@(args => EmployeeChange(args, "DropDown with custom filtering"))" />
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                            <a href="Employees" class="btn btn-outline-secondary">Cancel</a>
+                            <div class="mt-4"></div>
+                        </EditForm>
+                    </fieldset>
+                </div>
+            </div>
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+@code {
+    Library library = new Library();
+
+    private List<Library> libraries = new List<Library>();
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+
+        libraries = LibraryService.GetLibraries();
+
+        addresses = AddressService.GetAddresses();
+    }
+
+
+    private void CreateLibrary()
+    {
+
+
+
+        LibraryService.AddNewLibrary(library);
+
+        // To empty the form, find more elegant why
+        library = new Library();
+
+        // May navigate to the Employees component
+        NavigationManager.NavigateTo("/Libraries");
+    }
+}
+
+
+
+@code {
+    Address address = new Address();
+
+
+
+    private List<Address> addresses = new List<Address>();
+
+    // Execute when component starts / initializes
+    //protected override void OnInitialized()
+    //{
+
+    //    addresses = AddressService.GetAddresses();
+    //}
+
+
+
+    private void CreateAddress()
+    {
+
+
+        AddressService.AddNewAddress(address);
+
+        // To empty the form, find more elegant why
+        address = new Address();
+
+        // May navigate to the Employees component
+        NavigationManager.NavigateTo("/Libraries");
+    }
+}
+
+
+@code{
+
+    IEnumerable<Address> libraryAddress;
+    IEnumerable<Employee> libraryEmployee;
+
+    void Change(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void LoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Address.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        libraryAddress = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    void EmployeeChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void EmployeeLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Employee.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        libraryEmployee = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+    //Code for section drop down list
+    IEnumerable<LibrarySection> librarySection = Enum.GetValues(typeof(LibrarySection)).Cast<LibrarySection>();
+
+    //Code for status drop down list
+    IEnumerable<LibraryStatus> status = Enum.GetValues(typeof(LibraryStatus)).Cast<LibraryStatus>();
+
+
+
+}
+

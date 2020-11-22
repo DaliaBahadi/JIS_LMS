@@ -1,0 +1,55 @@
+﻿@layout SystemAdminLayout
+@page "/Employee/Delete/{Id:int}"
+@inject NavigationManager NavigationManager
+@inject EmployeeService EmployeeService
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+<div class="container">
+    <h3>Delete Employee</h3>
+
+    <div class="alert alert-danger ">
+        Do you want to delete this Employee?
+    </div>
+
+    <table>
+        <tr>
+            <th>Name: </th>
+            <td>@employee.FirstName @employee.LastName</td>
+        </tr>
+        <tr>
+            <th>Mobile: </th>
+            <td>@employee.Mobile</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>@employee.Email</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemoveEmployee">Delete Employee</button>
+    <a href="/Employees/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+
+    <div class="mt-4"></div>
+</div>
+
+@code {
+
+    Employee employee = new Employee();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private void RemoveEmployee()
+    {
+        EmployeeService.DeleteEmployee(Id);
+
+        NavigationManager.NavigateTo("/Employees/Search");
+    }
+
+    protected override void OnInitialized()
+    {
+        employee = EmployeeService.GetEmployee(Id);
+    }
+
+}

@@ -1,0 +1,52 @@
+﻿
+@page "/Library/Details/{Id:int}"
+@layout SystemAdminLayout
+@inject LibraryService LibraryService
+@inject AddressService AddressService
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Library Details</h3>
+
+            <table class="table table-hover">
+
+                <tr>
+                    <td>Name: </td>
+                    <td>@library.Name</td>
+                </tr>
+                <tr>
+                    <td>Section: </td>
+                    <td>@library.Section</td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td>@library.Status</td>
+                </tr>
+
+            </table>
+
+            <br><br><br>
+            
+            <a href="/Library/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Libraries/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    Library library = new Library();
+  
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        library = LibraryService.GetLibrary(Id);
+        
+    }
+}

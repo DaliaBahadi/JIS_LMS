@@ -1,0 +1,93 @@
+﻿@page "/Parent/Details/{Id:int}"
+@inject ParentService ParentService
+@layout SystemAdminLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Parent Details</h3>
+
+            <table class="table table-hover">
+
+                <tr>
+                    <td>First Name: </td>
+                    <td>@parent.FirstName</td>
+                </tr>
+                <tr>
+                    <td>Middle Name: </td>
+                    <td>@parent.MiddleName</td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td>@parent.LastName</td>
+                </tr>
+
+
+                @*<tr>
+                        <td>Student Name:</td>
+                        <td>@Patron.LastName</td>
+                    </tr>*@
+
+                <tr>
+                    <td>Relation:</td>
+                    <td>@parent.Relation</td>
+                </tr>
+
+                <tr>
+                    <td>Language: </td>
+                    <td>@parent.Language</td>
+                </tr>
+
+                <tr>
+                    <td>Gender: </td>
+                    <td>@parent.Gender.</td>
+
+                </tr>
+
+                <tr>
+                    <td>Primary Contact Number: </td>
+                    <td>@parent.PrimaryContactNumber</td>
+                </tr>
+
+                <tr>
+                    <td>Secondary Contact Number: </td>
+                    <td>@parent.SecondaryContactNumber</td>
+                </tr>
+
+                <tr>
+                    <td>Primary Email: </td>
+                    <td>@parent.PrimaryEmail</td>
+                </tr>
+
+                <tr>
+                    <td>Secondary Email: </td>
+                    <td>@parent.SecondaryEmail</td>
+                </tr>
+
+            </table>
+
+
+            <a href="/Parent/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+
+            <a href="/Parents/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    Parent parent = new Parent();
+    List<Parent> parents = new List<Parent>();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        parent = ParentService.GetParent(Id);
+    }
+}

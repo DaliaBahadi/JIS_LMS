@@ -1,0 +1,88 @@
+﻿
+@page "/Employee/Details/{Id:int}"
+@inject EmployeeService EmployeeService
+@layout SystemAdminLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Employee Details</h3>
+
+            <table class="table table-hover ">
+
+                <tr>
+                    <td>First Name: </td>
+                    <td>@employee.FirstName</td>
+                </tr>
+                <tr>
+                    <td>Middle Name: </td>
+                    <td>@employee.MiddleName</td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td>@employee.LastName</td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td>@employee.DateOfBirth</td>
+                </tr>
+
+                <tr>
+                    <td>Email: </td>
+                    <td>@employee.Email</td>
+                </tr>
+                <tr>
+                    <td>Mobile: </td>
+                    <td>@employee.Mobile</td>
+                </tr>
+                <tr>
+                    <td>Language: </td>
+                    <td>@employee.</td>
+                </tr>
+
+                <tr>
+                    <td>Gender: </td>
+                    <td>@employee.Gender</td>
+                </tr>
+                <tr>
+                    <td>Phone Extension:</td>
+                    <td>@employee.PhoneExtension</td>
+                </tr>
+                <tr>
+                    <td>Username: </td>
+                    <td>@employee.UserName</td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td>@employee.Password</td>
+                </tr>
+
+
+
+            </table>
+
+
+            <a href="/Employee/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+
+            <a href="/Employees/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    Employee employee = new Employee();
+    List<Employee> employees = new List<Employee>();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        employee = EmployeeService.GetEmployee(Id);
+    }
+}

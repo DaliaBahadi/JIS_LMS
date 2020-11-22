@@ -1,0 +1,59 @@
+﻿
+@page "/Publisher/Add"
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@layout SystemAdminLayout
+@inject PublisherService PublisherService
+
+@inject NavigationManager NavigationManager
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <legend>Add New Publisher</legend>
+            <EditForm Model="publisher" OnValidSubmit="CreatePublisher">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="first-name">*Name:</label>
+                    <InputText id="first-name" @bind-Value="publisher.Name" class="form-control" placeholder="Enter Publisher Name" />
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Publishers/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+@code {
+    Publisher publisher = new Publisher();
+
+
+    private List<Publisher> publishers = new List<Publisher>();
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+        //contacts = ContService.GetContacts();
+        publishers = PublisherService.GetPublishers();
+    }
+
+
+
+    private void CreatePublisher()
+    {
+
+
+        PublisherService.AddNewPublisher(publisher);
+
+        // To empty the form, find more elegant why
+        publisher = new Publisher();
+
+        // May navigate to the piblisher component
+        NavigationManager.NavigateTo("/Publishers");
+    }
+}
+

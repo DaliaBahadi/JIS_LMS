@@ -1,0 +1,286 @@
+﻿
+@page "/Parent/Add"
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@layout SystemAdminLayout
+
+@inject ParentService ParentService
+@inject AddressService AddressService
+@inject NavigationManager NavigationManager
+
+@inject LMSDbContext DbContext
+
+
+<RadzenTabs>
+
+    <Tabs>
+        <RadzenTabsItem Text="Add Address">
+            <div class="container-fluid container-contact100">
+                <div class="wrap-contact100">
+
+                    <fieldset>
+                        <legend>Add Parent Address</legend>
+                        <EditForm Model="address" OnValidSubmit="CreateAddress">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <div class="form-group">
+                                <label for="building-number">*Building Number:</label>
+                                <InputNumber id="building-number" @bind-Value="address.BuildingNumber" class="form-control" placeholder="Enter Building Number" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="unit-number">Unit Number:</label>
+                                <InputNumber id="unit-number" @bind-Value="address.UnitNumber" class="form-control" placeholder="Enter Unit Number" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="street-name">*Street Name:</label>
+                                <InputText id="street-name" @bind-Value="address.StreetName" class="form-control" placeholder="Enter Street Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="zip-code">Zip Code:</label>
+                                <InputText id="zip-code" @bind-Value="address.ZipCode" class="form-control" placeholder="Enter Zip Code" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">*City:</label>
+                                <InputText id="city" @bind-Value="address.City" class="form-control" placeholder="Enter City" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="country">*Country:</label>
+                                <InputText id="country" @bind-Value="address.Country" class="form-control" placeholder="Enter Country" />
+                            </div>
+                            <br />
+
+
+                            <div class="mt-4"></div>
+                            <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                            <a href="Parents" class="btn btn-outline-secondary">Cancel</a>
+                        </EditForm>
+                    </fieldset>
+                </div>
+            </div>
+        </RadzenTabsItem>
+
+        <RadzenTabsItem Text="Add Parent">
+            <div class="container-fluid container-contact100">
+                <div class="wrap-contact100">
+
+                    <fieldset>
+                        <legend>Add New Parent</legend>
+                        <EditForm Model="parent" OnValidSubmit="CreateParent">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <div class="form-group">
+                                <label for="first-name">*First Name:</label>
+                                <InputText id="first-name" @bind-Value="parent.FirstName" class="form-control" placeholder="Enter Your Fisrt Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="middle-name">Middle Name:</label>
+                                <InputText id="middle-name" @bind-Value="parent.MiddleName" class="form-control" placeholder="Enter Your Middle Name" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last-name">*Last Name:</label>
+                                <InputText id="last-name" @bind-Value="parent.LastName" class="form-control" placeholder="Enter Your Last Name" />
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center">
+                                    <span style="margin-right: 32px">*Relation:</span>
+                                    <RadzenDropDown Data="@relation" @bind-Value="parent.Relation" />
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center">
+                                    <span style="margin-right: 32px">*Language:</span>
+                                    <RadzenDropDown Data="@language" @bind-Value="parent.Language" />
+                                </label>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center">
+                                    <span style="margin-right: 32px">*Gender:</span>
+                                    <RadzenDropDown Data="@gender" @bind-Value="parent.Gender" />
+                                </label>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="Primary Contact Number">*Primary Contact Number:</label>
+                                <InputText id="Primary Contact Number" @bind-Value="parent.PrimaryContactNumber" class="form-control" placeholder="0500000000" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Secondary Contact Number">Secondary Contact Number:</label>
+                                <InputText id="Secondary Contact Number" @bind-Value="parent.SecondaryContactNumber" class="form-control" placeholder="0500000000" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="control-label">*Primary Email: </label>
+                                <InputText type="email" id="email" @bind-Value="parent.PrimaryEmail" class="form-control" placeholder="sam@example.com" />
+                                <ValidationMessage For="@(() => parent.PrimaryEmail)" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="control-label">Secondary Email: </label>
+                                <InputText type="email" id="email" @bind-Value="parent.SecondaryEmail" class="form-control" placeholder="sam@example.com" />
+                                <ValidationMessage For="@(() => parent.SecondaryEmail)" />
+                            </div>
+
+
+                            @*<div class="form-group">
+                                    <label style="display: flex; align-items: center">
+                                        <span style="margin-right: 32px">*Address:</span>
+                                        <RadzenDropDown AllowClear="true" TValue="int"
+                                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
+                                                        Data="@parentAddresses" TextProperty="StreetName" ValueProperty="AddressId" Style="margin-bottom: 20px" Change="@(args => Change(args, "DropDown with custom filter operator"))" />
+                                    </label>
+                                </div>*@
+
+
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center">
+                                    <span style="margin-right: 32px">*Address:</span>
+                                    <RadzenDropDown AllowClear="true" TValue="int"
+                                                    LoadData="@LoadData" AllowFiltering="true"
+                                                    Data="@parentAddresses" TextProperty="StreetName" ValueProperty="AddressId" @bind-Value="parent.AddressId" Style="margin-bottom: 20px"
+                                                    Change="@(args => Change(args, "DropDown with custom filtering"))" />
+                                </label>
+                            </div>
+                            <br />
+
+                            <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                            <a href="Parents" class="btn btn-outline-secondary">Cancel</a>
+                            <div class="mt-4"></div>
+                        </EditForm>
+                    </fieldset>
+                </div>
+            </div>
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+@code {
+    Parent parent = new Parent();
+
+    IEnumerable<Parent> parentGender;
+
+    Student_Parent studentParent = new Student_Parent();
+
+
+    private List<Parent> parents = new List<Parent>();
+
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+
+        parents = ParentService.GetParents();
+        addresses = AddressService.GetAddresses();
+    }
+
+    private void CreateParent()
+    {
+        
+
+        ParentService.AddNewParent(parent);
+
+        // To empty the form, find more elegant why
+        parent = new Parent();
+
+        // May navigate to the Employees component
+        NavigationManager.NavigateTo("/Parents");
+    }
+}
+
+
+@code {
+    Address address = new Address();
+
+
+    IEnumerable<Address> parentAddresses;
+
+    private List<Address> addresses = new List<Address>();
+
+    // Execute when component starts / initializes
+    //protected override void OnInitialized()
+    //{
+
+    //    addresses = AddressService.GetAddresses();
+    //}
+
+
+    void Change(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void LoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Address.AsQueryable();
+
+        //if (!string.IsNullOrEmpty(args.Filter))
+        //{
+        //    query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.AddressName.ToLower().Contains(args.Filter.ToLower()));
+        //}
+
+        parentAddresses = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void CreateAddress()
+    {
+
+
+        AddressService.AddNewAddress(address);
+
+        // To empty the form, find more elegant why
+        address = new Address();
+
+        // May navigate to the Employees component
+        NavigationManager.NavigateTo("/Libraries");
+    }
+}
+
+@code
+{
+    //Code for gender drop down list
+    IEnumerable<ParentGender> gender = Enum.GetValues(typeof(ParentGender)).Cast<ParentGender>();
+
+    //Code for language drop down list
+    IEnumerable<ParentLanguage> language = Enum.GetValues(typeof(ParentLanguage)).Cast<ParentLanguage>();
+
+    //Code for relation drop down list
+    IEnumerable<ParentRelation> relation = Enum.GetValues(typeof(ParentRelation)).Cast<ParentRelation>();
+
+    //ParentGender genderParent = ParentGender.Female;
+
+    //ParentLanguage languageParent = ParentLanguage.English;
+
+    //ParentRelation relationParent = ParentRelation.Father;
+}

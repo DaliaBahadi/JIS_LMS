@@ -1,0 +1,180 @@
+﻿@page "/"
+@namespace JIS_LMS.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Management System</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="css/log-in-style.css" rel="stylesheet" />
+    <link href="~/css/Theme/component.css" rel="stylesheet" />
+    <link href="~/css/Theme/normalize.css" rel="stylesheet" />
+    <link href="~/css/Theme/demo.css" rel="stylesheet" />
+    <link href="_content/Syncfusion.Blazor/styles/material.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="/css/Login_v14/css/main.css" rel="stylesheet" />
+    <link href="/css/Login_v14/css/util.css" rel="stylesheet" />
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/default.css" />
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+    <script src="~/css/Theme/modernizr.custom.js"></script>
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="/Login_v14/vendor/bootstrap/css/bootstrap.min.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="/Login_v14/fonts/font-awesome-4.7.0/css/font-awesome.min.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="/Login_v14/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/Login_v14/vendor/animate/animate.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/Login_v14/vendor/css-hamburgers/hamburgers.min.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/Login_v14/vendor/animsition/css/animsition.min.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/Login_v14//vendor/select2/select2.min.css">-->
+    <!--===============================================================================================-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/Login_v14/vendor/daterangepicker/daterangepicker.css">-->
+    <!--===============================================================================================-->
+
+    <link rel="icon" type="image/png" href="/ContactFrom_v5/ContactFrom_v5/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/vendor/">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/vendor/noui/nouislider.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/ContactFrom_v5/ContactFrom_v5/css/main.css">
+
+</head>
+<body>
+    <app>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    @*<script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>*@
+    <script src="_framework/blazor.server.js"></script>
+    <script src="~/css/Theme/classie.js"></script>
+    <script src="~/css/Theme/gnmenu.js"></script>
+    @*<script src="~/css/Login_v14/js/main.js"></script>*@
+    <!--===============================================================================================-->
+    @*<script src="/css/Login_v14/vendor/jquery/jquery-3.2.1.min.js"></script>*@
+    <!--===============================================================================================-->
+    @*<script src="/css/Login_v14/vendor/animsition/js/animsition.min.js"></script>*@
+    <!--===============================================================================================-->
+    <!--<script src="/css/Login_v14/vendor/bootstrap/js/popper.js"></script>
+    <script src="/css/Login_v14/vendor/bootstrap/js/bootstrap.min.js"></script>-->
+    <!--===============================================================================================-->
+    @*<script src="/css/Login_v14/vendor/select2/select2.min.js"></script>*@
+    <!--===============================================================================================-->
+    @*<script src="/css/Login_v14/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/css/Login_v14/vendor/daterangepicker/daterangepicker.js"></script>*@
+    <!--===============================================================================================-->
+    @*<script src="/css/Login_v14/vendor/countdowntime/countdowntime.js"></script>*@
+    <!--===============================================================================================-->
+   
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/bootstrap/js/popper.js"></script>
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/select2/select2.min.js"></script>
+    <script>
+        $(".js-select2").each(function () {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+
+
+            $(".js-select2").each(function () {
+                $(this).on('select2:close', function (e) {
+                    if ($(this).val() == "Please chooses") {
+                        $('.js-show-service').slideUp();
+                    }
+                    else {
+                        $('.js-show-service').slideUp();
+                        $('.js-show-service').slideDown();
+                    }
+                });
+            });
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/ContactFrom_v5/ContactFrom_v5/vendor/noui/nouislider.min.js"></script>
+    <script>
+        var filterBar = document.getElementById('filter-bar');
+
+        noUiSlider.create(filterBar, {
+            start: [1500, 3900],
+            connect: true,
+            range: {
+                'min': 1500,
+                'max': 7500
+            }
+        });
+
+        var skipValues = [
+            document.getElementById('value-lower'),
+            document.getElementById('value-upper')
+        ];
+
+        filterBar.noUiSlider.on('update', function (values, handle) {
+            skipValues[handle].innerHTML = Math.round(values[handle]);
+            $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
+            $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="/css/ContactFrom_v5/ContactFrom_v5/js/main.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+</body>
+</html>
