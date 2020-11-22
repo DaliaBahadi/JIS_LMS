@@ -1,0 +1,67 @@
+﻿@page "/Author/Edit/{Id:int}"
+@inject NavigationManager NavigationManager
+@layout SystemAdminLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+@inject AuthorService AuthorService
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>Edit Author Information</h3>
+        <fieldset>
+            <legend>Edit</legend>
+            <EditForm Model="author" OnValidSubmit="UpdateAuthor">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group">
+                    <label for="first-name">*First Name:</label>
+                    <InputText id="first-name" @bind-Value="author.FirstName" class="form-control" placeholder="Enter Author First Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">*Last Name:</label>
+                    <InputText id="last-name" @bind-Value="author.LastName" class="form-control" placeholder="Enter Author Last Name" />
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Authors/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+
+<br />
+
+<p>@message</p>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    Author author = new Author();
+
+    string message;
+
+    protected override void OnInitialized()
+    {
+        author = AuthorService.GetAuthor(Id);
+    }
+
+
+
+    public void UpdateAuthor()
+    {
+
+
+
+        // Edit Author
+        AuthorService.EditAuthor(author);
+
+        message = "Author updated successfully";
+        NavigationManager.NavigateTo("Authors/Search");
+    }
+}

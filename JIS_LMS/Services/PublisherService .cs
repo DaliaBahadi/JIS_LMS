@@ -19,16 +19,30 @@ namespace JIS_LMS.Services
             db = context;
         }
 
+        /// <summary>
+        /// Get all Publishers
+        /// </summary>
+        /// <returns>List of all Publisher</returns>
         public List<Publisher> GetPublishers()
         {
             return db.Publisher.ToList();
         }
 
+        /// <summary>
+        /// Get a Publisher
+        /// </summary>
+        /// <param name="id">Id of the Publisher to return</param>
+        /// <returns>A Publisher with the provided id or null</returns>
         public Publisher GetPublisher(int id)
         {
             return db.Publisher.SingleOrDefault(c => c.PublisherId == id);
         }
 
+        /// <summary>
+        /// Add a new Publisher
+        /// </summary>
+        /// <param name="publisher">The Publisher to add</param>
+        /// <returns>True if Publisher is added successfuly otherwise false</returns>
         public bool AddNewPublisher(Publisher publisher)
         {
             if (publisher != null)
@@ -40,6 +54,11 @@ namespace JIS_LMS.Services
             return false;
         }
 
+        /// <summary>
+        /// Delete a Publisher
+        /// </summary>
+        /// <param name="id">Id of the Publisher to delete</param>
+        /// <returns>True if Publisher is deleted successfuly otherwise false</returns>
         public bool DeletePublisher(int id)
         {
             var publisher = db.Publisher.Find(id);
@@ -52,6 +71,10 @@ namespace JIS_LMS.Services
             return false;
         }
 
+        /// <summary>
+        /// Edit a Publisher
+        /// </summary>
+        /// <param name="publisher">publisher object</param>
         public void EditPublisher(Publisher publisher)
         {
             db.Entry(publisher).State = EntityState.Modified;

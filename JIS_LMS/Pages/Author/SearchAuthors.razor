@@ -1,0 +1,69 @@
+﻿@page "/Authors/Search"
+@layout SystemAdminLayout
+@using Microsoft.EntityFrameworkCore
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject AuthorService AuthorService
+
+@inject LMSDbContext DbContext
+
+<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Search Authors</h3>
+
+@if (authors == null)
+{
+    <p style="color:red">loading....</p>
+}
+else
+{
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
+                AllowSorting="true" Data="@authors" TItem="Author" ColumnWidth="100px" Style=" font-family:'Courier New';font-weight:bolder">
+        <Columns>
+
+            <RadzenGridColumn TItem="Author" Property="FirstName" Title="First Name" />
+
+
+
+            <RadzenGridColumn TItem="Author" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="7px">
+                <Template Context="data">
+                    <a href="/Author/Details/@data.AuthorId">
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                    </a>
+                </Template>
+
+
+
+            </RadzenGridColumn>
+
+            <RadzenGridColumn TItem="Author" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="7px">
+
+                <Template Context="data">
+                    <a href="/Author/Delete/@data.AuthorId">
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
+                    </a>
+                </Template>
+
+            </RadzenGridColumn>
+
+        </Columns>
+    </RadzenGrid>
+
+}
+
+
+@code
+        {
+
+
+    IEnumerable<Author> authors;
+
+    RadzenGrid<Author> AuthorsGrid;
+
+    protected override void OnInitialized()
+    {
+        authors = DbContext.Author;
+    }
+
+
+}

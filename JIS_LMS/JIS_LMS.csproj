@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Address\" />
-    <Folder Include="Pages\Author\" />
     <Folder Include="Pages\Book\" />
     <Folder Include="Pages\Borrowing\" />
     <Folder Include="Pages\CD-DVD-BR\" />

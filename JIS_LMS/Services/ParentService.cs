@@ -19,6 +19,10 @@ namespace JIS_LMS.Services
             db = context;
         }
 
+        /// <summary>
+        /// Get all parents
+        /// </summary>
+        /// <returns>List of all parent</returns>
         public List<Parent> GetParents()
 
         {
@@ -26,11 +30,21 @@ namespace JIS_LMS.Services
             return db.Parent.ToList();
         }
 
+        /// <summary>
+        /// Get a parent
+        /// </summary>
+        /// <param name="id">Id of the parent to return</param>
+        /// <returns>A parent with the provided id or null</returns>
         public Parent GetParent(int id)
         {
             return db.Parent.SingleOrDefault(c => c.ParentId == id);
         }
 
+        /// <summary>
+        /// Add a new parent
+        /// </summary>
+        /// <param name="parent">The parent to add</param>
+        /// <returns>True if parent is added successfuly otherwise false</returns>
         public bool AddNewParent(Parent parent)
         {
             if (parent != null)
@@ -42,6 +56,11 @@ namespace JIS_LMS.Services
             return false;
         }
 
+        /// <summary>
+        /// Delete a parent
+        /// </summary>
+        /// <param name="id">Id of the parent to delete</param>
+        /// <returns>True if parent is deleted successfuly otherwise false</returns>
         public bool DeleteParent(int id)
         {
             var parent = db.Parent.Find(id);
@@ -54,6 +73,10 @@ namespace JIS_LMS.Services
             return false;
         }
 
+        /// <summary>
+        /// Edit a parent
+        /// </summary>
+        /// <param name="parent">parent object</param>
         public void EditParent(Parent parent)
         {
             db.Entry(parent).State = EntityState.Modified;

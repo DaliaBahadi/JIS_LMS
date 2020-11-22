@@ -19,16 +19,30 @@ namespace JIS_LMS.Services
             db = context;
         }
 
+        /// <summary>
+        /// Get all teachers
+        /// </summary>
+        /// <returns>List of all teacher</returns>
         public List<Teacher> GetTeachers()
         {
             return db.Teacher.ToList();
         }
 
+        /// <summary>
+        /// Get a teacher
+        /// </summary>
+        /// <param name="id">Id of the teacher to return</param>
+        /// <returns>A teacher with the provided id or null</returns>
         public Teacher GetTeacher(int id)
         {
             return db.Teacher.SingleOrDefault(c => c.EmployeeId == id);
         }
 
+        /// <summary>
+        /// Add a new teacher
+        /// </summary>
+        /// <param name="teacher">The teacher to add</param>
+        /// <returns>True if teacher is added successfuly otherwise false</returns>
         public bool AddNewTeacher(Teacher teacher)
         {
             if (teacher != null)
@@ -40,6 +54,11 @@ namespace JIS_LMS.Services
             return false;
         }
 
+        /// <summary>
+        /// Delete a teacher
+        /// </summary>
+        /// <param name="id">Id of the teacher to delete</param>
+        /// <returns>True if teacher is deleted successfuly otherwise false</returns>
         public bool DeleteTeacher(int id)
         {
             var teacher = db.Teacher.Find(id);
@@ -52,6 +71,10 @@ namespace JIS_LMS.Services
             return false;
         }
 
+        /// <summary>
+        /// Edit a teacher
+        /// </summary>
+        /// <param name="teacher">teacher object</param>
         public void EditTeacher(Teacher teacher)
         {
             db.Entry(teacher).State = EntityState.Modified;

@@ -19,16 +19,31 @@ namespace JIS_LMS.Services
             db = context;
         }
 
+        /// <summary>
+        /// Get a addresses
+        /// </summary>
+        /// <param name="id">Id of the address to return</param>
+        /// <returns>A addresses with the provided id or null</returns>
         public List<Address> GetAddresses()
         {
             return db.Address.ToList();
         }
 
+        /// <summary>
+        /// Get a address
+        /// </summary>
+        /// <param name="id">Id of the address to return</param>
+        /// <returns>A address with the provided id or null</returns>
         public Address GetAddress(int id)
         {
             return db.Address.SingleOrDefault(c => c.AddressId == id);
         }
 
+        /// <summary>
+        /// Add a new address
+        /// </summary>
+        /// <param name="address">The address to add</param>
+        /// <returns>True if address is added successfuly otherwise false</returns>
         public bool AddNewAddress(Address address)
         {
             if (address != null)
@@ -40,6 +55,11 @@ namespace JIS_LMS.Services
             return false;
         }
 
+        /// <summary>
+        /// Delete a address
+        /// </summary>
+        /// <param name="id">Id of the address to delete</param>
+        /// <returns>True if address is deleted successfuly otherwise false</returns>
         public bool DeleteAddress(int id)
         {
             var address = db.Address.Find(id);
@@ -52,6 +72,10 @@ namespace JIS_LMS.Services
             return false;
         }
 
+        /// <summary>
+        /// Edit a address
+        /// </summary>
+        /// <param name="address">address object</param>
         public void EditAddress(Address address)
         {
             db.Entry(address).State = EntityState.Modified;

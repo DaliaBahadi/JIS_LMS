@@ -1,0 +1,53 @@
+﻿
+@page "/Author/Delete/{Id:int}"
+@layout SystemAdminLayout
+@inject NavigationManager NavigationManager
+@inject AuthorService AuthorService
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+
+
+
+<div class="container">
+    <h3>Delete Author</h3>
+
+    <div class="alert alert-danger">
+        Do you want to delete this Author?
+    </div>
+
+    <table>
+        <tr>
+            <th>Name: </th>
+            <td>@author.FirstName   @author.LastName </td>
+        </tr>
+
+
+    </table>
+    <br />
+    <button type="submit" class="btn btn-outline-danger" style=" width: 160px;" @onclick="RemoveAuthor">Delete Author</button>
+    <a href="/Authors/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+
+    <div class="mt-4"></div>
+</div>
+
+@code {
+
+    Author author = new Author();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private void RemoveAuthor()
+    {
+        AuthorService.DeleteAuthor(Id);
+
+        NavigationManager.NavigateTo("/Authors/Search");
+    }
+
+    protected override void OnInitialized()
+    {
+        author = AuthorService.GetAuthor(Id);
+    }
+
+}

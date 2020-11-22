@@ -1,0 +1,65 @@
+﻿
+@page "/Author/Add"
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@layout SystemAdminLayout
+@inject AuthorService AuthorService
+
+@inject NavigationManager NavigationManager
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <legend>Add New Author</legend>
+            <EditForm Model="author" OnValidSubmit="CreateAuthor">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="first-name">*First Name:</label>
+                    <InputText id="first-name" @bind-Value="author.FirstName" class="form-control" placeholder="Enter Author First Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">*Last Name:</label>
+                    <InputText id="last-name" @bind-Value="author.LastName" class="form-control" placeholder="Enter Author Last Name" />
+                </div>
+
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Authors/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+@code {
+    Author author = new Author();
+
+
+    private List<Author> authors = new List<Author>();
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+
+        authors = AuthorService.GetAuthors();
+    }
+
+
+
+    private void CreateAuthor()
+    {
+
+
+        AuthorService.AddNewAuthor(author);
+
+        // To empty the form, find more elegant why
+        author = new Author();
+
+        // May navigate to the piblisher component
+        NavigationManager.NavigateTo("/Authors");
+    }
+}
+
