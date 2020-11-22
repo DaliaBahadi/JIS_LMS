@@ -51,6 +51,14 @@ namespace JIS_LMS.Model
         public virtual Address Address { get; set; }
         [InverseProperty(nameof(Student_Parent.Parent))]
         public virtual ICollection<Student_Parent> Student_Parents { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + MiddleName + " " + LastName;
+            }
+        }
     }
 }
 

@@ -1,0 +1,119 @@
+﻿@page  "/Patron/Student/Edit/{Id:int}"
+@inject NavigationManager NavigationManager
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@layout SystemAdminLayout
+@inject StudentService StudentService
+@inject LMSDbContext DbContext
+
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>Edit Teacher Information</h3>
+        <fieldset>
+
+            <EditForm Model="student" OnValidSubmit="UpdateStudent">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+              
+                <div class="form-group">
+                    <label for="year">*Class Year:</label>
+                    <InputText id="year" @bind-Value="student.ClassYear" class="form-control" placeholder="Enter Student's Class Year" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="class-name">*Class Name:</label>
+                    <InputText id="class-name" @bind-Value="student.ClassName" class="form-control" placeholder="Enter Student's Class Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="home-room-teacher">*Home Room Teacher:</label>
+                    <InputText id="home-room-teacher" @bind-Value="student.HomeRoomTeacher" class="form-control" placeholder="Enter Student's Home Room Teacher" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Age Level:</span>
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="student.AgeLevel" />
+                    </label>
+                </div>
+
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Patron/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+
+<br />
+
+<p>@message</p>
+
+@code {
+
+    [Parameter]
+    public int StudentId { get; set; }
+
+    Student student = new Student();
+
+    string message;
+
+    protected override void OnInitialized()
+    {
+        student = StudentService.GetStudent(Id);
+    }
+
+
+
+
+    public void UpdateStudent()
+    {
+
+        // Edit  Student
+        StudentService.EditStudent(student);
+
+        message = "Student updated successfully";
+        NavigationManager.NavigateTo("Patrons/Search");
+    }
+}
+
+
+
+@code{
+
+    IEnumerable<Patron> patronList;
+
+
+
+    void patronChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void patronLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Patron.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        patronList = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    //Code for age level drop down list
+    IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
+
+}

@@ -182,14 +182,6 @@
                             </div>
                             <br>
 
-                            @*<div class="form-group">
-                                    <label style="display: flex; align-items: center">
-                                        <span style="margin-right: 32px">*Patron Type:</span>
-                                        <RadzenDropDown Data="@typePatron" @bind-Value="patron.PatronType"  @onchange="patronChange"/>
-                                    </label>
-                                </div>*@
-
-
 
                             <div class="form-group">
                                 <label for="type">Image File: </label>
@@ -225,7 +217,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                            <a href="Parents" class="btn btn-outline-secondary">Cancel</a>
+                            <a href="Patrons" class="btn btn-outline-secondary">Cancel</a>
                             <div class="mt-4"></div>
                         </EditForm>
                     </fieldset>
@@ -332,6 +324,7 @@
     Patron patron = new Patron();
 
     private List<Patron> patrons = new List<Patron>();
+
 
 
     //public string FullName

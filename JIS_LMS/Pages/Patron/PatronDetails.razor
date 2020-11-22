@@ -103,62 +103,7 @@
                 </tr>
 
             </table>
-            <div @onchange=" patronChange" style="visibility:@Studentvisible;">
-                <h3>Student Details</h3>
-                <table class="table table-hover">
-
-                    <thead>
-                        <tr>
-                            <th>StudentId:</th>
-                            <th>Class Year</th>
-                            <th>Class Name</th>
-                            <th>Age Level</th>
-                            <th>Homeroom Teacher</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in patrons)
-                        {
-                            <tr>
-                                <td>StudentId: </td>
-                                <td>@item.Student.StudentId</td>
-                                <td>@item.Student.ClassYear</td>
-                                <td>@item.Student.ClassName</td>
-                                <td>@item.Student.AgeLevel</td>
-                                <td>@item.Student.HomeRoomTeacher</td>
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div @onchange=" patronChange" style="visibility:@Teachervisible;">
-                <h3>Teacher Details</h3>
-                <table class="table table-hover">
-
-                    <thead>
-                        <tr>
-                            <th>EmployeeId:</th>
-
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in patrons)
-                        {
-                            <tr>
-                                <td>StudentId: </td>
-                                <td>@item.Teacher.EmployeeId</td>
-
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-            </div>
-
+            
 
             <a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
 

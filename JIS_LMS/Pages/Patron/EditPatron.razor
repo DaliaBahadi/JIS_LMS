@@ -4,6 +4,7 @@
 @using JIS_LMS.Model;
 @layout SystemAdminLayout
 @inject PatronService PatronService
+@inject StudentService StudentService
 @inject LMSDbContext DbContext
 
 
@@ -120,13 +121,6 @@
                 </div>
                 <br>
 
-                @*<div class="form-group">
-                        <label style="display: flex; align-items: center">
-                            <span style="margin-right: 32px">*Patron Type:</span>
-                            <RadzenDropDown Data="@typePatron" @bind-Value="patron.PatronType"  @onchange="patronChange"/>
-                        </label>
-                    </div>*@
-
 
 
                 <div class="form-group">
@@ -163,6 +157,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Patron/Student/Edit/@Id" class="btn btn-outline-primary" role="button">Edit Student</a>
                 <a href="/Patron/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
@@ -180,13 +175,23 @@
     [Parameter]
     public int Id { get; set; }
 
+
+
     Patron patron = new Patron();
+
+
 
     string message;
 
     protected override void OnInitialized()
     {
         patron = PatronService.GetPatron(Id);
+
+        students = StudentService.GetStudents();
+
+        student = StudentService.GetStudent(Id);
+
+
     }
 
 
@@ -205,6 +210,8 @@
 
 @code
 {
+
+
 
     //code section for input select
 
@@ -243,6 +250,17 @@
 
 }
 
+@code
+{
+    Student student = new Student();
+    List<Student> students = new List<Student>();
+
+
+
+   
+
+   
+}
 
 @code{
 
