@@ -24,22 +24,24 @@
 
                 <div class="form-group">
                     <label for="first-name">*First Name:</label>
-                    <InputText id="first-name" @bind-Value="employee.FirstName" class="form-control" placeholder="Enter Your Fisrt Name" />
+                    <InputText id="first-name" @bind-Value="employee.FirstName" class="form-control" placeholder="Enter Employee Fisrt Name" />
                 </div>
 
                 <div class="form-group">
                     <label for="middle-name">Middle Name:</label>
-                    <InputText id="middle-name" @bind-Value="employee.MiddleName" class="form-control" placeholder="Enter Your Middle Name" />
+                    <InputText id="middle-name" @bind-Value="employee.MiddleName" class="form-control" placeholder="Enter Employee Middle Name" />
                 </div>
 
                 <div class="form-group">
                     <label for="last-name">*Last Name:</label>
-                    <InputText id="last-name" @bind-Value="employee.LastName" class="form-control" placeholder="Enter Your Last Name" />
+                    <InputText id="last-name" @bind-Value="employee.LastName" class="form-control" placeholder="Enter Employee Last Name" />
                 </div>
 
                 <div class="form-group">
                     <label for="dateOfBirth">*Date Of Birth:</label>
                     <InputDate id="date" @bind-Value="employee.DateOfBirth" class="form-control" />
+                    <ValidationMessage For="@(() => employee.DateOfBirth)" />
+
                 </div>
 
                 <div class="form-group">
@@ -57,6 +59,7 @@
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
                         <RadzenDropDown Data="@language" @bind-Value="employee.Language" />
+                       
                     </label>
                 </div>
 
@@ -85,12 +88,12 @@
 
                 <div class="form-group">
                     <label for="username">*Username:</label>
-                    <InputText id="username" @bind-Value="employee.UserName" class="form-control" placeholder="Enter Your Username" />
+                    <InputText id="username" @bind-Value="employee.UserName" class="form-control" placeholder="Enter Employee Username" />
                 </div>
 
                 <div class="form-group">
                     <label for="password">*Password:</label>
-                    <InputText type="password" id="password" @bind-Value="employee.Password" class="form-control" placeholder="Enter Your Password" />
+                    <InputText type="password" id="password" @bind-Value="employee.Password" class="form-control" placeholder="Enter Employee Password" />
                 </div>
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
@@ -137,6 +140,9 @@
 
 @code
 {
+
+    //code for validation
+    bool popup;
 
     //Code for gender drop down list
     IEnumerable<EmployeeGender> gender = Enum.GetValues(typeof(EmployeeGender)).Cast<EmployeeGender>();

@@ -37,5 +37,13 @@ namespace JIS_LMS.Model
 
         [InverseProperty(nameof(Library_Material.Donor))]
         public virtual ICollection<Library_Material> Library_Materials { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + MiddleName + " " + LastName;
+            }
+        }
     }
 }

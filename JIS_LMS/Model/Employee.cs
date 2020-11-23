@@ -27,6 +27,7 @@ namespace JIS_LMS.Model
         [Required]
         [StringLength(30)]
         public string LastName { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
         [Required]

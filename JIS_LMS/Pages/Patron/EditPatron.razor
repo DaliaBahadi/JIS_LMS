@@ -19,17 +19,17 @@
 
                 <div class="form-group">
                     <label for="first-name">*First Name:</label>
-                    <InputText id="first-name" @bind-Value="patron.FirstName" class="form-control" placeholder="Enter Your Fisrt Name" />
+                    <InputText id="first-name" @bind-Value="patron.FirstName" class="form-control" placeholder="Enter Patron Fisrt Name" />
                 </div>
 
                 <div class="form-group">
                     <label for="middle-name">Middle Name:</label>
-                    <InputText id="middle-name" @bind-Value="patron.MiddleName" class="form-control" placeholder="Enter Your Middle Name" />
+                    <InputText id="middle-name" @bind-Value="patron.MiddleName" class="form-control" placeholder="Enter Patron Middle Name" />
                 </div>
 
                 <div class="form-group">
                     <label for="last-name">*Last Name:</label>
-                    <InputText id="last-name" @bind-Value="patron.LastName" class="form-control" placeholder="Enter Your Last Name" />
+                    <InputText id="last-name" @bind-Value="patron.LastName" class="form-control" placeholder="Enter Patron Last Name" />
                 </div>
 
 
@@ -99,12 +99,12 @@
 
                 <div class="form-group">
                     <label for="username">*Username:</label>
-                    <InputText id="username" @bind-Value="patron.UserName" class="form-control" placeholder="Enter Your Username" />
+                    <InputText id="username" @bind-Value="patron.UserName" class="form-control" placeholder="Enter Patron Username" />
                 </div>
 
                 <div class="form-group">
                     <label for="password">*Password:</label>
-                    <InputText type="password" id="password" @bind-Value="patron.Password" class="form-control" placeholder="Enter Your Password" />
+                    <InputText type="password" id="password" @bind-Value="patron.Password" class="form-control" placeholder="Enter Patron Password" />
                 </div>
 
                 <div class="form-group">
@@ -157,7 +157,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a href="/Patron/Student/Edit/@Id" class="btn btn-outline-primary" role="button">Edit Student</a>
+                @*<a href="/Patron/Student/Edit/@Id" class="btn btn-outline-primary" role="button">Edit Student</a>*@
                 <a href="/Patron/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>

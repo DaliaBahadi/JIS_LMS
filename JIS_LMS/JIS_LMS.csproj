@@ -18,7 +18,6 @@
     <Folder Include="Pages\Book\" />
     <Folder Include="Pages\Borrowing\" />
     <Folder Include="Pages\CD-DVD-BR\" />
-    <Folder Include="Pages\Donor\" />
     <Folder Include="Pages\Hold\" />
     <Folder Include="Pages\Journal\" />
     <Folder Include="Pages\Lirary_Material\" />
