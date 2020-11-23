@@ -67,12 +67,12 @@
 
     LMSDbContext db = new LMSDbContext();
 
-    
 
-    
+
+
     private List<Model.Patron> patronList;
     private List<Student> StudentList;
-    
+
 
     int patronid;
     string username;
@@ -96,7 +96,7 @@
             {
                 StudentList = db.Student.Where(c => c.PatronId == patronid).ToList();
 
-                message = StudentList[0].StudentId.ToString();
+
 
                 navigationManager.NavigateTo($"/Employees");
             }

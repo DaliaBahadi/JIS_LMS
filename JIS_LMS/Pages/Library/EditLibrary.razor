@@ -52,7 +52,7 @@
                         <span style="margin-right: 32px">*Employee:</span>
                         <RadzenDropDown AllowClear="true" TValue="int"
                                         LoadData="@EmployeeLoadData" AllowFiltering="true"
-                                        Data="@libraryEmployee" TextProperty="FirstName" ValueProperty="EmployeeId" Style="margin-bottom: 20px" @bind-Value="library.LibrarianId"
+                                        Data="@libraryEmployee" TextProperty="FullName" ValueProperty="EmployeeId" Style="margin-bottom: 20px" @bind-Value="library.LibrarianId"
                                         Change="@(args => EmployeeChange(args, "DropDown with custom filtering"))" />
                     </label>
                 </div>
@@ -60,7 +60,7 @@
 
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a href="Libraries" class="btn btn-outline-secondary">Cancel</a>
+                <a href="/Libraries/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
         </fieldset>
@@ -101,7 +101,7 @@
         LibraryService.EditLibrary(library);
 
         message = "Library/Address updated successfully";
-        NavigationManager.NavigateTo("Libraries/Serach");
+        NavigationManager.NavigateTo("Libraries/Search");
     }
 }
 

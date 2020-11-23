@@ -64,6 +64,9 @@ namespace JIS_LMS
             //Student Service
             services.AddScoped<StudentService>();
 
+            //Author Service
+            services.AddScoped<AuthorService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

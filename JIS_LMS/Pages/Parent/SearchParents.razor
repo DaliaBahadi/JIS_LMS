@@ -26,6 +26,7 @@ else
             <RadzenGridColumn TItem="Parent" Property="FullName" Title="Name  " />
             <RadzenGridColumn TItem="Parent" Property="PrimaryContactNumber" Title="Primary Contact Number" />
             <RadzenGridColumn TItem="Parent" Property="PrimaryEmail" Title="Primary Email" />
+            <RadzenGridColumn TItem="Parent" Property="Relation" Title="Relation" />
 
 
 
@@ -40,22 +41,7 @@ else
 
             </RadzenGridColumn>
 
-            <RadzenGridColumn TItem="Parent" Context="LMSDbContext" Title="Actions" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
 
-                <Template Context="data">
-                    <a href="/Parent/Delete/@data.ParentId">
-                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
-                    </a>
-                </Template>
-
-            </RadzenGridColumn>
-
-
-            @*<RadzenGridColumn TItem="Library_Management_System.Data.Parent" Property="ParentId" Title="Parent Id">
-                    <FooterTemplate>
-                        Displayed orders: <b>@parentsGrid.View.Count()</b> of <b>@parents.Count()</b>
-                    </FooterTemplate>
-                </RadzenGridColumn>*@
         </Columns>
     </RadzenGrid>
 

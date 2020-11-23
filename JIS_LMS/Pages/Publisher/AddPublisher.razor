@@ -21,7 +21,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a href="/Publishers/Search" class="btn btn-outline-secondary">Cancel</a>
+                <a href="/Publishers" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
         </fieldset>
@@ -37,7 +37,7 @@
     // Execute when component starts / initializes
     protected override void OnInitialized()
     {
-      
+
         publishers = PublisherService.GetPublishers();
     }
 
@@ -52,7 +52,7 @@
         // To empty the form, find more elegant why
         publisher = new Publisher();
 
-        // May navigate to the piblisher component
+        // May navigate to the Publishers component
         NavigationManager.NavigateTo("/Publishers");
     }
 }

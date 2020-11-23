@@ -81,7 +81,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="middle-name">Middle Name:</label>
+                                <label for="middle-name">*Middle Name:</label>
                                 <InputText id="middle-name" @bind-Value="parent.MiddleName" class="form-control" placeholder="Enter Your Middle Name" />
                             </div>
 
@@ -137,17 +137,6 @@
                                 <InputText type="email" id="email" @bind-Value="parent.SecondaryEmail" class="form-control" placeholder="sam@example.com" />
                                 <ValidationMessage For="@(() => parent.SecondaryEmail)" />
                             </div>
-
-
-                            @*<div class="form-group">
-                                    <label style="display: flex; align-items: center">
-                                        <span style="margin-right: 32px">*Address:</span>
-                                        <RadzenDropDown AllowClear="true" TValue="int"
-                                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-                                                        Data="@parentAddresses" TextProperty="StreetName" ValueProperty="AddressId" Style="margin-bottom: 20px" Change="@(args => Change(args, "DropDown with custom filter operator"))" />
-                                    </label>
-                                </div>*@
-
 
 
                             <div class="form-group">
@@ -209,7 +198,7 @@
         // To empty the form, find more elegant why
         parent = new Parent();
 
-        // May navigate to the Employees component
+        // May navigate to the parents component
         NavigationManager.NavigateTo("/Parents");
     }
 }
@@ -262,8 +251,8 @@
         // To empty the form, find more elegant why
         address = new Address();
 
-        // May navigate to the Employees component
-        NavigationManager.NavigateTo("/Libraries");
+        // May navigate to the parents component
+        //NavigationManager.NavigateTo("/Libraries");
     }
 }
 
