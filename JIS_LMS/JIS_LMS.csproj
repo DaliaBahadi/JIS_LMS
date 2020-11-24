@@ -20,7 +20,6 @@
     <Folder Include="Pages\CD-DVD-BR\" />
     <Folder Include="Pages\Hold\" />
     <Folder Include="Pages\Journal\" />
-    <Folder Include="Pages\Lirary_Material\" />
     <Folder Include="Pages\Notification\" />
     <Folder Include="Pages\Schedule\" />
     <Folder Include="Pages\Time-Slot\" />
