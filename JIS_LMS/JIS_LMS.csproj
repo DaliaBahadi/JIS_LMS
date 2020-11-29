@@ -18,7 +18,6 @@
     <Folder Include="Pages\Address\" />
     <Folder Include="Pages\Book\" />
     <Folder Include="Pages\CD-DVD-BR\" />
-    <Folder Include="Pages\Circulation\Hold\" />
     <Folder Include="Pages\Journal\" />
     <Folder Include="Pages\Notification\" />
     <Folder Include="Pages\Schedule\" />

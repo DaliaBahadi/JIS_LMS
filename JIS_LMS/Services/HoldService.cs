@@ -36,7 +36,7 @@ namespace JIS_LMS.Services
         /// <returns>A hold with the provided id or null</returns>
         public Hold GetHold(int id)
         {
-            return db.Hold.SingleOrDefault(c => c.HoldId == id);
+            return db.Hold.Include(c => c.Patron).Include(c => c.LibraryMaterial).SingleOrDefault(c => c.HoldId == id);
         }
 
         /// <summary>

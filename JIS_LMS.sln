@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JIS_LMS", "JIS_LMS\JIS_LMS.csproj", "{C15642AF-DC66-449B-AB23-CC9A08EB0E95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JIS_LMS", "JIS_LMS\JIS_LMS.csproj", "{C15642AF-DC66-449B-AB23-CC9A08EB0E95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
