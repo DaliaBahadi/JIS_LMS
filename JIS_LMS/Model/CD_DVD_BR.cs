@@ -33,3 +33,10 @@ namespace JIS_LMS.Model
         public virtual Library_Material LibraryMaterial { get; set; }
     }
 }
+
+public enum CD_DVD_BR_Type
+{
+    DVD = 1, BR, CdROM, AudioFiles, VideoFiles
+
+
+}

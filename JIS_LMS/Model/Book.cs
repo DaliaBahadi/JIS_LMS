@@ -25,3 +25,9 @@ namespace JIS_LMS.Model
         public virtual Library_Material LibraryMaterial { get; set; }
     }
 }
+
+public enum BookType
+{
+    PhysicalBook = 1, EBook,
+
+}

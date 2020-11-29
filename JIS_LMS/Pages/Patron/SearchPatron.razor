@@ -35,27 +35,27 @@ else
     </div>
 
     <div style="visibility:@Studentvisible;">
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
-                    AllowSorting="true" Data="@patronss" TItem="Patron" Value="@patron" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
+                    AllowSorting="true" Data="@students" TItem="Student" Value="@student" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
             <Columns>
-                <RadzenGridColumn TItem="Patron" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
+                <RadzenGridColumn TItem="Student" Property="Patron.ImageFile" Title="Photo" Sortable="false" Filterable="false">
                     <Template Context="data">
-                        <RadzenImage Path="@data?.ImageFile" />
+                        <RadzenImage Path="@data?.Patron.ImageFile" />
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="Patron" Property="FirstName" Title="First Name  " />
-                <RadzenGridColumn TItem="Parent" Property="MiddleName" Title="Middle Name" />
-                <RadzenGridColumn TItem="Patron" Property="LastName" Title="Last Name" />
-                <RadzenGridColumn TItem="Patron" Property="Student.StudentId" Title="StudentId" />
-                <RadzenGridColumn TItem="Patron" Property="Student.ClassYear" Title="Class Year" />
-                <RadzenGridColumn TItem="Patron" Property="Student.ClassName" Title="ClassName" />
-                <RadzenGridColumn TItem="Patron" Property="Student.HomeRoomTeacher" Title="HomeRoom Teacher" />
-                <RadzenGridColumn TItem="Patron" Property="Teacher.EmployeeId" Title="EmployeeId" />
+                <RadzenGridColumn TItem="Student" Property="Patron.FullName" Title="Name  " />
+                @*<RadzenGridColumn TItem="Student" Property="MiddleName" Title="Middle Name" />
+                    <RadzenGridColumn TItem="Student" Property="LastName" Title="Last Name" />*@
+                <RadzenGridColumn TItem="Student" Property="StudentId" Title="StudentId" />
+                <RadzenGridColumn TItem="Student" Property="ClassYear" Title="Class Year" />
+                <RadzenGridColumn TItem="Student" Property="ClassName" Title="ClassName" />
+                <RadzenGridColumn TItem="Student" Property="HomeRoomTeacher" Title="HomeRoom Teacher" />
+                @*<RadzenGridColumn TItem="Student" Property="Teacher.EmployeeId" Title="EmployeeId" />*@
 
 
 
 
-                <RadzenGridColumn TItem="Patron" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <RadzenGridColumn TItem="Student" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                     <Template Context="data">
                         <a href="/Patron/Details/@data.PatronId">
                             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
@@ -66,7 +66,7 @@ else
 
                 </RadzenGridColumn>
 
-                <RadzenGridColumn TItem="Patron" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <RadzenGridColumn TItem="Student" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
 
                     <Template Context="data">
                         <a href="/Patron/Delete/@data.PatronId">
@@ -76,12 +76,51 @@ else
 
                 </RadzenGridColumn>
 
-                
+
             </Columns>
         </RadzenGrid>
     </div>
 
-    <div style="visibility:@Teachervisible;">
+    <div style="visibility:@Teachervisible;margin-top:-210px">
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
+                    AllowSorting="true" Data="@teachers" TItem="Teacher" Value="@teacher" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+            <Columns>
+                <RadzenGridColumn TItem="Teacher" Property="Patron.ImageFile" Title="Photo" Sortable="false" Filterable="false">
+                    <Template Context="data">
+                        <RadzenImage Style="width:60px; height:80px" Path="@data?.Patron.ImageFile" />
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="Teacher" Property="Patron.FullName" Title="First Name  " />
+                <RadzenGridColumn TItem="Teacher" Property="EmployeeId" Title="EmployeeId" />
+
+
+                <RadzenGridColumn TItem="Teacher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="data">
+                        <a href="/Patron/Details/@data.PatronId">
+                            <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                        </a>
+                    </Template>
+
+
+
+                </RadzenGridColumn>
+
+                <RadzenGridColumn TItem="Teacher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+
+                    <Template Context="data">
+                        <a href="/Patron/Delete/@data.PatronId">
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
+                        </a>
+                    </Template>
+
+                </RadzenGridColumn>
+
+
+            </Columns>
+        </RadzenGrid>
+    </div>
+
+    @*<div style="visibility:@Teachervisible;">
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
                     AllowSorting="true" Data="@patronss" TItem="Patron" Value="@patron" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
             <Columns>
@@ -120,8 +159,9 @@ else
 
             </Columns>
         </RadzenGrid>
-    </div>
-   
+    </div>*@
+
+
 
 
 
@@ -135,6 +175,7 @@ else
 {
 
     IEnumerable<Patron> patrons;
+
 
     RadzenGrid<Patron> patronsGrid;
 
@@ -151,6 +192,12 @@ else
         patronss = db.Patron
        .Include("Student")
        .Include("Teacher");
+
+        students = db.Student
+       .Include("Patron");
+
+        teachers = db.Teacher
+      .Include("Patron");
 
         patron = patronss.FirstOrDefault();
     }
@@ -178,6 +225,12 @@ else
 @code {
     Patron patron;
     IQueryable<Patron> patronss;
+
+    Student student;
+    IQueryable<Student> students;
+
+    Teacher teacher;
+    IQueryable<Teacher> teachers;
 
 
 

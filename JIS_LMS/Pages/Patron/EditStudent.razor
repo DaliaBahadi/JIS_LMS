@@ -1,4 +1,4 @@
-﻿@*@page  "/Patron/Student/Edit/{Id:int}"
+﻿@page  "/Patron/Student/Edit/{Id:int}"
 @inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -9,7 +9,7 @@
 
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
-        <h3>Edit Teacher Information</h3>
+        <h3>Edit Student Information</h3>
         <fieldset>
 
             <EditForm Model="student" OnValidSubmit="UpdateStudent">
@@ -42,7 +42,7 @@
 
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a href="/Patron/Search" class="btn btn-outline-secondary">Cancel</a>
+                <a href="/Patrons/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
         </fieldset>
@@ -57,7 +57,7 @@
 @code {
 
     [Parameter]
-    public int StudentId { get; set; }
+    public int Id { get; set; }
 
     Student student = new Student();
 
@@ -69,8 +69,6 @@
     }
 
 
-
-
     public void UpdateStudent()
     {
 
@@ -80,40 +78,12 @@
         message = "Student updated successfully";
         NavigationManager.NavigateTo("Patrons/Search");
     }
-}
 
-
-
-@code{
-
-    IEnumerable<Patron> patronList;
-
-
-
-    void patronChange(object value, string name)
-    {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
-        StateHasChanged();
-    }
-
-    void patronLoadData(LoadDataArgs args)
-    {
-        var query = DbContext.Patron.AsQueryable();
-
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
-
-        patronList = query.ToList();
-
-        InvokeAsync(StateHasChanged);
-    }
 
     //Code for age level drop down list
     IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
 
-}*@
+}
+
+
+

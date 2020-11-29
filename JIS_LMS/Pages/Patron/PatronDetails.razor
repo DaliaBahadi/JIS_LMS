@@ -15,10 +15,12 @@
                     <td>First Name: </td>
                     <td>@patron.FirstName</td>
                 </tr>
+
                 <tr>
                     <td>Middle Name: </td>
                     <td>@patron.MiddleName</td>
                 </tr>
+
                 <tr>
                     <td>Last Name:</td>
                     <td>@patron.LastName</td>
@@ -36,6 +38,7 @@
                     <td>@patron.DateOfBirth</td>
 
                 </tr>
+
                 <tr>
                     <td>Primary Contact Number: </td>
                     <td>@patron.PrimaryContactNumber</td>
@@ -55,6 +58,7 @@
                     <td>Secondary Email: </td>
                     <td>@patron.SecondaryEmail</td>
                 </tr>
+
                 <tr>
                     <td>Language: </td>
                     <td>@patron.Language</td>
@@ -103,7 +107,7 @@
                 </tr>
 
             </table>
-            
+
 
             <a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
 
@@ -112,6 +116,74 @@
         </div>
     </div>
 </div>
+
+
+<div class="container"  style="visibility:@Studentvisible;">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Student Details</h3>
+
+            <table class="table table-hover">
+
+                <tr>
+                    <td>Student Id </td>
+                    <td>@patron.Student.StudentId</td>
+                </tr>
+
+                <tr>
+                    <td>Class Year: </td>
+                    <td>@patron.Student.ClassYear</td>
+                </tr>
+
+                <tr>
+                    <td>Class Name:</td>
+                    <td>@patron.Student.ClassName</td>
+                </tr>
+
+
+                <tr>
+                    <td>Homeroom Teacher: </td>
+                    <td>@patron.Student.HomeRoomTeacher</td>
+
+                </tr>
+
+                <tr>
+                    <td>Age Level: </td>
+                    <td>@patron.Student.AgeLevel</td>
+
+                </tr>
+                
+
+            </table>
+
+            <a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container"  @onchange="patronChange" style="visibility:@Teachervisible;margin-top:-600px">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Teacher Details</h3>
+
+            <table class="table table-hover">
+
+                <tr>
+                    <td>Employee Id </td>
+                    <td>@patron.Teacher.EmployeeId</td>
+                </tr>
+
+            </table>
+
+            @*<a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>*@
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
 
 @code {
 

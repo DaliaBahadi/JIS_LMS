@@ -35,7 +35,7 @@ namespace JIS_LMS.Services
         /// <returns>A teacher with the provided id or null</returns>
         public Teacher GetTeacher(int id)
         {
-            return db.Teacher.SingleOrDefault(c => c.EmployeeId == id);
+            return db.Teacher.SingleOrDefault(c => c.PatronId == id);
         }
 
         /// <summary>

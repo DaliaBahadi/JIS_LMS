@@ -1,9 +1,10 @@
-﻿
+﻿@*@layout SystemAdminLayout
+
 @page "/LibraryMaterial/Add"
 
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@layout SystemAdminLayout
+@using Syncfusion.Blazor.Inputs;
 
 @inject Library_MaterialService Library_MaterialService
 @inject CD_DVD_BR_Service CD_DVD_BR_Service
@@ -14,272 +15,355 @@
 
 
 
-            <div class="container-fluid container-contact100">
-                <div class="wrap-contact100">
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
 
-                    <fieldset>
-                        <legend>Add New Catalog</legend>
-                        <EditForm Model="catalog" OnValidSubmit="CreateCatalog">
-                            <DataAnnotationsValidator />
-                            <ValidationSummary />
+        <fieldset>
+            <legend>Add New Catalog</legend>
+            <EditForm Model="catalog" OnValidSubmit="CreateCatalog">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
-                            <div class="form-group">
-                                <label for="Acession-Number">*Acession Number:</label>
-                                <InputNumber id="Acession-Number" @bind-Value="catalog.AcessionNumber" class="form-control" placeholder="Enter Library Material Acession Number" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="date-aquired">*Date Aquired:</label>
-                                <InputDate id="date" @bind-Value="catalog.DateAquired" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="date-Recorded">*Date Recorded:</label>
-                                <InputDate id="date" @bind-Value="catalog.DateRecorded" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Title">*Title:</label>
-                                <InputText id="Title" @bind-Value="catalog.Title" class="form-control" placeholder="Enter Library Material Title" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="middle-name">Middle Name:</label>
-                                <InputText id="middle-name" @bind-Value="patron.MiddleName" class="form-control" placeholder="Enter Patron Middle Name" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="last-name">*Last Name:</label>
-                                <InputText id="last-name" @bind-Value="patron.LastName" class="form-control" placeholder="Enter Patron Last Name" />
-                            </div>
-
-
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*Gender:</span>
-                                    <RadzenDropDown Data="@gender" @bind-Value="patron.Gender" />
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="dateOfBirth">*Date Of Birth:</label>
-                                <InputDate id="date" @bind-Value="patron.DateOfBirth" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Primary Contact Number">*Primary Contact Number:</label>
-                                <InputText id="Primary Contact Number" @bind-Value="patron.PrimaryContactNumber" class="form-control" placeholder="0500000000" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Secondary Contact Number">Secondary Contact Number:</label>
-                                <InputText id="Secondary Contact Number" @bind-Value="patron.SecondaryContactNumber" class="form-control" placeholder="0500000000" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email" class="control-label">*Primary Email: </label>
-                                <InputText type="email" id="email" @bind-Value="patron.PrimaryEmail" class="form-control" placeholder="sam@example.com" />
-                                <ValidationMessage For="@(() => patron.PrimaryEmail)" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email" class="control-label">Secondary Email: </label>
-                                <InputText type="email" id="email" @bind-Value="patron.SecondaryEmail" class="form-control" placeholder="sam@example.com" />
-                                <ValidationMessage For="@(() => patron.SecondaryEmail)" />
-                            </div>
-
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*Language:</span>
-                                    <RadzenDropDown Data="@language" @bind-Value="patron.Language" Style="align-items:center" />
-                                </label>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*Section:</span>
-                                    <RadzenDropDown Data="@patronSection" @bind-Value="patron.Section" Style="align-items:center" />
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*Status:</span>
-                                    <RadzenDropDown Data="@status" @bind-Value="patron.Status" Style="align-items:center" />
-                                </label>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="registration-date">*Registration Date:</label>
-                                <InputDate id="date" @bind-Value="patron.RegistrationDate" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="username">*Username:</label>
-                                <InputText id="username" @bind-Value="patron.UserName" class="form-control" placeholder="Enter Patron Username" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">*Password:</label>
-                                <InputText type="password" id="password" @bind-Value="patron.Password" class="form-control" placeholder="Enter Patron Password" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="type">*Patron Type: </label>
-                                <Select @onchange="patronChange">
-                                    <option value="">Select Type</option>
-                                    @foreach (var type in Enum.GetValues(typeof(PatronType)))
-                                    {
-
-
-                                        <option value="@(type)"> @(type)</option>
-                                    }
-                                </Select>
-                            </div>
-                            <br>
-
-
-                            <div class="form-group">
-                                <label for="type">Image File: </label>
-                                <RadzenFileInput @bind-Value="patron.ImageFile" Style="width:400px" TValue="string" />
-
-                            </div>
-                            <br>
-
-                            <div class="form-group">
-                                <label for="remark">Remark: </label>
-                                <RadzenTextArea @bind-Value="patron.Remark" Cols="30" Rows="3" Style="align-items:center" />
-                            </div>
-
-                            <br>
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center" for="library">
-                                    <span style="margin-right: 32px">*Library: </span>
-                                    <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Library"
-                                                    LoadData="@LibraryLoadData" AllowFiltering="true"
-                                                    Data="@patronLibrary" TextProperty="Name" ValueProperty="LibraryId" Style="margin-bottom: 20px" @bind-Value="patron.LibraryId"
-                                                    Change="@(args => LibraryChange(args, "DropDown with custom filtering"))" />
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*Address:</span>
-                                    <RadzenDropDown AllowClear="true" TValue="int"
-                                                    LoadData="@LoadData" AllowFiltering="true"
-                                                    Data="@patronAddress" TextProperty="StreetName" ValueProperty="AddressId" Style="margin-bottom: 20px" Placeholder="Select..." @bind-Value="patron.AddressId"
-                                                    Change="@(args => Change(args, "Address DropDown "))" />
-                                </label>
-                            </div>
-
-                            <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                            <a href="Patrons" class="btn btn-outline-secondary">Cancel</a>
-                            <div class="mt-4"></div>
-                        </EditForm>
-                    </fieldset>
+                <div class="form-group">
+                    <label for="Acession-Number">*Accession Number:</label>
+                    <InputNumber id="Acession-Number" @bind-Value="catalog.AccessionNumber" class="form-control" placeholder="Enter Library Material Accession Number" />
                 </div>
-            </div>
 
-            <div class="container-fluid container-contact100" style="visibility:@Studentvisible;">
-                <div class="wrap-contact100">
-
-                    <fieldset>
-                        <legend>Student</legend>
-                        <EditForm Model="student" OnValidSubmit="CreateStudent">
-                            <DataAnnotationsValidator />
-                            <ValidationSummary />
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*patron:</span>
-                                    <RadzenDropDown AllowClear="true" TValue="int"
-                                                    LoadData="@patronLoadData" AllowFiltering="true"
-                                                    Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="student.PatronId"
-                                                    Change="@(args => patronChange(args, "patron DropDown "))" />
-                                </label>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="student-id">*Student Id:</label>
-                                <InputNumber id="student-id" @bind-Value="student.StudentId" class="form-control" placeholder="Enter Student school Id" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="year">*Class Year:</label>
-                                <InputText id="year" @bind-Value="student.ClassYear" class="form-control" placeholder="Enter Student's Class Year" />
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="class-name">*Class Name:</label>
-                                <InputText id="class-name" @bind-Value="student.ClassName" class="form-control" placeholder="Enter Student's Class Name" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="home-room-teacher">*Home Room Teacher:</label>
-                                <InputText id="home-room-teacher" @bind-Value="student.HomeRoomTeacher" class="form-control" placeholder="Enter Student's Home Room Teacher" />
-                            </div>
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*Age Level:</span>
-                                    <RadzenDropDown Data="@ageLevel" @bind-Value="student.AgeLevel" />
-                                </label>
-                            </div>
-
-
-                            <div class="mt-4"></div>
-                            <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                            <a href="Parents" class="btn btn-outline-secondary">Cancel</a>
-                        </EditForm>
-                    </fieldset>
+                <div class="form-group">
+                    <label for="date-aquired">Date Acquired:</label>
+                    <InputDate id="date" @bind-Value="catalog.DateAcquired" class="form-control" />
                 </div>
-            </div>
-            <br><br><br>
-            <div class="container-fluid container-contact100" style="visibility:@Teachervisible;margin-top:-600px">
-                <div class="wrap-contact100">
 
-                    <fieldset>
-                        <legend>Teacher</legend>
-                        <EditForm Model="teacher" OnValidSubmit="CreateTeacher">
-                            <DataAnnotationsValidator />
-                            <ValidationSummary />
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*patron:</span>
-                                    <RadzenDropDown AllowClear="true" TValue="int"
-                                                    LoadData="@patronLoadData" AllowFiltering="true"
-                                                    Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="teacher.PatronId"
-                                                    Change="@(args => patronChange(args, "patron DropDown "))" />
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="student-id">*Employee Id:</label>
-                                <InputNumber id="student-id" @bind-Value="teacher.EmployeeId" class="form-control" placeholder="Enter Employee school Id" />
-                            </div>
-
-                            <div class="mt-4"></div>
-                            <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                            <a href="Parents" class="btn btn-outline-secondary">Cancel</a>
-                        </EditForm>
-                    </fieldset>
+                <div class="form-group">
+                    <label for="date-Recorded">*Date Recorded:</label>
+                    <InputDate id="date" @bind-Value="catalog.DateRecorded" class="form-control" />
                 </div>
-            </div>
-            <br><br><br>
-       
+
+                <div class="form-group">
+                    <label for="Title">*Title:</label>
+                    <InputText id="Title" @bind-Value="catalog.Title" class="form-control" placeholder="Enter Library Material Title" />
+                </div>
+
+                <div class="form-group">
+                    <a href="/Publisher/Add" class="btn btn-outline-secondary" style="align-items:end">Add Publisher</a>
+                    <label style="display: flex; align-items: center" for="publisher">
+                        <span style="margin-right: 32px">*Publisher: </span>
+                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Publisher"
+                                        LoadData="@PublisherLoadData" AllowFiltering="true"
+                                        Data="@materialPublisher" TextProperty="Name" ValueProperty="PublisherId" Style="margin-bottom: 20px" @bind-Value="catalog.PublisherId"
+                                        Change="@(args => PublisherChange(args, "Publisher DropDown "))" />
+                    </label>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <a href="/Author/Add" class="btn btn-outline-secondary" style="align-items:end">Add Author</a>
+                    <label for="author">*Authors:</label>
+                    <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value="author.AuthorId" Multiple="true" Data=@materialAuthor
+                                   TextProperty="FullName" ValueProperty="AuthorId" Change=@(args => AuthorOnChange(args, "ListBox with multiple selection")) Style="height:200px" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Pages-Number">Number Of Pages:</label>
+                    <InputNumber id="Pages-Number" @bind-Value="catalog.NumberOfPages" class="form-control" placeholder="Enter Library Material Acession Number" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="source-of-fund">Source Of Fund:</label>
+                    <InputText id="source-of-fund" @bind-Value="catalog.SourceOfFund" class="form-control" placeholder="Enter Library Material Title" />
+                </div>
+
+                <div class="form-group">
+                    <label for="cost-price">Cost Price:</label>
+                    <SfNumericTextBox TValue="decimal?" @bind-Value="catalog.CostPrice" Format="SAR"></SfNumericTextBox>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">*Year Published:</label>
+                    <InputText id="year" @bind-Value="catalog.YearPublished" class="form-control" placeholder="Enter Library Material Year of publication " />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Language:</span>
+                        <RadzenDropDown Data="@language" @bind-Value="catalog.Language" Style="align-items:center" />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="subject">*Subject:</label>
+                    <InputText id="subject" @bind-Value="catalog.Subject" class="form-control" placeholder="Enter Library Material Subject" />
+                </div>
+
+                <div class="form-group">
+                    <label for="genre">*Genre:</label>
+                    <InputText id="genre" @bind-Value="catalog.Genre" class="form-control" placeholder="Enter Library Material Genre" />
+                </div>
+
+                <div class="form-group">
+                    <label for="translation">Subject Translation In English:</label>
+                    <InputText id="translation" @bind-Value="catalog.SubjectTranslationInEnglish" class="form-control" placeholder="Enter Library Material Subject Translation In English" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="city-published">City Published:</label>
+                    <InputText id="city-published" @bind-Value="catalog.CityPublished" class="form-control" placeholder="Enter The City Where The Library Material Was Published" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Age Level:</span>
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="catalog.AgeLevel" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Status:</span>
+                        <RadzenDropDown Data="@status" @bind-Value="catalog.Status" Style="align-items:center" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description: </label>
+                    <RadzenTextArea @bind-Value="catalog.Description" Cols="30" Rows="3" Style="align-items:center" />
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Image File: </label>
+                    <RadzenFileInput @bind-Value="catalog.ImageFile" Style="width:400px" TValue="string" />
+
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="DOI-URL">DOI URL:</label>
+                    <InputText id="city-published" @bind-Value="catalog.DOIURL" class="form-control" placeholder="https://doi.org/xxxxx" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">Restriction Type:</span>
+                        <RadzenDropDown Data="@restrectionType" @bind-Value="catalog.RestrictionType" Style="align-items:center" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">*Library Material Type: </label>
+                    <Select @onchange="MaterialChange">
+                        <option value="">Select Type</option>
+                        @foreach (var type in Enum.GetValues(typeof(LibraryMaterialType)))
+                        {
+
+
+                            <option value="@(type)"> @(type)</option>
+                        }
+                    </Select>
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center" for="library">
+                        <span style="margin-right: 32px">*Library: </span>
+                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Library"
+                                        LoadData="@LibraryLoadData" AllowFiltering="true"
+                                        Data="@materialLibrary" TextProperty="Name" ValueProperty="LibraryId" Style="margin-bottom: 20px" @bind-Value="catalog.LibraryId"
+                                        Change="@(args => LibraryChange(args, "Library DropDown "))" />
+                    </label>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">Donor:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int"
+                                        LoadData="@DonorLoadData" AllowFiltering="true"
+                                        Data="@materialDonor" TextProperty="FullName" ValueProperty="DonorId" Style="margin-bottom: 20px" Placeholder="Select..." @bind-Value="catalog.DonorId"
+                                        Change="@(args => DonorChange(args, "Donor DropDown "))" />
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Catalog" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+<div class="container-fluid container-contact100" style="visibility:@Bookvisible;">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <legend>Book</legend>
+            <EditForm Model="book" OnValidSubmit="CreateBook">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Library Material:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int"
+                                        LoadData="@MaterialLoadData" AllowFiltering="true"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="book.LibraryMaterialId"
+                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="ISBN">*ISBN:</label>
+                    <InputText id="ISBN" @bind-Value="book.ISBN" class="form-control" placeholder="000-0-00-000000-0" />
+                </div>
+
+                <div class="form-group">
+                    <label for="student-id">Edition:</label>
+                    <InputNumber id="student-id" @bind-Value="book.Edition" class="form-control" placeholder="Enter Book Edition" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Book Type:</span>
+                        <RadzenDropDown Data="@bookType" @bind-Value="book.BookType" />
+                    </label>
+                </div>
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="container-fluid container-contact100" style="visibility:@Journalvisible;margin-top:-600px">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <legend>Journal</legend>
+            <EditForm Model="journal" OnValidSubmit="CreateJournal">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Library Material:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="journal.LibraryMaterialId"
+                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="ISSN">*ISSN:</label>
+                    <InputText id="ISSN" @bind-Value="journal.ISSN" class="form-control" placeholder="0000-0000" />
+                </div>
+
+                <div class="form-group">
+                    <label for="volume">Volume:</label>
+                    <InputNumber id="volume" @bind-Value="journal.Volume" class="form-control" placeholder="Enter Journal Volume Number" />
+                </div>
+
+                <div class="form-group">
+                    <label for="issue">Issue:</label>
+                    <InputNumber id="issue" @bind-Value="journal.Issue" class="form-control" placeholder="Enter Journal Issue Number" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Journal Type:</span>
+                        <RadzenDropDown Data="@journalType" @bind-Value="journal.JournalType" />
+                    </label>
+                </div>
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-600px">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <legend>CD/DVD/BR</legend>
+            <EditForm Model="cD_DVD_BR" OnValidSubmit="CreateCD_DVD_BR">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Library Material:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="cD_DVD_BR.LibraryMaterialId"
+                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="ISBN">*ISBN:</label>
+                    <InputText id="ISBN" @bind-Value="cD_DVD_BR.ISBN" class="form-control" placeholder="000-0-00-000000-0" />
+                </div>
+
+                <div class="form-group">
+                    <label for="format">*Format:</label>
+                    <InputText id="format" @bind-Value="cD_DVD_BR.Format" class="form-control" placeholder="Enter Format" />
+                </div>
+
+                <div class="form-group">
+                    <label for="runtime">Runtime:</label>
+                    <InputText id="runtime" @bind-Value="cD_DVD_BR.Runtime" class="form-control" placeholder="Enter Runtime" />
+                </div>
+
+                <div class="form-group">
+                    <label for="quality">Quality:</label>
+                    <InputText id="quality" @bind-Value="cD_DVD_BR.Quality" class="form-control" placeholder="Enter Quality" />
+                </div>
+
+                <div class="form-group">
+                    <label for="subtitles">Subtitles:</label>
+                    <InputText id="subtitles" @bind-Value="cD_DVD_BR.Subtitles" class="form-control" placeholder="Enter In which Language The Subtitles are" />
+                </div>
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Type:</span>
+                        <RadzenDropDown Data="@cD_DVD_BR_Type" @bind-Value="cD_DVD_BR.Type" />
+                    </label>
+                </div>
+
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br>
 
 
 
 
 @code {
     Library_Material catalog = new Library_Material();
+
+    LibraryMaterial_Author author = new LibraryMaterial_Author();
 
     private List<Library_Material> library_Materials = new List<Library_Material>();
 
@@ -290,7 +374,7 @@
     protected override void OnInitialized()
     {
 
-        catalogs = Library_MaterialService.GetLibraryMaterials();
+        library_Materials = Library_MaterialService.GetLibraryMaterials();
         books = BookService.GetBooks();
         journals = JournalService.GetJournals();
         cDs_DVDs_BRs = CD_DVD_BR_Service.GetCDs_DVDs_BRs();
@@ -302,13 +386,12 @@
     private void CreateCatalog()
     {
 
-        Library_MaterialService.AddNewLibraryMaterial(library_Materials);
+        Library_MaterialService.AddNewLibraryMaterial(catalog);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         catalog = new Library_Material();
 
-        // May navigate to the Catalog component
-        //NavigationManager.NavigateTo("/Patrons");
+
     }
 }
 
@@ -380,7 +463,7 @@
 @code
 {
 
-    //code section for input select
+    //code section for input select type
 
     LMSDbContext db = new LMSDbContext();
 
@@ -388,30 +471,40 @@
 
 
 
-    string Teachervisible = "hidden";
-    string Studentvisible = "hidden";
-    //private List<Patron> patronType;
-    private List<Student> StudentForm;
-    private List<Teacher> TeacherForm;
+    string Bookvisible = "hidden";
+    string Journalvisible = "hidden";
+    string CD_DVD_BR_visible = "hidden";
 
-    //Method to change patron type
-    private void patronChange(ChangeEventArgs libraryMaterialEvent)
+    private List<Book> BookForm;
+    private List<Journal> JournalForm;
+    private List<CD_DVD_BR> CD_DVD_BRForm;
+
+    //Method to change library Material type
+    private void MaterialChange(ChangeEventArgs libraryMaterialEvent)
     {
         libraryMaterialType = (libraryMaterialEvent.Value.ToString());
 
-        if (libraryMaterialType == "Student")
+        if (libraryMaterialType == "Book")
         {
-            Studentvisible = "visible";
-            Teachervisible = "hidden";
+            Bookvisible = "visible";
+            Journalvisible = "hidden";
+            CD_DVD_BR_visible = "hidden";
         }
 
-        else if (libraryMaterialType == "Teacher")
+        else if (libraryMaterialType == "Journal")
         {
-            Teachervisible = "visible";
-            Studentvisible = "hidden";
+            Journalvisible = "visible";
+            Bookvisible = "hidden";
+            CD_DVD_BR_visible = "hidden";
         }
 
+        else if (libraryMaterialType == "CdDvdBr")
+        {
+            CD_DVD_BR_visible = "visible";
+            Journalvisible = "hidden";
+            Bookvisible = "hidden";
 
+        }
 
     }
 
@@ -420,33 +513,41 @@
 
 @code{
 
-    IEnumerable<Address> patronAddress;
-    IEnumerable<Library> patronLibrary;
-    IEnumerable<Patron> patronList;
+    //Code Section for DropDown Lists
 
-    void Change(object value, string name)
+    IEnumerable<Donor> materialDonor;
+    IEnumerable<Library> materialLibrary;
+    IEnumerable<Publisher> materialPublisher;
+    IEnumerable<LibraryMaterial_Author> materialAuthor;
+    IEnumerable<Library_Material> libraryMaterialList;
+
+    //Donor Drop Down List Methods
+
+    void DonorChange(object value, string name)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+
         StateHasChanged();
     }
 
-    void LoadData(LoadDataArgs args)
+    void DonorLoadData(LoadDataArgs args)
     {
-        var query = DbContext.Address.AsQueryable();
+        var query = DbContext.Donor.AsQueryable();
 
 
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
+        //if (!string.IsNullOrEmpty(args.Filter))
+        //{
+        //    //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        //}
 
-        patronAddress = query.ToList();
+        materialDonor = query.ToList();
 
         InvokeAsync(StateHasChanged);
     }
 
+
+    //Library Drop Down List Methods
     void LibraryChange(object value, string name)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
@@ -465,12 +566,26 @@
             //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
         }
 
-        patronLibrary = query.ToList();
+        materialLibrary = query.ToList();
 
         InvokeAsync(StateHasChanged);
     }
 
-    void patronChange(object value, string name)
+
+    //Author Drop Down List Methods
+
+    void AuthorOnChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+
+    }
+
+
+
+    //Publisher Drop Down List Methods
+
+    void PublisherChange(object value, string name)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
@@ -478,9 +593,9 @@
         StateHasChanged();
     }
 
-    void patronLoadData(LoadDataArgs args)
+    void PublisherLoadData(LoadDataArgs args)
     {
-        var query = DbContext.Patron.AsQueryable();
+        var query = DbContext.Publisher.AsQueryable();
 
 
         if (!string.IsNullOrEmpty(args.Filter))
@@ -488,30 +603,64 @@
             //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
         }
 
-        patronList = query.ToList();
+        materialPublisher = query.ToList();
 
         InvokeAsync(StateHasChanged);
     }
 
-    //Code for gender drop down list
-    IEnumerable<PatronGender> gender = Enum.GetValues(typeof(PatronGender)).Cast<PatronGender>();
+
+    //Picking the library material for the subtype and linking it to the librarymaterialId with a Drop Down List Methods
+
+    void MaterialChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void MaterialLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Library_Material.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        libraryMaterialList = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
 
     //Code for language drop down list
-    IEnumerable<PatronLanguage> language = Enum.GetValues(typeof(PatronLanguage)).Cast<PatronLanguage>();
+    IEnumerable<LibraryMaterialLanguage> language = Enum.GetValues(typeof(LibraryMaterialLanguage)).Cast<LibraryMaterialLanguage>();
 
 
-    //Code for employee type drop down list
-    IEnumerable<PatronType> type = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+    //Code for Library Material type drop down list
+    IEnumerable<LibraryMaterialType> type = Enum.GetValues(typeof(LibraryMaterialType)).Cast<LibraryMaterialType>();
 
-    //Code for section drop down list
-    IEnumerable<PatronSection> patronSection = Enum.GetValues(typeof(PatronSection)).Cast<PatronSection>();
 
     //Code for status drop down list
-    IEnumerable<PatronStatus> status = Enum.GetValues(typeof(PatronStatus)).Cast<PatronStatus>();
+    IEnumerable<LibraryMaterialStatus> status = Enum.GetValues(typeof(LibraryMaterialStatus)).Cast<LibraryMaterialStatus>();
 
-    //Code for type drop down list
-    IEnumerable<PatronType> typePatron = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+    //Code for Restrection type drop down list
+    IEnumerable<RestrectionType> restrectionType = Enum.GetValues(typeof(RestrectionType)).Cast<RestrectionType>();
 
     //Code for age level drop down list
-    IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
-}
+    IEnumerable<LibraryMaterialAgeLevel> ageLevel = Enum.GetValues(typeof(LibraryMaterialAgeLevel)).Cast<LibraryMaterialAgeLevel>();
+
+    //Code for Book Type drop down list
+    IEnumerable<BookType> bookType = Enum.GetValues(typeof(BookType)).Cast<BookType>();
+
+    //Code for Journal Type drop down list
+    IEnumerable<JournalType> journalType = Enum.GetValues(typeof(JournalType)).Cast<JournalType>();
+
+    //Code for CD/DVD/BR Type drop down list
+    IEnumerable<CD_DVD_BR_Type> cD_DVD_BR_Type = Enum.GetValues(typeof(CD_DVD_BR_Type)).Cast<CD_DVD_BR_Type>();
+
+    
+
+}*@

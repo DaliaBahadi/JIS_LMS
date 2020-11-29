@@ -36,7 +36,7 @@ namespace JIS_LMS.Services
         /// <returns>A patron with the provided id or null</returns>
         public Patron GetPatron(int id)
         {
-            return db.Patron.SingleOrDefault(c => c.PatronId == id);
+            return db.Patron.Include(c => c.Student).Include(c => c.Teacher).SingleOrDefault(c => c.PatronId == id);
         }
 
         /// <summary>

@@ -26,3 +26,9 @@ namespace JIS_LMS.Model
         public virtual Library_Material LibraryMaterial { get; set; }
     }
 }
+
+public enum JournalType
+{
+    Journals = 1, Serials, Periodicals, Magazine
+
+}

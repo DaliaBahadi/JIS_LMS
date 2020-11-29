@@ -84,3 +84,30 @@ namespace JIS_LMS.Model
         public virtual ICollection<LibraryMaterial_Author> LibraryMaterial_Authors { get; set; }
     }
 }
+
+public enum LibraryMaterialLanguage
+{
+    English = 1, Arabic, Frensh, Other
+}
+
+
+public enum LibraryMaterialStatus
+{
+    Available = 1, Borrowed, Hold, Lost, Damaged, Missing, Restricted
+}
+
+public enum RestrectionType
+{
+    TeachersTextbooks = 1 , References, Other
+}
+
+public enum LibraryMaterialType
+{
+    Book = 1, Journal = 2, CdDvdBr 
+
+}
+
+public enum LibraryMaterialAgeLevel
+{
+    Kindergarten = 1, Elementary, MiddleSchool, HighSchool
+}

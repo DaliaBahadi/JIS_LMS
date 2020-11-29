@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using JIS_LMS.Data;
 using JIS_LMS.Model;
 using JIS_LMS.Services;
+using Syncfusion.Blazor;
 
 
 namespace JIS_LMS
@@ -36,6 +37,9 @@ namespace JIS_LMS
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+
+            // Add Syncfusion service
+            services.AddSyncfusionBlazor();
 
             // Add DbContext to services
             services.AddDbContext<LMSDbContext>(
@@ -75,6 +79,9 @@ namespace JIS_LMS
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzM5NjkzQDMxMzgyZTMzMmUzMGowcEl3bmhTYkxDODluVzFRWHJrakRLQzRGT2h5OEhLUTZoZWZhMVNuK2c9");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

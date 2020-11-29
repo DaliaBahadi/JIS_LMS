@@ -36,7 +36,7 @@ namespace JIS_LMS.Services
         /// <returns>A student with the provided id or null</returns>
         public Student GetStudent(int id)
         {
-            return db.Student.SingleOrDefault(c => c.StudentId == id);
+            return db.Student.SingleOrDefault(c => c.PatronId == id);
         }
 
         /// <summary>

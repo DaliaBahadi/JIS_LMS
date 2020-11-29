@@ -157,7 +157,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                @*<a href="/Patron/Student/Edit/@Id" class="btn btn-outline-primary" role="button">Edit Student</a>*@
+                <a style="visibility:@Studentvisible;" href="/Patron/Student/Edit/@Id" class="btn btn-outline-primary" role="button">Edit Student</a>
                 <a href="/Patron/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
@@ -175,11 +175,7 @@
     [Parameter]
     public int Id { get; set; }
 
-
-
     Patron patron = new Patron();
-
-
 
     string message;
 
@@ -187,14 +183,13 @@
     {
         patron = PatronService.GetPatron(Id);
 
-        students = StudentService.GetStudents();
+        //students = StudentService.GetStudents();
 
-        student = StudentService.GetStudent(Id);
+        //student = StudentService.GetStudent(Id);
+
 
 
     }
-
-
 
 
     public void UpdatePatron()
@@ -210,22 +205,16 @@
 
 @code
 {
-
-
-
     //code section for input select
 
     LMSDbContext db = new LMSDbContext();
 
     string patronType { get; set; }
 
-
-
-    string Teachervisible = "hidden";
     string Studentvisible = "hidden";
 
     private List<Student> StudentForm;
-    private List<Teacher> TeacherForm;
+    
 
     //Method to change patron type
     private void patronChange(ChangeEventArgs patronEvent)
@@ -235,16 +224,8 @@
         if (patronType == "Student")
         {
             Studentvisible = "visible";
-            Teachervisible = "hidden";
+            
         }
-
-        else if (patronType == "Teacher")
-        {
-            Teachervisible = "visible";
-            Studentvisible = "hidden";
-        }
-
-
 
     }
 
@@ -252,14 +233,14 @@
 
 @code
 {
-    Student student = new Student();
-    List<Student> students = new List<Student>();
+    //Student student = new Student();
+    //List<Student> students = new List<Student>();
 
 
 
-   
 
-   
+
+
 }
 
 @code{
@@ -280,10 +261,10 @@
         var query = DbContext.Address.AsQueryable();
 
 
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
+        //if (!string.IsNullOrEmpty(args.Filter))
+        //{
+        //    //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        //}
 
         patronAddress = query.ToList();
 
@@ -294,7 +275,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -332,6 +312,5 @@
     //Code for type drop down list
     IEnumerable<PatronType> typePatron = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
 
-    //Code for age level drop down list
-    IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
 }
+
