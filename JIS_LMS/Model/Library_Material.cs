@@ -57,9 +57,9 @@ namespace JIS_LMS.Model
         public string DOIURL { get; set; }
         public int? RestrictionType { get; set; }
         public int LibraryMaterialType { get; set; }
-        public int? PublisherId { get; set; }
+        public int PublisherId { get; set; }
         public int DonorId { get; set; }
-        public int? LibraryId { get; set; }
+        public int LibraryId { get; set; }
 
         [ForeignKey(nameof(DonorId))]
         [InverseProperty("Library_Materials")]

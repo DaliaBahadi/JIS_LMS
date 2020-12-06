@@ -42,28 +42,17 @@ else
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="Student" Property="Patron.FullName" Title="Name  " />
-                @*<RadzenGridColumn TItem="Student" Property="MiddleName" Title="Middle Name" />
-                    <RadzenGridColumn TItem="Student" Property="LastName" Title="Last Name" />*@
                 <RadzenGridColumn TItem="Student" Property="StudentId" Title="StudentId" />
                 <RadzenGridColumn TItem="Student" Property="ClassYear" Title="Class Year" />
                 <RadzenGridColumn TItem="Student" Property="ClassName" Title="ClassName" />
                 <RadzenGridColumn TItem="Student" Property="HomeRoomTeacher" Title="HomeRoom Teacher" />
-                @*<RadzenGridColumn TItem="Student" Property="Teacher.EmployeeId" Title="EmployeeId" />*@
-
-
-
-
                 <RadzenGridColumn TItem="Student" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                     <Template Context="data">
-                        <a href="/Patron/Details/@data.PatronId">
+                        <a href="/Student/Details/@data.PatronId">
                             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                         </a>
                     </Template>
-
-
-
                 </RadzenGridColumn>
-
                 <RadzenGridColumn TItem="Student" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
 
                     <Template Context="data">
@@ -90,19 +79,13 @@ else
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="Teacher" Property="Patron.FullName" Title="First Name  " />
                 <RadzenGridColumn TItem="Teacher" Property="EmployeeId" Title="EmployeeId" />
-
-
                 <RadzenGridColumn TItem="Teacher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                     <Template Context="data">
-                        <a href="/Patron/Details/@data.PatronId">
+                        <a href="/Teacher/Details/@data.PatronId">
                             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                         </a>
                     </Template>
-
-
-
                 </RadzenGridColumn>
-
                 <RadzenGridColumn TItem="Teacher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
 
                     <Template Context="data">
@@ -110,10 +93,7 @@ else
                             <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
                         </a>
                     </Template>
-
                 </RadzenGridColumn>
-
-
             </Columns>
         </RadzenGrid>
     </div>

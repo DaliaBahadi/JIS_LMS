@@ -157,20 +157,67 @@
                 </div>
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a style="visibility:@Studentvisible;" href="/Patron/Student/Edit/@Id" class="btn btn-outline-primary" role="button">Edit Student</a>
-                <a href="/Patron/Search" class="btn btn-outline-secondary">Cancel</a>
+                <a href="/Patrons/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
         </fieldset>
     </div>
 </div>
 
-
 <br />
 
 <p>@message</p>
 
+<div class="container-fluid container-contact100" style="visibility:@Studentvisible;">
+    <div class="wrap-contact100">
+        <h3>Edit Student Information</h3>
+        <fieldset>
+
+            <EditForm Model="student" OnValidSubmit="UpdateStudent">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+
+                <div class="form-group">
+                    <label for="year">*Class Year:</label>
+                    <InputText id="year" @bind-Value="student.ClassYear" class="form-control" placeholder="Enter Student's Class Year" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="class-name">*Class Name:</label>
+                    <InputText id="class-name" @bind-Value="student.ClassName" class="form-control" placeholder="Enter Student's Class Name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="home-room-teacher">*Home Room Teacher:</label>
+                    <InputText id="home-room-teacher" @bind-Value="student.HomeRoomTeacher" class="form-control" placeholder="Enter Student's Home Room Teacher" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Age Level:</span>
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="student.AgeLevel" />
+                    </label>
+                </div>
+
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Patrons/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+<br />
+
+<p>@studentMessage</p>
+
+
 @code {
+
+    //code section to update infromation of both patron and student
 
     [Parameter]
     public int Id { get; set; }
@@ -179,26 +226,41 @@
 
     string message;
 
+    Student student = new Student();
+
+    string studentMessage;
+
     protected override void OnInitialized()
     {
         patron = PatronService.GetPatron(Id);
 
-        //students = StudentService.GetStudents();
-
-        //student = StudentService.GetStudent(Id);
+        student = StudentService.GetStudent(Id);
 
 
 
     }
 
 
+    //Method to update patron information
     public void UpdatePatron()
     {
 
-        // Edit   Patron
+        // Edit Patron
         PatronService.EditPatron(patron);
 
         message = "Patron updated successfully";
+
+    }
+
+
+    //Method to update Student information
+    public void UpdateStudent()
+    {
+
+        // Edit  Student
+        StudentService.EditStudent(student);
+
+        studentMessage = "Student updated successfully";
         NavigationManager.NavigateTo("Patrons/Search");
     }
 }
@@ -212,9 +274,10 @@
     string patronType { get; set; }
 
     string Studentvisible = "hidden";
+    string Teachervisible = "hidden";
 
     private List<Student> StudentForm;
-    
+
 
     //Method to change patron type
     private void patronChange(ChangeEventArgs patronEvent)
@@ -224,29 +287,26 @@
         if (patronType == "Student")
         {
             Studentvisible = "visible";
-            
+
+        }
+
+        else if (patronType == "Teacher")
+        {
+            Teachervisible = "visible";
+            Studentvisible = "hidden";
         }
 
     }
 
 }
 
-@code
-{
-    //Student student = new Student();
-    //List<Student> students = new List<Student>();
-
-
-
-
-
-
-}
-
 @code{
 
+    //Code Section for DropDown Lists
+
+    //Address Drop Down List Methods
+
     IEnumerable<Address> patronAddress;
-    IEnumerable<Library> patronLibrary;
 
     void Change(object value, string name)
     {
@@ -261,15 +321,14 @@
         var query = DbContext.Address.AsQueryable();
 
 
-        //if (!string.IsNullOrEmpty(args.Filter))
-        //{
-        //    //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        //}
-
         patronAddress = query.ToList();
 
         InvokeAsync(StateHasChanged);
     }
+
+    //Library Drop Down List Methods
+
+    IEnumerable<Library> patronLibrary;
 
     void LibraryChange(object value, string name)
     {
@@ -281,12 +340,6 @@
     void LibraryLoadData(LoadDataArgs args)
     {
         var query = DbContext.Library.AsQueryable();
-
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         patronLibrary = query.ToList();
 
@@ -311,6 +364,11 @@
 
     //Code for type drop down list
     IEnumerable<PatronType> typePatron = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+
+
+    //Code for age level drop down list
+    IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
+
 
 }
 

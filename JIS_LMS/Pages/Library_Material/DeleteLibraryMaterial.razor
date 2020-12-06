@@ -1,55 +1,52 @@
 ﻿@page "/Catalog/Delete/{Id:int}"
 @inject NavigationManager NavigationManager
-@inject PatronService PatronService
+@inject Library_MaterialService Library_MaterialService
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 
-<div class="container">
-    <h3>Delete Patron</h3>
+<div class="container" style="margin-left:1em">
+    <h3>Delete Library Material </h3>
 
     <div class="alert alert-danger">
-        Do you want to delete this Patron?
+        Do you want to delete this Library Material?
     </div>
 
     <table>
         <tr>
-            <th>Name: </th>
-            <td>@patron.FirstName @patron.MiddleName  @patron.LastName</td>
+            <th>Acession Number: </th>
+            <td>@libraryMaterial.AccessionNumber</td>
         </tr>
         <tr>
-            <th>Primary Contact Number: </th>
-            <td>@patron.PrimaryContactNumber</td>
+            <th>Title: </th>
+            <td>@libraryMaterial.Title</td>
         </tr>
-        <tr>
-            <th>Primary Email:</th>
-            <td>@patron.PrimaryEmail</td>
-        </tr>
+       
     </table>
     <br />
-    <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemovePatron">Delete Patron</button>
-    <a href="/Parents/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+    <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemoveLibraryMaterial">Delete Library Material</button>
+    <a href="/Catalog/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
 
     <div class="mt-4"></div>
 </div>
 
 @code {
 
-    Patron patron = new Patron();
+    Library_Material libraryMaterial = new Library_Material();
 
     [Parameter]
     public int Id { get; set; }
 
-    private void RemovePatron()
+    private void RemoveLibraryMaterial()
     {
-        PatronService.DeletePatron(Id);
+        Library_MaterialService.DeleteLibraryMaterial(Id);
 
-        NavigationManager.NavigateTo("/Patrons/Search");
+        NavigationManager.NavigateTo("/Catalog/Search");
     }
 
     protected override void OnInitialized()
     {
-        patron = PatronService.GetPatron(Id);
+        libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
     }
 
 }

@@ -74,6 +74,27 @@ namespace JIS_LMS
             //Donor Service
             services.AddScoped<DonorService>();
 
+            //Libray Material  Service
+            services.AddScoped<Library_MaterialService>();
+
+            //Libray Material  Service
+            services.AddScoped<Library_MaterialService>();
+
+            //Journal  Service
+            services.AddScoped<JournalService>();
+
+            //Book  Service
+            services.AddScoped<BookService>();
+
+            //cd-dvd-Br  Service
+            services.AddScoped<CD_DVD_BR_Service>();
+
+            //Borrowing Service
+            services.AddScoped<BorrowingService>();
+
+            //Hold Service
+            services.AddScoped<HoldService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

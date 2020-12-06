@@ -1,11 +1,8 @@
-﻿@*@layout SystemAdminLayout
-
+﻿@layout SystemAdminLayout
 @page "/LibraryMaterial/Add"
-
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @using Syncfusion.Blazor.Inputs;
-
 @inject Library_MaterialService Library_MaterialService
 @inject CD_DVD_BR_Service CD_DVD_BR_Service
 @inject BookService BookService
@@ -45,38 +42,50 @@
                 </div>
 
                 <div class="form-group">
-                    <a href="/Publisher/Add" class="btn btn-outline-secondary" style="align-items:end">Add Publisher</a>
                     <label style="display: flex; align-items: center" for="publisher">
                         <span style="margin-right: 32px">*Publisher: </span>
                         <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Publisher"
                                         LoadData="@PublisherLoadData" AllowFiltering="true"
-                                        Data="@materialPublisher" TextProperty="Name" ValueProperty="PublisherId" Style="margin-bottom: 20px" @bind-Value="catalog.PublisherId"
-                                        Change="@(args => PublisherChange(args, "Publisher DropDown "))" />
+                                        Data="@materialPublisher" TextProperty="Name" ValueProperty="PublisherId" Style="margin-bottom: 7px" @bind-Value="catalog.PublisherId"
+                                        Change="@(args => PublisherChange(args, "DropDown with custom filtering"))" />
+                        <a href="/Publisher/Add" class="btn btn-outline-primary" style="align-items:start; margin-left:1em">Add Publisher</a>
+
                     </label>
                 </div>
                 <br>
 
-                <div class="form-group">
-                    <a href="/Author/Add" class="btn btn-outline-secondary" style="align-items:end">Add Author</a>
+                @*<div class="form-group">
                     <label for="author">*Authors:</label>
-                    <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value="author.AuthorId" Multiple="true" Data=@materialAuthor
+                    <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value="@multipleValues" Data=@materialAuthor Multiple="true"
                                    TextProperty="FullName" ValueProperty="AuthorId" Change=@(args => AuthorOnChange(args, "ListBox with multiple selection")) Style="height:200px" />
+                    <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
+                </div>*@
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center" for="publisher">
+                        <span style="margin-right: 32px">*Author/s: </span>
+                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Authors"
+                                        LoadData="@AuthorLoadData" AllowFiltering="true"
+                                        Data="@materialAuthor" TextProperty="FullName" ValueProperty="AuthorId" Style="margin-bottom: 7px" @bind-Value="author.AuthorId"
+                                        Change="@(args => AuthorOnChange(args, "DropDown with custom filtering"))" />
+                        <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="Pages-Number">Number Of Pages:</label>
-                    <InputNumber id="Pages-Number" @bind-Value="catalog.NumberOfPages" class="form-control" placeholder="Enter Library Material Acession Number" />
+                    <InputNumber id="Pages-Number" @bind-Value="catalog.NumberOfPages" class="form-control" placeholder="Enter Library Material Number of Pages" />
                 </div>
 
 
                 <div class="form-group">
                     <label for="source-of-fund">Source Of Fund:</label>
-                    <InputText id="source-of-fund" @bind-Value="catalog.SourceOfFund" class="form-control" placeholder="Enter Library Material Title" />
+                    <InputText id="source-of-fund" @bind-Value="catalog.SourceOfFund" class="form-control" placeholder="Enter Library Material Source of Fund" />
                 </div>
 
                 <div class="form-group">
                     <label for="cost-price">Cost Price:</label>
-                    <SfNumericTextBox TValue="decimal?" @bind-Value="catalog.CostPrice" Format="SAR"></SfNumericTextBox>
+                    <SfNumericTextBox TValue="decimal?" @bind-Value="catalog.CostPrice" ></SfNumericTextBox>
                 </div>
 
                 <div class="form-group">
@@ -208,7 +217,7 @@
                         <span style="margin-right: 32px">*Library Material:</span>
                         <RadzenDropDown AllowClear="true" TValue="int"
                                         LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="book.LibraryMaterialId"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="book.LibraryMaterialId"
                                         Change="@(args => MaterialChange(args, "library Material DropDown "))" />
                     </label>
                 </div>
@@ -255,7 +264,7 @@
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Library Material:</span>
                         <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="journal.LibraryMaterialId"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="journal.LibraryMaterialId"
                                         Change="@(args => MaterialChange(args, "library Material DropDown "))" />
                     </label>
                 </div>
@@ -306,7 +315,7 @@
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Library Material:</span>
                         <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="cD_DVD_BR.LibraryMaterialId"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="cD_DVD_BR.LibraryMaterialId"
                                         Change="@(args => MaterialChange(args, "library Material DropDown "))" />
                     </label>
                 </div>
@@ -366,8 +375,6 @@
     LibraryMaterial_Author author = new LibraryMaterial_Author();
 
     private List<Library_Material> library_Materials = new List<Library_Material>();
-
-
 
 
     // Execute when component starts / initializes
@@ -515,13 +522,11 @@
 
     //Code Section for DropDown Lists
 
-    IEnumerable<Donor> materialDonor;
-    IEnumerable<Library> materialLibrary;
-    IEnumerable<Publisher> materialPublisher;
-    IEnumerable<LibraryMaterial_Author> materialAuthor;
-    IEnumerable<Library_Material> libraryMaterialList;
+
 
     //Donor Drop Down List Methods
+
+    IEnumerable<Donor> materialDonor;
 
     void DonorChange(object value, string name)
     {
@@ -548,6 +553,9 @@
 
 
     //Library Drop Down List Methods
+
+    IEnumerable<Library> materialLibrary;
+
     void LibraryChange(object value, string name)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
@@ -572,18 +580,43 @@
     }
 
 
-    //Author Drop Down List Methods
+    //Author List box Methods
+
+    IEnumerable<Author> materialAuthor;
 
     void AuthorOnChange(object value, string name)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
+        StateHasChanged();
 
+
+    }
+
+    void AuthorLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Author.AsQueryable();
+
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        materialAuthor = query.ToList();
+
+        InvokeAsync(StateHasChanged);
     }
 
 
 
+
+    IEnumerable<string> multipleValues = new string[] { "ALFKI", "ANATR" };
+    string value = "ALFKI";
+
     //Publisher Drop Down List Methods
+
+    IEnumerable<Publisher> materialPublisher;
 
     void PublisherChange(object value, string name)
     {
@@ -610,6 +643,8 @@
 
 
     //Picking the library material for the subtype and linking it to the librarymaterialId with a Drop Down List Methods
+
+    IEnumerable<Library_Material> libraryMaterialList;
 
     void MaterialChange(object value, string name)
     {
@@ -661,6 +696,6 @@
     //Code for CD/DVD/BR Type drop down list
     IEnumerable<CD_DVD_BR_Type> cD_DVD_BR_Type = Enum.GetValues(typeof(CD_DVD_BR_Type)).Cast<CD_DVD_BR_Type>();
 
-    
 
-}*@
+
+}

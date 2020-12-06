@@ -1,8 +1,9 @@
-﻿@page "/Patron/Details/{Id:int}"
-@inject PatronService PatronService
+﻿@page "/Student/Details/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject PatronService PatronService
+@inject StudentService StudentService
 
 <div class="container">
     <div class="container-fluid container-contact100">
@@ -10,6 +11,11 @@
             <h3>Patron Details</h3>
 
             <table class="table table-hover">
+
+                <tr>
+                    <td>Image: </td>
+                    <td><img src="/@patron.ImageFile" alt="patron image" width="200" height="250"></td>
+                </tr>
 
                 <tr>
                     <td>First Name: </td>
@@ -26,6 +32,10 @@
                     <td>@patron.LastName</td>
                 </tr>
 
+                <tr>
+                    <td>Student Id </td>
+                    <td>@patron.Student.StudentId</td>
+                </tr>
 
                 <tr>
                     <td>Gender: </td>
@@ -77,6 +87,29 @@
                 </tr>
 
                 <tr>
+                    <td>Class Year: </td>
+                    <td>@patron.Student.ClassYear</td>
+                </tr>
+
+                <tr>
+                    <td>Class Name:</td>
+                    <td>@patron.Student.ClassName</td>
+                </tr>
+
+
+                <tr>
+                    <td>Homeroom Teacher: </td>
+                    <td>@patron.Student.HomeRoomTeacher</td>
+
+                </tr>
+
+                <tr>
+                    <td>Age Level: </td>
+                    <td>@patron.Student.AgeLevel</td>
+
+                </tr>
+
+                <tr>
                     <td> Registration Date : </td>
                     <td>@patron.RegistrationDate</td>
 
@@ -118,71 +151,6 @@
 </div>
 
 
-<div class="container"  style="visibility:@Studentvisible;">
-    <div class="container-fluid container-contact100">
-        <div class="wrap-contact100">
-            <h3>Student Details</h3>
-
-            <table class="table table-hover">
-
-                <tr>
-                    <td>Student Id </td>
-                    <td>@patron.Student.StudentId</td>
-                </tr>
-
-                <tr>
-                    <td>Class Year: </td>
-                    <td>@patron.Student.ClassYear</td>
-                </tr>
-
-                <tr>
-                    <td>Class Name:</td>
-                    <td>@patron.Student.ClassName</td>
-                </tr>
-
-
-                <tr>
-                    <td>Homeroom Teacher: </td>
-                    <td>@patron.Student.HomeRoomTeacher</td>
-
-                </tr>
-
-                <tr>
-                    <td>Age Level: </td>
-                    <td>@patron.Student.AgeLevel</td>
-
-                </tr>
-                
-
-            </table>
-
-            <a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-            <a href="/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>
-            <div class="mt-4"></div>
-        </div>
-    </div>
-</div>
-
-<div class="container"  @onchange="patronChange" style="visibility:@Teachervisible;margin-top:-600px">
-    <div class="container-fluid container-contact100">
-        <div class="wrap-contact100">
-            <h3>Teacher Details</h3>
-
-            <table class="table table-hover">
-
-                <tr>
-                    <td>Employee Id </td>
-                    <td>@patron.Teacher.EmployeeId</td>
-                </tr>
-
-            </table>
-
-            @*<a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-            <a href="/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>*@
-            <div class="mt-4"></div>
-        </div>
-    </div>
-</div>
 
 
 @code {
@@ -191,10 +159,6 @@
 
     Patron patron = new Patron();
     List<Patron> patrons = new List<Patron>();
-
-    string patronType { get; set; }
-    string Teachervisible = "hidden";
-    string Studentvisible = "hidden";
 
     [Parameter]
     public int Id { get; set; }
@@ -206,23 +170,5 @@
         patron = PatronService.GetPatron(Id);
     }
 
-    private void patronChange(ChangeEventArgs patronEvent)
-    {
-        patronType = (patronEvent.Value.ToString());
-
-        if (patronType == "Student")
-        {
-            Studentvisible = "visible";
-            Teachervisible = "hidden";
-        }
-
-        else if (patronType == "Teacher")
-        {
-            Teachervisible = "visible";
-            Studentvisible = "hidden";
-        }
-
-
-
-    }
+   
 }

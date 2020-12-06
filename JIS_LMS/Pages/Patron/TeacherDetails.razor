@@ -1,0 +1,153 @@
+﻿@page "/Teacher/Details/{Id:int}"
+@inject PatronService PatronService
+@layout SystemAdminLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Patron Details</h3>
+
+            <table class="table table-hover">
+
+                <tr>
+                    <td>Image: </td>
+                    <td><img src="@patron.ImageFile" alt="patron image"></td>
+                </tr>
+
+                <tr>
+                    <td>First Name: </td>
+                    <td>@patron.FirstName</td>
+                </tr>
+
+                <tr>
+                    <td>Middle Name: </td>
+                    <td>@patron.MiddleName</td>
+                </tr>
+
+                <tr>
+                    <td>Last Name:</td>
+                    <td>@patron.LastName</td>
+                </tr>
+
+
+                <tr>
+                    <td>Employee Id: </td>
+                    <td>@patron.Teacher.EmployeeId</td>
+                </tr>
+
+
+                <tr>
+                    <td>Gender: </td>
+                    <td>@patron.Gender</td>
+
+                </tr>
+
+                <tr>
+                    <td>Date Of Birth: </td>
+                    <td>@patron.DateOfBirth</td>
+
+                </tr>
+
+                <tr>
+                    <td>Primary Contact Number: </td>
+                    <td>@patron.PrimaryContactNumber</td>
+                </tr>
+
+                <tr>
+                    <td>Secondary Contact Number: </td>
+                    <td>@patron.SecondaryContactNumber</td>
+                </tr>
+
+                <tr>
+                    <td>Primary Email: </td>
+                    <td>@patron.PrimaryEmail</td>
+                </tr>
+
+                <tr>
+                    <td>Secondary Email: </td>
+                    <td>@patron.SecondaryEmail</td>
+                </tr>
+
+                <tr>
+                    <td>Language: </td>
+                    <td>@patron.Language</td>
+                </tr>
+
+                <tr>
+                    <td>Section: </td>
+                    <td>@patron.Section</td>
+
+                </tr>
+
+                <tr>
+                    <td>Status: </td>
+                    <td>@patron.Status</td>
+
+                </tr>
+
+                <tr>
+                    <td> Registration Date : </td>
+                    <td>@patron.RegistrationDate</td>
+
+                </tr>
+
+                <tr>
+                    <td> Username : </td>
+                    <td>@patron.UserName</td>
+
+                </tr>
+
+                <tr>
+                    <td> Password : </td>
+                    <td>@patron.Password</td>
+
+                </tr>
+
+                <tr>
+                    <td> Type: </td>
+                    <td>@patron.PatronType</td>
+
+                </tr>
+
+                <tr>
+                    <td> Remark: </td>
+                    <td>@patron.Remark</td>
+
+                </tr>
+
+            </table>
+
+
+            <a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+
+            <a href="/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+
+    LMSDbContext db = new LMSDbContext();
+
+    Patron patron = new Patron();
+    List<Patron> patrons = new List<Patron>();
+
+    
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        patrons = PatronService.GetPatrons();
+
+        patron = PatronService.GetPatron(Id);
+    }
+
+    
+}

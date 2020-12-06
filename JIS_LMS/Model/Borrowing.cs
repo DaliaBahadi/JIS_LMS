@@ -13,8 +13,8 @@ namespace JIS_LMS.Model
     {
         [Key]
         public int BorrowingId { get; set; }
-        public DateTime BorrowingDateTime { get; set; }
-        public DateTime DueDateTime { get; set; }
+        public DateTime? BorrowingDateTime { get; set; }
+        public DateTime? DueDateTime { get; set; }
         public DateTime? ReturnDateTime { get; set; }
         public DateTime? RenwalDateTime { get; set; }
         [Required]
