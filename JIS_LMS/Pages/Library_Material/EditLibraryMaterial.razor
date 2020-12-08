@@ -194,8 +194,7 @@
                     </label>
                 </div>
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                @*<a href="/Patron/Student/Edit/@Id" class="btn btn-outline-primary" role="button">Edit Student</a>*@
-                <a href="/Patron/Search" class="btn btn-outline-secondary">Cancel</a>
+                <a href="/Catalog/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
         </fieldset>
@@ -207,11 +206,181 @@
 
 <p>@message</p>
 
+<div class="container-fluid container-contact100" style="visibility:@Bookvisible;">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <h3>Edit Book Information</h3>
+            <EditForm Model="book" OnValidSubmit="UpdateBook">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Library Material:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int"
+                                        LoadData="@MaterialLoadData" AllowFiltering="true"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="book.LibraryMaterialId"
+                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="ISBN">*ISBN:</label>
+                    <InputText id="ISBN" @bind-Value="book.ISBN" class="form-control" placeholder="000-0-00-000000-0" />
+                </div>
+
+                <div class="form-group">
+                    <label for="student-id">Edition:</label>
+                    <InputNumber id="student-id" @bind-Value="book.Edition" class="form-control" placeholder="Enter Book Edition" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Book Type:</span>
+                        <RadzenDropDown Data="@bookType" @bind-Value="book.BookType" />
+                    </label>
+                </div>
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br />
+<p>@BookMessage</p>
+
+<div class="container-fluid container-contact100" style="visibility:@Journalvisible;margin-top:-600px">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <h3>Edit Journal Information</h3>
+            <EditForm Model="journal" OnValidSubmit="Updatejournal">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Library Material:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="journal.LibraryMaterialId"
+                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="ISSN">*ISSN:</label>
+                    <InputText id="ISSN" @bind-Value="journal.ISSN" class="form-control" placeholder="0000-0000" />
+                </div>
+
+                <div class="form-group">
+                    <label for="volume">Volume:</label>
+                    <InputNumber id="volume" @bind-Value="journal.Volume" class="form-control" placeholder="Enter Journal Volume Number" />
+                </div>
+
+                <div class="form-group">
+                    <label for="issue">Issue:</label>
+                    <InputNumber id="issue" @bind-Value="journal.Issue" class="form-control" placeholder="Enter Journal Issue Number" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Journal Type:</span>
+                        <RadzenDropDown Data="@journalType" @bind-Value="journal.JournalType" />
+                    </label>
+                </div>
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br />
+<p>@JournalMessage</p>
+
+
+<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-600px">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <h3>Edit CD/DVD/BR Information</h3>
+            <EditForm Model="cD_DVD_BR" OnValidSubmit="UpdateCD_DVD_BR">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Library Material:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
+                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="cD_DVD_BR.LibraryMaterialId"
+                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="ISBN">*ISBN:</label>
+                    <InputText id="ISBN" @bind-Value="cD_DVD_BR.ISBN" class="form-control" placeholder="000-0-00-000000-0" />
+                </div>
+
+                <div class="form-group">
+                    <label for="format">*Format:</label>
+                    <InputText id="format" @bind-Value="cD_DVD_BR.Format" class="form-control" placeholder="Enter Format" />
+                </div>
+
+                <div class="form-group">
+                    <label for="runtime">Runtime:</label>
+                    <InputText id="runtime" @bind-Value="cD_DVD_BR.Runtime" class="form-control" placeholder="Enter Runtime" />
+                </div>
+
+                <div class="form-group">
+                    <label for="quality">Quality:</label>
+                    <InputText id="quality" @bind-Value="cD_DVD_BR.Quality" class="form-control" placeholder="Enter Quality" />
+                </div>
+
+                <div class="form-group">
+                    <label for="subtitles">Subtitles:</label>
+                    <InputText id="subtitles" @bind-Value="cD_DVD_BR.Subtitles" class="form-control" placeholder="Enter In which Language The Subtitles are" />
+                </div>
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Type:</span>
+                        <RadzenDropDown Data="@cD_DVD_BR_Type" @bind-Value="cD_DVD_BR.Type" />
+                    </label>
+                </div>
+
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br />
+<p>@cdDvdBrMessage</p>
+
+
 @code {
 
     [Parameter]
     public int Id { get; set; }
-
+    int materialType;
 
 
     Library_Material catalog = new Library_Material();
@@ -224,11 +393,27 @@
 
     protected override void OnInitialized()
     {
+
         catalog = Library_MaterialService.GetLibraryMaterial(Id);
+        //library_Materials = db.Library_Material.Where(c => c.LibraryMaterialType == materialType);
 
-        //students = StudentService.GetStudents();
 
-        //student = StudentService.GetStudent(Id);
+        if (materialType == 1)
+        {
+            book = BookService.GetBook(Id);
+        }
+
+        else if ( libraryMaterialType == "Journal")
+        {
+            journal = JournalService.GetJournal(Id);
+        }
+
+        else if (libraryMaterialType == "CdDvdBr")
+        {
+            cD_DVD_BR = CD_DVD_BR_Service.GetCD_DVD_BR(Id);
+
+        }
+
 
     }
 
@@ -240,7 +425,74 @@
         Library_MaterialService.EditLibraryMaterial(catalog);
 
         message = "Library Material updated successfully";
-        //NavigationManager.NavigateTo("Patrons/Search");
+
+    }
+}
+
+
+@code {
+
+    //code section fro updateing book information methods
+
+    Book book = new Book();
+    private List<Book> books = new List<Book>();
+
+    string BookMessage;
+
+
+
+    public void UpdateBook()
+    {
+
+        // Edit Book
+        BookService.EditBook(book);
+
+        BookMessage = "Book updated successfully";
+        NavigationManager.NavigateTo("Catalog/Search");
+    }
+}
+
+@code {
+
+    //code section fro updateing Journal information methods
+
+    Journal journal = new Journal();
+    private List<Journal> journals = new List<Journal>();
+
+    string JournalMessage;
+
+
+
+    public void Updatejournal()
+    {
+
+        // Edit journal
+        JournalService.EditJournal(journal);
+
+        BookMessage = "Journal updated successfully";
+        NavigationManager.NavigateTo("Catalog/Search");
+    }
+}
+
+@code {
+
+    //code section fro updateing CD/DVD/BR information methods
+
+    CD_DVD_BR cD_DVD_BR = new CD_DVD_BR();
+    private List<CD_DVD_BR> cD_DVD_BRs = new List<CD_DVD_BR>();
+
+    string cdDvdBrMessage;
+
+
+
+    public void UpdateCD_DVD_BR()
+    {
+
+        // Edit CD/DVD/BR
+        CD_DVD_BR_Service.EditCD_DVD_BR(cD_DVD_BR);
+
+        BookMessage = "CD/DVD/BR updated successfully";
+        NavigationManager.NavigateTo("Catalog/Search");
     }
 }
 

@@ -17,10 +17,10 @@
                 <ValidationSummary />
 
                 <div class="form-group">
-                    <label style="display: flex; align-items: center">
+                    <label style="display: flex; align-items: center; margin-top:2em;">
                         <span style="margin-right: 32px">*Patron:</span>
                         <RadzenDropDown AllowClear="true" TValue="int" LoadData="@patronLoadData" AllowFiltering="true"
-                                        Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="borrowing.PatronId"
+                                        Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 10px;margin-left:4em;width:300px" Placeholder="Select Patron" @bind-Value="borrowing.PatronId"
                                         Change="@(args => patronChange(args, "patron DropDown "))" />
                     </label>
                 </div>
@@ -41,22 +41,22 @@
 
                 <div class="form-group">
                     <label for="due-date-time">*Due Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.DueDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.DueDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 3em" />
                 </div>
 
                 <div class="form-group">
                     <label for="return-date-time">Return Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.ReturnDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.ReturnDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 2em" />
                 </div>
 
                 <div class="form-group">
                     <label for="renwal-date-time">Renwal Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.RenwalDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.RenwalDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 2em" />
                 </div>
 
                 <div class="form-group">
                     <label for="type">*Signature File: </label>
-                    <RadzenFileInput @bind-Value="borrowing.SignatureFile" Style="width:400px" TValue="string" />
+                    <RadzenFileInput @bind-Value="borrowing.SignatureFile" Style="width:400px;margin-left: 1em" TValue="string" />
 
                 </div>
                 <br>

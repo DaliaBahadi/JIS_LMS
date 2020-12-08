@@ -7,7 +7,6 @@
 @using System.Linq;
 @using Microsoft.AspNetCore.Components.Forms
 @inject BorrowingService BorrowingService
-
 @inject LMSDbContext DbContext
 
 
@@ -32,9 +31,9 @@
                                 @String.Format("{0}", data.BorrowingDateTime)
                             </Template>
                         </RadzenGridColumn>
-                        <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="ReturnDateTime" Title="Return Date & Time">
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="DueDateTime" Title="Due Date & Time">
                             <Template Context="data">
-                                @String.Format("{0}", data.ReturnDateTime)
+                                @String.Format("{0}", data.DueDateTime)
                             </Template>
                         </RadzenGridColumn>
                         <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">

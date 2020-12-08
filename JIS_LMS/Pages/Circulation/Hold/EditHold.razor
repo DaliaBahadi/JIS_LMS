@@ -16,10 +16,10 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Patron:</span>
+                    <label style="display: flex; align-items: center; margin-top:2em;">
+                        <span style="margin-right: 20px">*Patron:</span>
                         <RadzenDropDown AllowClear="true" TValue="int" LoadData="@patronLoadData" AllowFiltering="true"
-                                        Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="hold.PatronId"
+                                        Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 10px;margin-left:5em;width:300px" Placeholder="Select Patron" @bind-Value="hold.PatronId"
                                         Change="@(args => patronChange(args, "patron DropDown "))" />
                     </label>
                 </div>
@@ -28,14 +28,14 @@
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Library Material:</span>
                         <RadzenDropDown AllowClear="true" TValue="int" LoadData="@materialLoadData" AllowFiltering="true"
-                                        Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Materail" @bind-Value="hold.LibraryMaterialId"
+                                        Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 10px;width:300px" Placeholder="Select Library Materail" @bind-Value="hold.LibraryMaterialId"
                                         Change="@(args => materialChange(args, "material DropDown "))" />
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label for="hold-date-time">*Hold Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.HoldDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.HoldDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" Style="margin-left: 1em" DateFormat="MM/dd/yyyy HH:mm" />
                 </div>
 
                 <div class="form-group">
@@ -48,19 +48,19 @@
                     <RadzenDatePicker TValue="DateTime" @bind-Value="hold.PickupDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
                 </div>
 
+
                 @*<div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Status:</span>
-                        <RadzenDropDown Data="@status" @bind-Value="hold.Status" />
-                    </label>
-                </div>*@
+            <label style="display: flex; align-items: center">
+                <span style="margin-right: 32px">*Status:</span>
+                <RadzenDropDown Data="@status" @bind-Value="hold.Status" />
+            </label>
+        </div>*@
 
-
+                <br>
                 <div class="form-group">
-                    <label for="remark">Remark: </label>
-                    <RadzenTextArea @bind-Value="hold.Remark" Cols="30" Rows="3" Style="align-items:center" />
+                    <label style="margin-right: 32px" for="remark">Remark: </label>
+                    <RadzenTextArea @bind-Value="hold.Remark" Cols="30" Rows="3" Style="align-items:center;" />
                 </div>
-
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
                 <a href="/circulation" class="btn btn-outline-secondary">Cancel</a>

@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
-                        <RadzenDropDown Data="@language" @bind-Value="employee.Language" />
+                        <RadzenDropDown Data="@language" @bind-Value="employeeLanguage" />
                        
                     </label>
                 </div>
@@ -68,7 +68,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Gender:</span>
-                        <RadzenDropDown Data="@gender" @bind-Value="employee.Gender" />
+                        <RadzenDropDown Data="@gender" @bind-Value="employeeGender"  Change="chooseGender"/>
                     </label>
                 </div>
 
@@ -82,7 +82,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Employee Type:</span>
-                        <RadzenDropDown Data="@type" @bind-Value="employee.EmployeeType" />
+                        <RadzenDropDown Data="@type" @bind-Value="employeeType" Placeholder="Select type" />
                     </label>
                 </div>
 
@@ -147,12 +147,44 @@
     //Code for gender drop down list
     IEnumerable<EmployeeGender> gender = Enum.GetValues(typeof(EmployeeGender)).Cast<EmployeeGender>();
 
+    int genderValue;
+
+    EmployeeGender employeeGender = EmployeeGender.Female;
+
+    //Method For biding the value to the database
+    public void chooseGender()
+    {
+        genderValue = (int)employeeGender;
+    }
+
+
+
     //Code for language drop down list
     IEnumerable<EmployeeLanguage> language = Enum.GetValues(typeof(EmployeeLanguage)).Cast<EmployeeLanguage>();
+
+    int languageValue;
+
+    EmployeeLanguage employeeLanguage = EmployeeLanguage.English;
+
+    //Method For biding the value to the database
+    public void chooseLanguage()
+    {
+        languageValue = (int)employeeLanguage;
+    }
 
 
     //Code for employee type drop down list
     IEnumerable<EmployeeType> type = Enum.GetValues(typeof(EmployeeType)).Cast<EmployeeType>();
 
-    //ParentGender genderParent = ParentGender.Female;
+    int typeValue;
+
+    EmployeeType employeeType;
+
+    //Method For biding the value to the database
+    public void chooseType()
+    {
+        typeValue = (int)employeeType;
+    }
+
+
 }

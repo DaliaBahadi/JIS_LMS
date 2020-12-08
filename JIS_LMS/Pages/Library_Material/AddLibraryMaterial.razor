@@ -1,5 +1,5 @@
 ﻿@layout SystemAdminLayout
-@page "/LibraryMaterial/Add"
+@page "/Catalog/Add"
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @using Syncfusion.Blazor.Inputs;
@@ -156,7 +156,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">Restriction Type:</span>
-                        <RadzenDropDown Data="@restrectionType" @bind-Value="catalog.RestrictionType" Style="align-items:center" />
+                        <RadzenDropDown Data="@restrectionType" @bind-Value="catalog.RestrictionType" Placeholder="Select Restrection Type" Style="align-items:center" />
                     </label>
                 </div>
 
@@ -302,7 +302,7 @@
 <br>
 <br>
 <br>
-<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-600px">
+<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-500px">
     <div class="wrap-contact100">
 
         <fieldset>

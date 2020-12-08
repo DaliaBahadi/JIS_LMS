@@ -1,0 +1,75 @@
+﻿@inherits LayoutComponentBase
+
+
+<div class="sidebar ">
+    <div class="top-row pl-4 navbar navbar-dark">
+        <a class="navbar-brand" href="">
+            <div class="media">
+                <img src="\Images\General\JISLOGO.jpg" alt="jis logo" width="150" height="150" class="rounded-circle" />
+            </div>
+        </a>
+
+        <button class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+
+        <ul class="nav flex-column">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Homepage
+                </NavLink>
+            </li>
+
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="teacher/LibraryMaterials" Match="NavLinkMatch.All">
+                    <span class="oi fas fa-book" aria-hidden="true"></span> My Library Materials
+                </NavLink>
+            </li>
+
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="schedule" Match="NavLinkMatch.All">
+                    <span class="oi far fa-calendar-alt" aria-hidden="true"></span> Schedule
+                </NavLink>
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<div class="main">
+
+
+    <div class="top-row px-4 auth container-fluid">
+        <h3 class="jisheading">JIS Library Management System </h3>
+
+
+
+        <a href="" target="_blank"><i style="color:black" class="far fa-user-circle fa-1x"></i>My Account</a>
+        <a href="/" target="_blank"><i style="color:black" class="fas fa-sign-out-alt fa-1x" /></a>
+        <a href="" target="_blank">Help</a>
+    </div>
+    <div class="content px-4">
+        <br>
+        @Body
+
+    </div>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

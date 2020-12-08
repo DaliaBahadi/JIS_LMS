@@ -4,16 +4,14 @@
 @using JIS_LMS.Data;
 @using JIS_LMS.Model
 @using Microsoft.AspNetCore.Components.Forms
-
-@inject ParentService ParentService
-
+@inject Library_MaterialService Library_MaterialService
 @inject LMSDbContext DbContext
 
-<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Search Patrons</h3>
+<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Search Library Materials</h3>
 
 
 
-@if (patrons == null)
+@if (matrials == null)
 {
     <p style="color:red">loading....</p>
 }
@@ -23,9 +21,9 @@ else
 {
     <div class="form-group">
 
-        <Select @onchange="patronChange">
-            <option value="">-- Select Patron Type --</option>
-            @foreach (var type in Enum.GetValues(typeof(PatronType)))
+        <Select @onchange="MaterialChange">
+            <option value="">Select Type</option>
+            @foreach (var type in Enum.GetValues(typeof(LibraryMaterialType)))
             {
 
 
@@ -34,94 +32,93 @@ else
         </Select>
     </div>
 
-    <div style="visibility:@Studentvisible;">
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
-                    AllowSorting="true" Data="@patronss" TItem="Patron" Value="@patron" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+    <div style="visibility:@Bookvisible;">
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
+                    AllowSorting="true" Data="@books" TItem="Book" Value="@book" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
             <Columns>
-                <RadzenGridColumn TItem="Patron" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.ImageFile" Title="Photo" Sortable="false" Filterable="false">
                     <Template Context="data">
-                        <RadzenImage Path="@data?.ImageFile" />
+                        <RadzenImage Path="@data?.LibraryMaterial.ImageFile" />
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="Patron" Property="FirstName" Title="First Name  " />
-                <RadzenGridColumn TItem="Parent" Property="MiddleName" Title="Middle Name" />
-                <RadzenGridColumn TItem="Patron" Property="LastName" Title="Last Name" />
-                <RadzenGridColumn TItem="Patron" Property="Student.StudentId" Title="StudentId" />
-                <RadzenGridColumn TItem="Patron" Property="Student.ClassYear" Title="Class Year" />
-                <RadzenGridColumn TItem="Patron" Property="Student.ClassName" Title="ClassName" />
-                <RadzenGridColumn TItem="Patron" Property="Student.HomeRoomTeacher" Title="HomeRoom Teacher" />
-                <RadzenGridColumn TItem="Patron" Property="Teacher.EmployeeId" Title="EmployeeId" />
-
-
-
-
-                <RadzenGridColumn TItem="Patron" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Title" Title="Title " />
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.AccessionNumber" Title="Accession Number" />
+                @*<RadzenGridColumn TItem="Book" Property="LibraryMaterial_Author.Author.FullName" Title="Author" />*@
+                <RadzenGridColumn TItem="Book" Property="ISBN" Title="ISBN" />
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.YearPublished" Title="Year Published" />
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Language" Title="Language" />
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Genre" Title="Genre" />
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Subject" Title="Subject" />
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Status" Title="Status" />
+                <RadzenGridColumn TItem="Book" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                     <Template Context="data">
-                        <a href="/Patron/Details/@data.PatronId">
+                        <a href="/Book/Details/@data.LibraryMaterialId">
                             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                         </a>
                     </Template>
-
-
-
                 </RadzenGridColumn>
-
-                <RadzenGridColumn TItem="Patron" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
-
-                    <Template Context="data">
-                        <a href="/Patron/Delete/@data.PatronId">
-                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
-                        </a>
-                    </Template>
-
-                </RadzenGridColumn>
-
-                
             </Columns>
         </RadzenGrid>
     </div>
 
-    <div style="visibility:@Teachervisible;">
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
-                    AllowSorting="true" Data="@patronss" TItem="Patron" Value="@patron" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+    <div style="visibility:@Journalvisible;margin-top:-80px">
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
+                    AllowSorting="true" Data="@journals" TItem="Journal" Value="@journal" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
             <Columns>
-                <RadzenGridColumn TItem="Patron" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
+                <RadzenGridColumn TItem="Journal" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
                     <Template Context="data">
-                        <RadzenImage Style="width:60px; height:80px" Path="@data?.ImageFile" />
+                        <RadzenImage Path="@data?.LibraryMaterial.ImageFile" />
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="Patron" Property="FirstName" Title="First Name  " />
-                <RadzenGridColumn TItem="Parent" Property="MiddleName" Title="Middle Name" />
-                <RadzenGridColumn TItem="Patron" Property="LastName" Title="Last Name" />
-                <RadzenGridColumn TItem="Patron" Property="Teacher.EmployeeId" Title="EmployeeId" />
-
-
-                <RadzenGridColumn TItem="Patron" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <RadzenGridColumn TItem="Journal" Property="Library_Material.Title" Title="Title " />
+                <RadzenGridColumn TItem="Journal" Property="Library_Material.AccessionNumber" Title="Accession Number" />
+                @*<RadzenGridColumn TItem="Journal" Property="LibraryMaterial_Author.Author.FullName" Title="Author" />*@
+                <RadzenGridColumn TItem="Journal" Property="ISSN" Title="ISSN" />
+                <RadzenGridColumn TItem="Journal" Property="Library_Material.YearPublished" Title="Year Published" />
+                <RadzenGridColumn TItem="Journal" Property="Library_Material.Language" Title="Language" />
+                <RadzenGridColumn TItem="Journal" Property="Library_Material.Genre" Title="Genre" />
+                <RadzenGridColumn TItem="Journal" Property="Library_Material.Subject" Title="Subject" />
+                <RadzenGridColumn TItem="Journal" Property="Library_Material.Status" Title="Status" />
+                <RadzenGridColumn TItem="Journal" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                     <Template Context="data">
-                        <a href="/Patron/Details/@data.PatronId">
+                        <a href="/Journal/Details/@data.LibraryMaterialId">
                             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                         </a>
                     </Template>
-
-
-
                 </RadzenGridColumn>
-
-                <RadzenGridColumn TItem="Patron" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
-
-                    <Template Context="data">
-                        <a href="/Patron/Delete/@data.PatronId">
-                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
-                        </a>
-                    </Template>
-
-                </RadzenGridColumn>
-
-
             </Columns>
         </RadzenGrid>
     </div>
-   
+
+    <div style="visibility:@CD_DVD_BR_visible;margin-top:-80px">
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
+                    AllowSorting="true" Data="@cD_DVD_BRs" TItem="CD_DVD_BR" Value="@cD_DVD_BR" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+            <Columns>
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
+                    <Template Context="data">
+                        <RadzenImage Path="@data?.LibraryMaterial.ImageFile" />
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Title" Title="Title " />
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.AccessionNumber" Title="Accession Number" />
+                @*<RadzenGridColumn TItem="CD_DVD_BR" Property="LibraryMaterial_Author.Author.FullName" Title="Author" />*@
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="ISBN" Title="ISBN" />
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.YearPublished" Title="Year Published" />
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Language" Title="Language" />
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Genre" Title="Genre" />
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Subject" Title="Subject" />
+                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Status" Title="Status" />
+                <RadzenGridColumn TItem="CD_DVD_BR" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="data">
+                        <a href="/CD_DVD_BR/Details/@data.LibraryMaterialId">
+                            <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                        </a>
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    </div>
+
 
 
 
@@ -133,54 +130,77 @@ else
 
 @code
 {
+    //library material code
+    IEnumerable<Library_Material> matrials;
+    RadzenGrid<Library_Material> matrialsGrid;
+    Library_Material catalog;
+    IQueryable<Library_Material> libraryMaterials;
 
-    IEnumerable<Patron> patrons;
+    //Book code
+    Book book;
+    IQueryable<Book> books;
 
-    RadzenGrid<Patron> patronsGrid;
+    //Journal code
+    Journal journal;
+    IQueryable<Journal> journals;
+
+    // CD/DVD/BR code
+    CD_DVD_BR cD_DVD_BR;
+    IQueryable<CD_DVD_BR> cD_DVD_BRs;
 
     LMSDbContext db = new LMSDbContext();
 
-    string patronType { get; set; }
-    string Teachervisible = "hidden";
-    string Studentvisible = "hidden";
+    string libraryMaterialType { get; set; }
+
+    string Bookvisible = "hidden";
+    string Journalvisible = "hidden";
+    string CD_DVD_BR_visible = "hidden";
 
     protected override void OnInitialized()
     {
-        patrons = DbContext.Patron.Include("Student").Include("Teacher").ToList();
+        matrials = DbContext.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR").ToList();
 
-        patronss = db.Patron
-       .Include("Student")
-       .Include("Teacher");
+        libraryMaterials = db.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR");
 
-        patron = patronss.FirstOrDefault();
+        books = db.Book.Include("Library_Material");
+
+        journals = db.Journal.Include("Library_Material");
+
+        cD_DVD_BRs = db.CD_DVD_BR.Include("Library_Material");
+
+        catalog = libraryMaterials.FirstOrDefault();
     }
 
-    //Method to change patron type
-    private void patronChange(ChangeEventArgs patronEvent)
+    //Method to change library matrial type
+    private void MaterialChange(ChangeEventArgs libraryMaterialEvent)
     {
-        patronType = (patronEvent.Value.ToString());
+        libraryMaterialType = (libraryMaterialEvent.Value.ToString());
 
-        if (patronType == "Student")
+        //Shows datagrid of only books
+        if (libraryMaterialType == "Book")
         {
-            Studentvisible = "visible";
-            Teachervisible = "hidden";
+            Bookvisible = "visible";
+            Journalvisible = "hidden";
+            CD_DVD_BR_visible = "hidden";
         }
 
-        else if (patronType == "Teacher")
+        //Shows datagrid of only journals
+        else if (libraryMaterialType == "Journal")
         {
-            Teachervisible = "visible";
-            Studentvisible = "hidden";
+            Journalvisible = "visible";
+            Bookvisible = "hidden";
+            CD_DVD_BR_visible = "hidden";
+        }
+
+        //Shows datagrid of only CD/DVD/BR
+        else if (libraryMaterialType == "CdDvdBr")
+        {
+            CD_DVD_BR_visible = "visible";
+            Journalvisible = "hidden";
+            Bookvisible = "hidden";
+
         }
 
     }
 }
 
-@code {
-    Patron patron;
-    IQueryable<Patron> patronss;
-
-
-
-
-
-}

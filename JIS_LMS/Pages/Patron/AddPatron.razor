@@ -307,7 +307,7 @@
 
                             <div class="mt-4"></div>
                             <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                            <a href="Parents" class="btn btn-outline-secondary">Cancel</a>
+                            <a href="Patrons" class="btn btn-outline-secondary">Cancel</a>
                         </EditForm>
                     </fieldset>
                 </div>
@@ -326,14 +326,6 @@
     private List<Patron> patrons = new List<Patron>();
 
 
-
-    //public string FullName
-    //{
-    //    get
-    //    {
-    //        return patron.FirstName + ", " + patron.MiddleName + ", " + patron.LastName;
-    //    }
-    //}
 
     // Execute when component starts / initializes
     protected override void OnInitialized()
@@ -356,8 +348,7 @@
         // To empty the form, find more elegant why
         patron = new Patron();
 
-        // May navigate to the Employees component
-        //NavigationManager.NavigateTo("/Patrons");
+       
     }
 }
 
@@ -375,7 +366,7 @@
         // To empty the form, find more elegant why
         student = new Student();
 
-        // May navigate to the Employees component
+        // May navigate to the Patron component
         NavigationManager.NavigateTo("/Patrons");
     }
 }
