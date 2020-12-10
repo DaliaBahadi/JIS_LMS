@@ -217,7 +217,7 @@
 
 <p>@studentMessage</p>
 
-<div class="container-fluid container-contact100" style="visibility:@Teachervisible;margin-top:-600px">
+<div class="container-fluid container-contact100" style="visibility:@Teachervisible;margin-top:-700px">
     <div class="wrap-contact100">
 
         <fieldset>
@@ -233,7 +233,7 @@
 
                 <div class="mt-4"></div>
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a href="Parents" class="btn btn-outline-secondary">Cancel</a>
+                <a href="/Patrons/Search" class="btn btn-outline-secondary">Cancel</a>
             </EditForm>
         </fieldset>
     </div>
@@ -242,28 +242,39 @@
 
 @code {
 
-    //code section to update infromation of both patron, student, and Teacher
+        //code section to update infromation of both patron, student, and Teacher
 
-    [Parameter]
-    public int Id { get; set; }
+        [Parameter]
+        public int Id { get; set; }
 
-    Patron patron = new Patron();
+        Patron patron = new Patron();
 
-    string message;
+        string message;
 
-    Student student = new Student();
+        Student student = new Student();
 
-    string studentMessage;
+        string studentMessage;
 
-    Teacher teacher = new Teacher();
+        Teacher teacher = new Teacher();
+
+        int typeOfPatron;
 
     protected override void OnInitialized()
     {
         patron = PatronService.GetPatron(Id);
 
-        student = StudentService.GetStudent(Id);
+        typeOfPatron = patron.PatronType;
 
-        teacher = TeacherService.GetTeacher(Id);
+
+        if (typeOfPatron == 1)
+        {
+            student = StudentService.GetStudent(Id);
+        }
+
+        else if (typeOfPatron == 2)
+        {
+            teacher = TeacherService.GetTeacher(Id);
+        }
 
     }
 

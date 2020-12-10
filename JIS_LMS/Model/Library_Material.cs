@@ -84,7 +84,6 @@ namespace JIS_LMS.Model
         public virtual ICollection<LibraryMaterial_Author> LibraryMaterial_Authors { get; set; }
     }
 }
-
 public enum LibraryMaterialLanguage
 {
     English = 1, Arabic, Frensh, Other
@@ -98,12 +97,12 @@ public enum LibraryMaterialStatus
 
 public enum RestrectionType
 {
-    TeachersTextbooks = 1 , References, Other
+    TeachersTextbooks = 1, References, Other
 }
 
 public enum LibraryMaterialType
 {
-    Book = 1, Journal = 2, CdDvdBr 
+    Book = 1, Journal = 2, CdDvdBr
 
 }
 

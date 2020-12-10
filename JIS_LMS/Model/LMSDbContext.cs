@@ -32,7 +32,7 @@ namespace JIS_LMS.Model
         public virtual DbSet<List_Borrowing> List_Borrowing { get; set; }
         public virtual DbSet<List_Donor> List_Donor { get; set; }
         public virtual DbSet<List_Hold> List_Hold { get; set; }
-        public virtual DbSet<List_Library> List_Librarie { get; set; }
+        public virtual DbSet<List_Library> List_Library { get; set; }
         public virtual DbSet<List_Parent> List_Parent { get; set; }
         public virtual DbSet<List_Student> List_Student { get; set; }
         public virtual DbSet<List_Teacher> List_Teacher { get; set; }
@@ -59,7 +59,7 @@ namespace JIS_LMS.Model
         {
             modelBuilder.Entity<Book>(entity =>
             {
-                entity.Property(e => e.LibraryMaterialId).ValueGeneratedOnAdd();
+                entity.Property(e => e.LibraryMaterialId).ValueGeneratedNever();
 
                 entity.Property(e => e.BookType).HasDefaultValueSql("((1))");
 
@@ -87,7 +87,7 @@ namespace JIS_LMS.Model
 
             modelBuilder.Entity<CD_DVD_BR>(entity =>
             {
-                entity.Property(e => e.LibraryMaterialId).ValueGeneratedOnAdd();
+                entity.Property(e => e.LibraryMaterialId).ValueGeneratedNever();
 
                 entity.Property(e => e.Type).HasDefaultValueSql("((1))");
 
@@ -120,7 +120,7 @@ namespace JIS_LMS.Model
 
             modelBuilder.Entity<Journal>(entity =>
             {
-                entity.Property(e => e.LibraryMaterialId).ValueGeneratedOnAdd();
+                entity.Property(e => e.LibraryMaterialId).ValueGeneratedNever();
 
                 entity.Property(e => e.JournalType).HasDefaultValueSql("((1))");
 

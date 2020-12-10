@@ -95,6 +95,12 @@ namespace JIS_LMS
             //Hold Service
             services.AddScoped<HoldService>();
 
+            //shared Service
+            services.AddScoped<SharedVariablesService>();
+
+            //LibraryMaterial_Author Service
+            services.AddScoped<LibraryMaterilaAuthorService>();
+
             //Dialog Service
             //services.AddScoped<DialogService>();
 

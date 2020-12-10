@@ -39,7 +39,7 @@ namespace JIS_LMS.Model
         [InverseProperty(nameof(Student_Parent.Patron))]
         public virtual ICollection<Student_Parent> Student_Parents { get; set; }
 
-       
+
     }
 }
 

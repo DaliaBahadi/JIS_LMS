@@ -53,12 +53,12 @@
                 </div>
                 <br>
 
-                @*<div class="form-group">
+                <div class="form-group">
                         <label for="author">*Authors:</label>
                         <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value="@multipleValues" Data=@materialAuthor Multiple="true"
                                        TextProperty="FullName" ValueProperty="AuthorId" Change=@(args => AuthorOnChange(args, "ListBox with multiple selection")) Style="height:200px" />
                         <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
-                    </div>*@
+                    </div>
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center" for="publisher">
@@ -256,7 +256,7 @@
 <br />
 <p>@BookMessage</p>
 
-<div class="container-fluid container-contact100" style="visibility:@Journalvisible;margin-top:-600px">
+<div class="container-fluid container-contact100" style="visibility:@Journalvisible;margin-top:-670px">
     <div class="wrap-contact100">
 
         <fieldset>
@@ -310,7 +310,7 @@
 <p>@JournalMessage</p>
 
 
-<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-600px">
+<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-720px">
     <div class="wrap-contact100">
 
         <fieldset>
@@ -380,7 +380,7 @@
 
     [Parameter]
     public int Id { get; set; }
-    int materialType;
+
 
 
     Library_Material catalog = new Library_Material();
@@ -388,27 +388,27 @@
     private List<Library_Material> library_Materials = new List<Library_Material>();
 
 
-
+    int materialType;
     string message;
 
     protected override void OnInitialized()
     {
 
         catalog = Library_MaterialService.GetLibraryMaterial(Id);
-        //library_Materials = db.Library_Material.Where(c => c.LibraryMaterialType == materialType);
 
+        materialType = catalog.LibraryMaterialType;
 
         if (materialType == 1)
         {
             book = BookService.GetBook(Id);
         }
 
-        else if ( libraryMaterialType == "Journal")
+        else if (materialType == 2)
         {
             journal = JournalService.GetJournal(Id);
         }
 
-        else if (libraryMaterialType == "CdDvdBr")
+        else if (materialType == 3)
         {
             cD_DVD_BR = CD_DVD_BR_Service.GetCD_DVD_BR(Id);
 

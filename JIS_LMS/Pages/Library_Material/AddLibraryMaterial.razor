@@ -7,6 +7,8 @@
 @inject CD_DVD_BR_Service CD_DVD_BR_Service
 @inject BookService BookService
 @inject JournalService JournalService
+@inject LibraryMaterilaAuthorService AuthorService
+@inject Services.SharedVariablesService SharedVariables
 @inject NavigationManager NavigationManager
 @inject LMSDbContext DbContext
 
@@ -55,22 +57,22 @@
                 <br>
 
                 @*<div class="form-group">
-                    <label for="author">*Authors:</label>
-                    <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value="@multipleValues" Data=@materialAuthor Multiple="true"
-                                   TextProperty="FullName" ValueProperty="AuthorId" Change=@(args => AuthorOnChange(args, "ListBox with multiple selection")) Style="height:200px" />
-                    <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
-                </div>*@
-
-                <div class="form-group">
-                    <label style="display: flex; align-items: center" for="publisher">
-                        <span style="margin-right: 32px">*Author/s: </span>
-                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Authors"
-                                        LoadData="@AuthorLoadData" AllowFiltering="true"
-                                        Data="@materialAuthor" TextProperty="FullName" ValueProperty="AuthorId" Style="margin-bottom: 7px" @bind-Value="author.AuthorId"
-                                        Change="@(args => AuthorOnChange(args, "DropDown with custom filtering"))" />
+                        <label for="author">*Authors:</label>
+                        <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value="@multipleValues" Data=@materialAuthor Multiple="true"
+                                       TextProperty="FullName" ValueProperty="AuthorId" Change=@(args => AuthorOnChange(args, "ListBox with multiple selection")) Style="height:200px" />
                         <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
-                    </label>
-                </div>
+                    </div>*@
+
+                @*<div class="form-group">
+                        <label style="display: flex; align-items: center" for="publisher">
+                            <span style="margin-right: 32px">*Author/s: </span>
+                            <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Authors"
+                                            LoadData="@AuthorLoadData" AllowFiltering="true"
+                                            Data="@materialAuthor" TextProperty="FullName" ValueProperty="AuthorId" Style="margin-bottom: 7px" @bind-Value="@authorId"
+                                            Change="@(args => AuthorOnChange(args, "DropDown with custom filtering"))" />
+                            <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
+                        </label>
+                    </div>*@
 
                 <div class="form-group">
                     <label for="Pages-Number">Number Of Pages:</label>
@@ -85,7 +87,7 @@
 
                 <div class="form-group">
                     <label for="cost-price">Cost Price:</label>
-                    <SfNumericTextBox TValue="decimal?" @bind-Value="catalog.CostPrice" ></SfNumericTextBox>
+                    <SfNumericTextBox TValue="decimal?" @bind-Value="catalog.CostPrice"></SfNumericTextBox>
                 </div>
 
                 <div class="form-group">
@@ -203,6 +205,46 @@
     </div>
 </div>
 
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <legend>Author</legend>
+            <EditForm Model="author" OnValidSubmit="LibraryMaterialAuthor">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Library Material:</span>
+                        <label style="background-color:red;"> @SharedVariables.AuthorMaterialId </label>
+                    </label>
+
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center" for="publisher">
+                        <span style="margin-right: 32px">*Author: </span>
+                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Authors"
+                                        LoadData="@AuthorLoadData" AllowFiltering="true"
+                                        Data="@materialAuthor" TextProperty="FullName" ValueProperty="AuthorId" Style="margin-bottom: 7px" @bind-Value="@authorId"
+                                        Change="@(args => AuthorOnChange(args, "DropDown with custom filtering"))" />
+                        <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
+                    </label>
+                </div>
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 220px;">Add Another Author</button>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
 <div class="container-fluid container-contact100" style="visibility:@Bookvisible;">
     <div class="wrap-contact100">
 
@@ -215,11 +257,14 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int"
-                                        LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="book.LibraryMaterialId"
-                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
+                        @*<RadzenDropDown AllowClear="true" TValue="int"
+                            LoadData="@MaterialLoadData" AllowFiltering="true"
+                            Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="book.LibraryMaterialId"
+                            Change="@(args => MaterialChange(args, "library Material DropDown "))" />*@
+                        <label style="background-color:red;"> @SharedVariables.BookId </label>
                     </label>
+
+
                 </div>
 
 
@@ -302,7 +347,7 @@
 <br>
 <br>
 <br>
-<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-500px">
+<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-800px">
     <div class="wrap-contact100">
 
         <fieldset>
@@ -372,7 +417,7 @@
 @code {
     Library_Material catalog = new Library_Material();
 
-    LibraryMaterial_Author author = new LibraryMaterial_Author();
+
 
     private List<Library_Material> library_Materials = new List<Library_Material>();
 
@@ -403,6 +448,29 @@
 }
 
 @code {
+
+    LibraryMaterial_Author author = new LibraryMaterial_Author();
+    private List<Book> authors = new List<Book>();
+
+
+    private void LibraryMaterialAuthor()
+    {
+        //get the library material id and binding it with the book
+        SharedVariables.AuthorMaterialId = db.Library_Material.Last().LibraryMaterialId;
+
+        author.LibraryMaterialId = SharedVariables.AuthorMaterialId;
+
+        AuthorService.AddNewLibraryMaterialAuthor(author);
+
+        // To empty the form, find more elegant why
+        author = new LibraryMaterial_Author();
+
+     
+    }
+}
+
+
+@code {
     Book book = new Book();
 
     private List<Book> books = new List<Book>();
@@ -410,6 +478,10 @@
 
     private void CreateBook()
     {
+        //get the library material id and binding it with the book
+        SharedVariables.BookId = db.Library_Material.Last().LibraryMaterialId;
+
+        book.LibraryMaterialId = SharedVariables.BookId;
 
         BookService.AddNewBook(book);
 
@@ -419,6 +491,15 @@
         // May navigate to the Catalog component
         NavigationManager.NavigateTo("/Catalog");
     }
+
+
+
+    //public void GetLibraryMaterialId()
+    //{
+    //    bookId = catalog.LibraryMaterialId;
+
+    //    //author.LibraryMaterialId = db.LibraryMaterial_Author.LastOrDefault().LibraryMaterialId;
+    //}
 }
 
 @code {
@@ -443,17 +524,11 @@
 @code {
     CD_DVD_BR cD_DVD_BR = new CD_DVD_BR();
 
-
-
     private List<CD_DVD_BR> cDs_DVDs_BRs = new List<CD_DVD_BR>();
-
-
 
 
     private void CreateCD_DVD_BR()
     {
-
-
         CD_DVD_BR_Service.AddNewCD_DVD_BR(cD_DVD_BR);
 
         // To empty the form, find more elegant why
@@ -516,6 +591,7 @@
     }
 
 }
+
 
 
 @code{
@@ -582,7 +658,18 @@
 
     //Author List box Methods
 
+    int authorId;
+
     IEnumerable<Author> materialAuthor;
+
+
+
+    public void SetMaterialAuthor()
+    {
+        author.AuthorId = authorId;
+
+        //author.LibraryMaterialId = db.LibraryMaterial_Author.LastOrDefault().LibraryMaterialId;
+    }
 
     void AuthorOnChange(object value, string name)
     {

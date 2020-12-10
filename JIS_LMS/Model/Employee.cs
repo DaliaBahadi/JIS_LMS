@@ -27,7 +27,6 @@ namespace JIS_LMS.Model
         [Required]
         [StringLength(30)]
         public string LastName { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
         [Required]
@@ -52,6 +51,7 @@ namespace JIS_LMS.Model
         public virtual ICollection<Library> Libraries { get; set; }
         [InverseProperty(nameof(Notification.Librarian))]
         public virtual ICollection<Notification> Notifications { get; set; }
+
 
         public string FullName
         {

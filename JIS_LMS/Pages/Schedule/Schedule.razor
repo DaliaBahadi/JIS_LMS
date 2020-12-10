@@ -1,10 +1,10 @@
 ﻿@page "/Schedule"
-@using JIS_LMS.Data;
+@*@using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @layout SystemAdminLayout
 @inject DialogService DialogService
 
-@*<RadzenExample Name="Scheduler" AdditionalSourceCodePages=@(new List<string>() { "AddAppointmentPage.razor", "EditAppointmentPage.razor" })>*@
+<RadzenExample Name="Scheduler" AdditionalSourceCodePages=@(new List<string>() { "AddAppointmentPage.razor", "EditAppointmentPage.razor" })>
     <div class="row">
         <div class="col-xl-6">
             <RadzenScheduler @ref=@scheduler style="height: 768px;" TItem="Time_Slot" Data=@appointments StartProperty="Start" EndProperty="End"
@@ -25,7 +25,7 @@
 
         Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
 
-        IList<Time_Slot> appointments = new List<Time_Slot>{
+        IList<Time_Slot> appointments = new List<Time_Slot>{*@
             //new Time_Slot { StartTime = DateTime.Today.AddDays(-2), End = DateTime.Today.AddDays(-2), Text = "Birthday" },
             //new Time_Slot { Start = DateTime.Today.AddDays(-11), End = DateTime.Today.AddDays(-10), Text = "Day off" },
             //new Time_Slot { Start = DateTime.Today.AddDays(-10), End = DateTime.Today.AddDays(-8), Text = "Work from home" },
@@ -33,7 +33,7 @@
             //new Time_Slot { Start = DateTime.Today.AddHours(10), End = DateTime.Today.AddHours(13), Text = "Skype call" },
             //new Time_Slot { Start = DateTime.Today.AddHours(14), End = DateTime.Today.AddHours(14).AddMinutes(30), Text = "Dentist appointment" },
             //new Time_Slot { Start = DateTime.Today.AddDays(1), End = DateTime.Today.AddDays(12), Text = "Vacation" },
-        };
+        @*};
 
         async Task OnSlotSelect(SchedulerSlotSelectEventArgs args)
         {
@@ -69,4 +69,4 @@
             //}
         }
 
-    }
+    }*@

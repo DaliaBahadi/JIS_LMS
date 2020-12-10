@@ -1,4 +1,4 @@
-﻿@page "/Material/Search"
+﻿@*@page "/Material/Search"
 @layout SystemAdminLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
@@ -42,9 +42,9 @@ else
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Title" Title="Title " />
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.AccessionNumber" Title="Accession Number" />
+                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.AccessionNumber" Title="Accession Number" />*@
                 @*<RadzenGridColumn TItem="Book" Property="LibraryMaterial_Author.Author.FullName" Title="Author" />*@
-                <RadzenGridColumn TItem="Book" Property="ISBN" Title="ISBN" />
+                @*<RadzenGridColumn TItem="Book" Property="ISBN" Title="ISBN" />
                 <RadzenGridColumn TItem="Book" Property="LibraryMaterial.YearPublished" Title="Year Published" />
                 <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Language" Title="Language" />
                 <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Genre" Title="Genre" />
@@ -70,7 +70,7 @@ else
 
             </Columns>
         </RadzenGrid>
-    </div>
+    </div>*@
 
     @*<div style="visibility:@Teachervisible;margin-top:-210px">
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
@@ -153,7 +153,7 @@ else
 
 
 
-@code
+@*@code
 {
 
     IEnumerable<Library_Material> materials;
@@ -214,4 +214,4 @@ else
     IQueryable<Teacher> teachers;
 
 
-}
+}*@
