@@ -95,6 +95,9 @@ namespace JIS_LMS
             //Hold Service
             services.AddScoped<HoldService>();
 
+            //Dialog Service
+            //services.AddScoped<DialogService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

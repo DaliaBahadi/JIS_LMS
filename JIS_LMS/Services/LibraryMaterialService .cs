@@ -27,7 +27,7 @@ namespace JIS_LMS.Services
 
         {
 
-            return db.Library_Material.ToList();
+            return db.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR").Include("Publisher").Include("Library").Include("Donor").Include("LibraryMaterial_Authors").ToList();
         }
 
         /// <summary>

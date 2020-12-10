@@ -1,0 +1,77 @@
+﻿@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@layout SystemAdminLayout
+@inject DialogService DialogService
+
+<RadzenTemplateForm TItem="Time_Slot" Data="@model" Submit=@OnSubmit>
+
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="*Start Time:" />
+        </div>
+        <div class="col">
+            <RadzenDatePicker @bind-Value="@model.StartTime" Name="Start" ShowTime="true" />
+            <RadzenRequiredValidator Text="Start is required" Component="Start" />
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="*End Time:" />
+        </div>
+        <div class="col">
+            <RadzenDatePicker Name="End" @bind-Value="@model.EndTime" ShowTime="true" />
+            <RadzenRequiredValidator Component="End" Text="End is required" />
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="*Class Name:" />
+        </div>
+        <div class="col">
+            <RadzenTextBox @bind-Value="@model.Schedule.ClassName" Name="Class Name" />
+            <RadzenRequiredValidator Text="Class Name is required" Component="Text" />
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 16px">
+        <div class="col-md-3">
+            <RadzenLabel Text="*Class Year:" />
+        </div>
+        <div class="col">
+            <RadzenTextBox @bind-Value="@model.Schedule.ClassYear" Name="Class Year" />
+            <RadzenRequiredValidator Text="Class Year is required" Component="Text" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col">
+            <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Secondary" Text="Save" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col">
+            <RadzenButton ButtonType="ButtonType.Button" ButtonStyle="ButtonStyle.Light" Text="Cancel" />
+        </div>
+    </div>
+</RadzenTemplateForm>
+
+@code 
+{
+    [Parameter]
+    public Time_Slot Appointment { get; set; }
+
+    Time_Slot model = new Time_Slot();
+
+    protected override void OnParametersSet()
+    {
+        model = Appointment;
+    }
+
+    void OnSubmit(Time_Slot model)
+    {
+        DialogService.Close(model);
+    }
+
+}
