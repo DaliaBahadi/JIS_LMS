@@ -56,23 +56,6 @@
                 </div>
                 <br>
 
-                @*<div class="form-group">
-                        <label for="author">*Authors:</label>
-                        <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value="@multipleValues" Data=@materialAuthor Multiple="true"
-                                       TextProperty="FullName" ValueProperty="AuthorId" Change=@(args => AuthorOnChange(args, "ListBox with multiple selection")) Style="height:200px" />
-                        <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
-                    </div>*@
-
-                @*<div class="form-group">
-                        <label style="display: flex; align-items: center" for="publisher">
-                            <span style="margin-right: 32px">*Author/s: </span>
-                            <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Authors"
-                                            LoadData="@AuthorLoadData" AllowFiltering="true"
-                                            Data="@materialAuthor" TextProperty="FullName" ValueProperty="AuthorId" Style="margin-bottom: 7px" @bind-Value="@authorId"
-                                            Change="@(args => AuthorOnChange(args, "DropDown with custom filtering"))" />
-                            <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
-                        </label>
-                    </div>*@
 
                 <div class="form-group">
                     <label for="Pages-Number">Number Of Pages:</label>
@@ -210,24 +193,24 @@
 
         <fieldset>
             <legend>Author</legend>
-            <EditForm Model="author" OnValidSubmit="LibraryMaterialAuthor">
+            <EditForm Model="author" OnValidSubmit="CreateLibraryMaterialAuthor">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
-
-                <div class="form-group">
+                 @*delete later*@
+                @*<div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Library Material:</span>
-                        <label style="background-color:red;"> @SharedVariables.AuthorMaterialId </label>
+                        <label style="background-color:red;"> @SharedVariables.GetLibraryMaterialId </label>
                     </label>
 
-                </div>
+                </div>*@
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center" for="publisher">
                         <span style="margin-right: 32px">*Author: </span>
                         <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Authors"
                                         LoadData="@AuthorLoadData" AllowFiltering="true"
-                                        Data="@materialAuthor" TextProperty="FullName" ValueProperty="AuthorId" Style="margin-bottom: 7px" @bind-Value="@authorId"
+                                        Data="@materialAuthor" TextProperty="FullName" ValueProperty="AuthorId" Style="margin-bottom: 7px" @bind-Value="author.AuthorId"
                                         Change="@(args => AuthorOnChange(args, "DropDown with custom filtering"))" />
                         <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
                     </label>
@@ -254,14 +237,11 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
+                @*delete later*@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Library Material:</span>
-                        @*<RadzenDropDown AllowClear="true" TValue="int"
-                            LoadData="@MaterialLoadData" AllowFiltering="true"
-                            Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="book.LibraryMaterialId"
-                            Change="@(args => MaterialChange(args, "library Material DropDown "))" />*@
-                        <label style="background-color:red;"> @SharedVariables.BookId </label>
+                        <label style="background-color:red;"> @SharedVariables.GetLibraryMaterialId </label>
                     </label>
 
 
@@ -306,15 +286,6 @@
                 <ValidationSummary />
 
                 <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="journal.LibraryMaterialId"
-                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
-                    </label>
-                </div>
-
-                <div class="form-group">
                     <label for="ISSN">*ISSN:</label>
                     <InputText id="ISSN" @bind-Value="journal.ISSN" class="form-control" placeholder="0000-0000" />
                 </div>
@@ -356,14 +327,6 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
-                <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="cD_DVD_BR.LibraryMaterialId"
-                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
-                    </label>
-                </div>
 
                 <div class="form-group">
                     <label for="ISBN">*ISBN:</label>
@@ -431,6 +394,8 @@
         journals = JournalService.GetJournals();
         cDs_DVDs_BRs = CD_DVD_BR_Service.GetCDs_DVDs_BRs();
 
+       
+
     }
 
 
@@ -443,6 +408,9 @@
         // To empty the form
         catalog = new Library_Material();
 
+        //Geeting library maerial Id 
+        GetLibraryMaterialId();
+
 
     }
 }
@@ -453,19 +421,27 @@
     private List<Book> authors = new List<Book>();
 
 
-    private void LibraryMaterialAuthor()
+    private void CreateLibraryMaterialAuthor()
     {
-        //get the library material id and binding it with the book
-        SharedVariables.AuthorMaterialId = db.Library_Material.Last().LibraryMaterialId;
+        author.LibraryMaterialId = SharedVariables.GetLibraryMaterialId;
 
-        author.LibraryMaterialId = SharedVariables.AuthorMaterialId;
-
+        //Adding Library Material
         AuthorService.AddNewLibraryMaterialAuthor(author);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         author = new LibraryMaterial_Author();
 
-     
+        
+
+    }
+
+
+    private void GetLibraryMaterialId()
+    {
+        //get the library material id and binding it with the book
+        SharedVariables.GetLibraryMaterialId = db.Library_Material.OrderBy(d => d.LibraryMaterialId).LastOrDefault().LibraryMaterialId;
+       
+
     }
 }
 
@@ -479,10 +455,11 @@
     private void CreateBook()
     {
         //get the library material id and binding it with the book
-        SharedVariables.BookId = db.Library_Material.Last().LibraryMaterialId;
+        //SharedVariables.BookId = db.Library_Material.Last().LibraryMaterialId;
 
-        book.LibraryMaterialId = SharedVariables.BookId;
+        book.LibraryMaterialId = SharedVariables.GetLibraryMaterialId;
 
+        //Add Book
         BookService.AddNewBook(book);
 
         // To empty the form, find more elegant why
@@ -492,14 +469,6 @@
         NavigationManager.NavigateTo("/Catalog");
     }
 
-
-
-    //public void GetLibraryMaterialId()
-    //{
-    //    bookId = catalog.LibraryMaterialId;
-
-    //    //author.LibraryMaterialId = db.LibraryMaterial_Author.LastOrDefault().LibraryMaterialId;
-    //}
 }
 
 @code {
@@ -510,7 +479,12 @@
 
     private void CreateJournal()
     {
+        // get the library material id and binding it with the Jouranl
+        //SharedVariables.JournalId = db.Library_Material.Last().LibraryMaterialId;
 
+        journal.LibraryMaterialId = SharedVariables.GetLibraryMaterialId;
+
+        //Add Journal
         JournalService.AddNewJournal(journal);
 
         // To empty the form, find more elegant why
@@ -529,6 +503,12 @@
 
     private void CreateCD_DVD_BR()
     {
+        // get the library material id and binding it with the Jouranl
+        //SharedVariables.CD_DVD_BR_Id = db.Library_Material.Last().LibraryMaterialId;
+
+        cD_DVD_BR.LibraryMaterialId = SharedVariables.GetLibraryMaterialId;
+
+        //Add CD/DVD/BR
         CD_DVD_BR_Service.AddNewCD_DVD_BR(cD_DVD_BR);
 
         // To empty the form, find more elegant why
@@ -616,12 +596,6 @@
     {
         var query = DbContext.Donor.AsQueryable();
 
-
-        //if (!string.IsNullOrEmpty(args.Filter))
-        //{
-        //    //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        //}
-
         materialDonor = query.ToList();
 
         InvokeAsync(StateHasChanged);
@@ -644,11 +618,6 @@
     {
         var query = DbContext.Library.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         materialLibrary = query.ToList();
 
@@ -684,12 +653,6 @@
     {
         var query = DbContext.Author.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
-
         materialAuthor = query.ToList();
 
         InvokeAsync(StateHasChanged);
@@ -718,11 +681,6 @@
         var query = DbContext.Publisher.AsQueryable();
 
 
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
-
         materialPublisher = query.ToList();
 
         InvokeAsync(StateHasChanged);
@@ -744,12 +702,6 @@
     void MaterialLoadData(LoadDataArgs args)
     {
         var query = DbContext.Library_Material.AsQueryable();
-
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         libraryMaterialList = query.ToList();
 

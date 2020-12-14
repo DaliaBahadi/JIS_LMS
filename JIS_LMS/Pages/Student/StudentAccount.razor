@@ -1,0 +1,284 @@
+﻿@page  "/Student/Account/{Id:int}"
+@layout StudentLayout
+@inject NavigationManager NavigationManager
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject PatronService PatronService
+@inject StudentService StudentService
+@inject SharedVariablesService VariablesService
+@inject LMSDbContext DbContext
+
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>My Account</h3>
+
+
+        <fieldset>
+
+            <EditForm Model="patron" OnValidSubmit="UpdatePatron">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="first-name">*First Name:</label>
+                    <InputText id="first-name" @bind-Value="patron.FirstName" class="form-control" placeholder="Enter Patron Fisrt Name" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="middle-name">Middle Name:</label>
+                    <InputText id="middle-name" @bind-Value="patron.MiddleName" class="form-control" placeholder="Enter Patron Middle Name" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">*Last Name:</label>
+                    <InputText id="last-name" @bind-Value="patron.LastName" class="form-control" placeholder="Enter Patron Last Name" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="student-id">*Student Id:</label>
+                    <InputNumber id="student-id" @bind-Value="patron.Student.StudentId" class="form-control" placeholder="Enter Student school Id" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="year">*Class Year:</label>
+                    <InputText id="year" @bind-Value="patron.Student.ClassYear" class="form-control" placeholder="Enter Student's Class Year" disabled/>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="class-name">*Class Name:</label>
+                    <InputText id="class-name" @bind-Value="patron.Student.ClassName" class="form-control" placeholder="Enter Student's Class Name"disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="home-room-teacher">*Home Room Teacher:</label>
+                    <InputText id="home-room-teacher" @bind-Value="patron.Student.HomeRoomTeacher" class="form-control" placeholder="Enter Student's Home Room Teacher" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Age Level:</span>
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="patron.Student.AgeLevel" disabled />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Gender:</span>
+                        <RadzenDropDown Data="@gender" @bind-Value="patron.Gender" disabled />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">*Date Of Birth:</label>
+                    <InputDate id="date" @bind-Value="patron.DateOfBirth" class="form-control" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="Primary Contact Number">*Primary Contact Number:</label>
+                    <InputText id="Primary Contact Number" @bind-Value="patron.PrimaryContactNumber" class="form-control" placeholder="0500000000" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="Secondary Contact Number">Secondary Contact Number:</label>
+                    <InputText id="Secondary Contact Number" @bind-Value="patron.SecondaryContactNumber" class="form-control" placeholder="0500000000" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label">*Primary Email: </label>
+                    <InputText type="email" id="email" @bind-Value="patron.PrimaryEmail" class="form-control" placeholder="sam@example.com" disabled />
+                    <ValidationMessage For="@(() => patron.PrimaryEmail)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label">Secondary Email: </label>
+                    <InputText type="email" id="email" @bind-Value="patron.SecondaryEmail" class="form-control" placeholder="sam@example.com" disabled />
+                    <ValidationMessage For="@(() => patron.SecondaryEmail)" />
+                </div>
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Language:</span>
+                        <RadzenDropDown Data="@language" @bind-Value="patron.Language" Style="align-items:center" disabled />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Section:</span>
+                        <RadzenDropDown Data="@patronSection" @bind-Value="patron.Section" Style="align-items:center" Disabled="true" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Status:</span>
+                        <RadzenDropDown Data="@status" @bind-Value="patron.Status" Style="align-items:center" disabled />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="registration-date">*Registration Date:</label>
+                    <InputDate id="date" @bind-Value="patron.RegistrationDate" class="form-control" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="username">*Username:</label>
+                    <InputText id="username" @bind-Value="patron.UserName" class="form-control" placeholder="Enter Username" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">*Password:</label>
+                    <InputText type="password" id="password" @bind-Value="patron.Password" class="form-control" placeholder="Enter Password" disabled="@isDisable" />
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary" @onclick="@onDisable" style="visibility:@EditButtonVisible; width: 80px;">Edit</button>
+                <button type="submit" class="btn btn-outline-primary" style="visibility:@SaveButtonVisible; width: 80px;">Save</button>
+                <a href="/Student/Homepage" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+<br />
+
+
+
+@code {
+
+    //code section to update infromation of both patron, student
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected bool isDisable { get; set; } = true;
+    string EditButtonVisible = "visible";
+    string SaveButtonVisible = "hidden";
+
+    //edit passowrd when clicking edit button to enable editing
+    private void onDisable()
+    {
+        this.isDisable = false;
+
+        EditButtonVisible = "hidden";
+
+        SaveButtonVisible = "visible";
+
+
+    }
+
+
+    Patron patron = new Patron();
+    List<Patron> patrons = new List<Patron>();
+
+
+
+    Student student = new Student();
+
+
+    protected override void OnInitialized()
+    {
+        patrons = PatronService.GetPatrons();
+
+        Id = VariablesService.GetPatronId;
+
+        patron = PatronService.GetPatron(Id);
+
+        student = StudentService.GetStudent(Id);
+
+
+    }
+
+
+    //Method to update patron information
+    public void UpdatePatron()
+    {
+
+        // Edit Patron
+        PatronService.EditPatron(patron);
+
+        
+
+    }
+
+
+    
+}
+
+@code{
+
+    //Code Section for DropDown Lists
+
+    //Address Drop Down List Methods
+
+    IEnumerable<Address> patronAddress;
+
+    void Change(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        //events.Add(DateTime.Now, $"{name} value changed to {str}");
+        StateHasChanged();
+    }
+
+    void LoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Address.AsQueryable();
+
+
+        patronAddress = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    //Library Drop Down List Methods
+
+    IEnumerable<Library> patronLibrary;
+
+    void LibraryChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        StateHasChanged();
+    }
+
+    void LibraryLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Library.AsQueryable();
+
+        patronLibrary = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    //Code for gender drop down list
+    IEnumerable<PatronGender> gender = Enum.GetValues(typeof(PatronGender)).Cast<PatronGender>();
+
+    //Code for language drop down list
+    IEnumerable<PatronLanguage> language = Enum.GetValues(typeof(PatronLanguage)).Cast<PatronLanguage>();
+
+
+    //Code for employee type drop down list
+    IEnumerable<PatronType> type = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+
+    //Code for section drop down list
+    IEnumerable<PatronSection> patronSection = Enum.GetValues(typeof(PatronSection)).Cast<PatronSection>();
+
+    //Code for status drop down list
+    IEnumerable<PatronStatus> status = Enum.GetValues(typeof(PatronStatus)).Cast<PatronStatus>();
+
+    //Code for type drop down list
+    IEnumerable<PatronType> typePatron = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+
+
+    //Code for age level drop down list
+    IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
+
+
+}
+

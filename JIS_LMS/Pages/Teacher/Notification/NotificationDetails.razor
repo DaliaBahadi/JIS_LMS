@@ -1,0 +1,51 @@
+﻿@page "/Teacher/Notification/Details/{Id:int}"
+@layout TeacherLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject Services.NotificationService NotificationService
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Notification Details</h3>
+
+            <table class="table table-hover">
+
+                <tr>
+                    <td>Notification Date & time: </td>
+                    <td>@notification.NotificationDateTime</td>
+                </tr>
+
+                <tr>
+                    <td>Notification Type: </td>
+                    <td>@notification.NotificationType</td>
+                </tr>
+
+                <tr>
+                    <td>Message Content:</td>
+                    <td>@notification.MessageContent</td>
+                </tr>
+
+            </table>
+
+
+            <a href="/Teacher/Notifications" class="btn btn-outline-secondary" role="button">Back</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    Notification notification = new Notification();
+    List<Notification> notifications = new List<Notification>();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        notification = NotificationService.GetNotification(Id);
+    }
+}

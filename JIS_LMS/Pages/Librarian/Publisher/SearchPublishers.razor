@@ -1,0 +1,57 @@
+﻿@page "/Librarian/Publishers/Search"
+@layout LibrarianLayout
+@using Microsoft.EntityFrameworkCore
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@using Microsoft.AspNetCore.Components.Forms
+@inject PublisherService PublisherService
+@inject LMSDbContext DbContext
+
+<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Search Publishers</h3>
+
+@if (publishers == null)
+{
+    <p style="color:red">loading....</p>
+}
+else
+{
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
+                AllowSorting="true" Data="@publishers" TItem="Publisher" ColumnWidth="100px" Style=" font-family:'Courier New';font-weight:bolder">
+        <Columns>
+
+            <RadzenGridColumn TItem="Publisher" Property="Name" Title="Name" />
+            <RadzenGridColumn TItem="Publisher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="7px">
+                <Template Context="data">
+                    <a href="/Librarian/Publisher/Details/@data.PublisherId">
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                    </a>
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Publisher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="7px">
+                <Template Context="data">
+                    <a href="/Librarian/Publisher/Delete/@data.PublisherId">
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
+                    </a>
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+
+}
+
+
+@code
+        {
+
+
+    IEnumerable<Publisher> publishers;
+
+    RadzenGrid<Publisher> PublishersGrid;
+
+    protected override void OnInitialized()
+    {
+        publishers = DbContext.Publisher;
+    }
+
+
+}

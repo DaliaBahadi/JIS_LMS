@@ -1,8 +1,8 @@
 ﻿@page "/Employees/Login"
-
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject SharedVariablesService VariablesService
 
 
 
@@ -70,12 +70,9 @@
     LMSDbContext db = new LMSDbContext();
 
 
-
     private List<Model.Employee> employeeList;
     private List<Model.Patron> patronList;
     private List<Teacher> TeacherList;
-
-
 
 
     int patronid;
@@ -86,9 +83,7 @@
     int employeetype;
     string message;
     bool found = false;
-    string teacherName;
-    string librarianName;
-    string systemAdminName;
+    
 
     protected void loginButtonClicked()
     {
@@ -108,9 +103,9 @@
             {
                 TeacherList = db.Teacher.Where(c => c.PatronId == patronid).ToList();
 
-                //teacherName = patronList[0].FirstName + " " + patronList[0].LastName;
+                VariablesService.GetPatronId = patronList[0].PatronId;
 
-                navigationManager.NavigateTo($"/Employees");
+                navigationManager.NavigateTo($"/Teacher/MyLibraryMaterials");
             }
 
             else
@@ -130,7 +125,7 @@
             {
                 employeeList = db.Employee.Where(c => c.EmployeeId == employeeid).ToList();
 
-                //librarianName = employeeList[0].FirstName + " " + employeeList[0].LastName;
+                VariablesService.GetEmployeeId = employeeid;
 
                 navigationManager.NavigateTo($"/Employees");
             }
@@ -139,7 +134,7 @@
             {
                 employeeList = db.Employee.Where(c => c.EmployeeId == employeeid).ToList();
 
-                systemAdminName = employeeList[0].FirstName + " " + employeeList[0].LastName;
+                VariablesService.GetEmployeeId = employeeid;
 
                 navigationManager.NavigateTo($"/Employees");
             }

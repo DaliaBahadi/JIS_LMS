@@ -26,7 +26,7 @@ namespace JIS_LMS.Services
         /// <returns>A borrowing with the provided id or null</returns>
         public List<Borrowing> GetBorrowings()
         {
-            return db.Borrowing.ToList();
+            return db.Borrowing.Include("LibraryMaterial").ToList();
         }
 
         /// <summary>

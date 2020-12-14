@@ -1,0 +1,56 @@
+﻿@page "/Student/Borrowing/Delete/{Id:int}"
+@layout StudentLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject NavigationManager NavigationManager
+@inject BorrowingService BorrowingService
+
+
+<div class="container" style="margin-left:1em">
+    <h3>Delete Borrowing</h3>
+
+    <div class="alert alert-danger ">
+        Do you want to Delete this Borrowing?
+    </div>
+
+    <table>
+        <tr>
+            <td>Patron Name: </td>
+            <td>@borrowing.Patron.FullName</td>
+        </tr>
+        <tr>
+            <td>Library Material Title: </td>
+            <td>@borrowing.LibraryMaterial.Title</td>
+        </tr>
+        <tr>
+            <td>Borrowing Date & Time:</td>
+            <td>@borrowing.BorrowingDateTime</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemoveBorrowing">Delete Borrowing</button>
+    <a href="/Student/MyLibraryMaterials" class="btn btn-outline-secondary" role="button">Cancel</a>
+
+    <div class="mt-4"></div>
+</div>
+
+@code {
+
+    Borrowing borrowing = new Borrowing();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private void RemoveBorrowing()
+    {
+        BorrowingService.DeleteBorrowing(Id);
+
+        NavigationManager.NavigateTo("/Circulation");
+    }
+
+    protected override void OnInitialized()
+    {
+        borrowing = BorrowingService.GetBorrowing(Id);
+    }
+
+}

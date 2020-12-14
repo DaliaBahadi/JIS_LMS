@@ -1,16 +1,14 @@
-﻿
-@page "/Patron/Add"
-
+﻿@page "/Patron/Add"
+@layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@layout SystemAdminLayout
-
 @inject PatronService PatronService
 @inject StudentService StudentService
 @inject TeacherService TeacherService
 @inject AddressService AddressService
 @inject NavigationManager NavigationManager
 @inject LMSDbContext DbContext
+@inject Services.SharedVariablesService SharedVariables
 
 
 <RadzenTabs>
@@ -232,17 +230,7 @@
                         <EditForm Model="student" OnValidSubmit="CreateStudent">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
-
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*patron:</span>
-                                    <RadzenDropDown AllowClear="true" TValue="int"
-                                                    LoadData="@patronLoadData" AllowFiltering="true"
-                                                    Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="student.PatronId"
-                                                    Change="@(args => patronChange(args, "patron DropDown "))" />
-                                </label>
-                            </div>
-
+                            
 
                             <div class="form-group">
                                 <label for="student-id">*Student Id:</label>
@@ -290,16 +278,7 @@
                             <DataAnnotationsValidator />
                             <ValidationSummary />
 
-                            <div class="form-group">
-                                <label style="display: flex; align-items: center">
-                                    <span style="margin-right: 32px">*patron:</span>
-                                    <RadzenDropDown AllowClear="true" TValue="int"
-                                                    LoadData="@patronLoadData" AllowFiltering="true"
-                                                    Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Patron" @bind-Value="teacher.PatronId"
-                                                    Change="@(args => patronChange(args, "patron DropDown "))" />
-                                </label>
-                            </div>
-
+                          
                             <div class="form-group">
                                 <label for="student-id">*Employee Id:</label>
                                 <InputNumber id="student-id" @bind-Value="teacher.EmployeeId" class="form-control" placeholder="Enter Employee school Id" />
@@ -343,12 +322,24 @@
     private void CreatePatron()
     {
 
+
         PatronService.AddNewPatron(patron);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         patron = new Patron();
 
-       
+        //Geeting patron Id 
+        GetPatronId();
+
+
+    }
+
+    private void GetPatronId()
+    {
+        //get the library material id and binding it with the book
+        SharedVariables.AcquirePatronId = db.Patron.OrderBy(d => d.PatronId).LastOrDefault().PatronId;
+
+
     }
 }
 
@@ -360,7 +351,10 @@
 
     private void CreateStudent()
     {
+        //get the patron id and binding it with the student
+        student.PatronId= SharedVariables.AcquirePatronId;
 
+        //Add student
         StudentService.AddNewStudent(student);
 
         // To empty the form, find more elegant why
@@ -372,6 +366,7 @@
 }
 
 @code {
+
     Teacher teacher = new Teacher();
 
     private List<Teacher> teachers = new List<Teacher>();
@@ -379,7 +374,10 @@
 
     private void CreateTeacher()
     {
+        //get the patron id and binding it with the teacher
+        teacher.PatronId = SharedVariables.AcquirePatronId;
 
+        //Add Teacher
         TeacherService.AddNewTeacher(teacher);
 
         // To empty the form, find more elegant why
@@ -391,24 +389,13 @@
 }
 
 @code {
+
     Address address = new Address();
-
-
 
     private List<Address> addresses = new List<Address>();
 
-    // Execute when component starts / initializes
-    //protected override void OnInitialized()
-    //{
-
-    //    addresses = AddressService.GetAddresses();
-    //}
-
-
-
     private void CreateAddress()
     {
-
 
         AddressService.AddNewAddress(address);
 
@@ -474,7 +461,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -482,11 +468,6 @@
     {
         var query = DbContext.Address.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         patronAddress = query.ToList();
 
@@ -497,7 +478,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -505,11 +485,6 @@
     {
         var query = DbContext.Library.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         patronLibrary = query.ToList();
 
@@ -520,7 +495,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -528,11 +502,6 @@
     {
         var query = DbContext.Patron.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         patronList = query.ToList();
 

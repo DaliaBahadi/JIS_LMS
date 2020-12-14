@@ -1,0 +1,129 @@
+﻿@page "/Student/MyLibraryMaterials"
+@layout StudentLayout
+@using Microsoft.EntityFrameworkCore
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@using System.Collections.Generic;
+@using System.Linq;
+@using Microsoft.AspNetCore.Components.Forms
+@inject BorrowingService BorrowingService
+@inject Services.SharedVariablesService VariablesService
+@inject LMSDbContext DbContext
+
+
+<RadzenTabs>
+
+    <Tabs>
+        <RadzenTabsItem Text="Borrowed">
+            @if (borrowings == null)
+            {
+                <p style="color:red">loading....</p>
+            }
+
+            else
+            {
+                <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+                            AllowSorting="true" Data="@borrowings" TItem="JIS_LMS.Model.Borrowing" Value="@borrowing" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+                    <Columns>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="LibraryMaterial.Title" Title="Library Material Title" />
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="BorrowingDateTime" Title="Borrowing Date & Time">
+                            <Template Context="data">
+                                @String.Format("{0}", data.BorrowingDateTime)
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="DueDateTime" Title="Due Date & Time">
+                            <Template Context="data">
+                                @String.Format("{0}", data.DueDateTime)
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                            <Template Context="data">
+                                <a href="/Student/Borrowing/Details/@data.BorrowingId">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                                </a>
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                            <Template Context="data">
+                                <a href="/Student/Borrowing/Edit/@data.BorrowingId">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Info" Icon="redo" Size="ButtonSize.Small" Text="Renew"></RadzenButton>
+                                </a>
+                            </Template>
+                        </RadzenGridColumn>
+                    </Columns>
+                </RadzenGrid>
+            }
+
+        </RadzenTabsItem>
+
+        <RadzenTabsItem Text="Hold">
+            @if (holds == null)
+            {
+                <p style="color:red">loading....</p>
+            }
+
+            else
+            {
+                <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+                            AllowSorting="true" Data="@holds" TItem="JIS_LMS.Model.Hold" Value="@hold" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+                    <Columns>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="LibraryMaterial.Title" Title="Library Material Title" />
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="HoldDateTime" Title="Hold Date & Time">
+                            <Template Context="data">
+                                @String.Format("{0}", data.HoldDateTime)
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="PickupDateTime" Title="Pickup Date & Time">
+                            <Template Context="data">
+                                @String.Format("{0}", data.PickupDateTime)
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                            <Template Context="data">
+                                <a href="/Student/Hold/Details/@data.HoldId">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                                </a>
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                            <Template Context="data">
+                                <a href="/Student/Hold/Delete/@data.HoldId">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="clear" Size="ButtonSize.Small" Text="Cancel"></RadzenButton>
+                                </a>
+                            </Template>
+                        </RadzenGridColumn>
+                    </Columns>
+                </RadzenGrid>
+            }
+
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
+
+@code
+{ //This code section is for the methods of the borrowing and hold datagrid
+    LMSDbContext db = new LMSDbContext();
+
+
+    JIS_LMS.Model.Borrowing borrowing;
+    IQueryable<JIS_LMS.Model.Borrowing> borrowings;
+
+    JIS_LMS.Model.Hold hold;
+    IQueryable<JIS_LMS.Model.Hold> holds;
+
+    protected override void OnInitialized()
+    {
+
+        borrowings = db.Borrowing.Include("Patron").Include("LibraryMaterial");
+
+        borrowing = borrowings.FirstOrDefault();
+
+        holds = db.Hold.Include("Patron").Include("LibraryMaterial");
+
+        hold = holds.FirstOrDefault();
+    }
+
+
+}
+
+

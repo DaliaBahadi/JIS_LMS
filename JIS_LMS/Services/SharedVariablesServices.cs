@@ -19,31 +19,19 @@ namespace JIS_LMS.Services
             db = context;
         }
 
-        public int AuthorMaterialId { get; set;}
+        public int GetLibraryMaterialId { get; set; }
+        
 
-        public int BookId { get; set; }
+        public int AcquirePatronId { get; set; }
 
-        public int JournalId { get; set; }
-
-        public int CD_DVD_BR_Id { get; set; }
-
-        public int StudentMaterialId { get; set; }
-
-        public int TeacherMaterialId { get; set; }
 
         public int BorrowingMaterialId { get; set; }
 
         public int HoldMaterialId { get; set; }
 
-        /// <summary>
-        /// Get a addresses
-        /// </summary>
-        /// <param name="id">Id of the address to return</param>
-        /// <returns>A addresses with the provided id or null</returns>
-        //public List<Address> GetAddresses()
-        //{
-        //    return db.Address.ToList();
-        //}
+        public int GetPatronId { get; set; }
+
+        public int GetEmployeeId { get; set; }
 
 
 

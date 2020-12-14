@@ -133,7 +133,7 @@ else
     //library material code
     IEnumerable<Library_Material> matrials;
     RadzenGrid<Library_Material> matrialsGrid;
-    Library_Material catalog;
+    Library_Material libraryMaterial;
     IQueryable<Library_Material> libraryMaterials;
 
     //Book code
@@ -158,7 +158,7 @@ else
 
     protected override void OnInitialized()
     {
-        matrials = DbContext.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR").ToList();
+        //matrials = DbContext.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR").ToList();
 
         libraryMaterials = db.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR");
 
@@ -168,7 +168,7 @@ else
 
         cD_DVD_BRs = db.CD_DVD_BR.Include("Library_Material");
 
-        catalog = libraryMaterials.FirstOrDefault();
+        libraryMaterial = libraryMaterials.FirstOrDefault();
     }
 
     //Method to change library matrial type

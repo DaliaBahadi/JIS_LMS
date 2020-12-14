@@ -1,0 +1,216 @@
+﻿@page "/Teacher/Catalog/Journal/Details/{Id:int}"
+@layout SystemAdminLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject Library_MaterialService Library_MaterialService
+@inject JournalService JournalService
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Library Material Details</h3>
+
+            <div style="margin-left:30em;margin-bottom:2em">
+                <a href="/Borrow" class="btn btn-outline-primary" role="button">Borrow</a>
+                <a href="/Hold" class="btn btn-outline-primary" role="button">Hold</a>
+            </div>
+
+            <table class="table table-hover">
+
+
+                <tr>
+                    <td>Image: </td>
+                    <td><img src="@libraryMaterial.ImageFile" alt="patron image" width="200" height="250"></td>
+                </tr>
+                <tr>
+                    <td>Accession Number: </td>
+                    <td>@libraryMaterial.AccessionNumber</td>
+                </tr>
+                <tr>
+                    <td>Date Acquired:</td>
+                    <td>@libraryMaterial.DateAcquired</td>
+                </tr>
+
+
+                <tr>
+                    <td>Date Recorded: </td>
+                    <td>@libraryMaterial.DateRecorded</td>
+
+                </tr>
+
+                <tr>
+                    <td>Title: </td>
+                    <td>@libraryMaterial.Title</td>
+
+                </tr>
+
+              <tr>
+                <td>Publisher: </td>
+                <td>@libraryMaterial.Publisher.Name</td>
+             </tr>
+
+              @*<tr>
+                  <td>Author: </td>
+                   <td>@author.Author</td>
+             </tr>*@
+
+                <tr>
+                    <td>Number Of Pages: </td>
+                    <td>@libraryMaterial.NumberOfPages</td>
+                </tr>
+
+                <tr>
+                    <td>Source Of Fund: </td>
+                    <td>@libraryMaterial.SourceOfFund</td>
+                </tr>
+                <tr>
+                    <td>Cost Price: </td>
+                    <td>@libraryMaterial.CostPrice</td>
+                </tr>
+
+                <tr>
+                    <td>Year Published: </td>
+                    <td>@libraryMaterial.YearPublished</td>
+
+                </tr>
+
+                <tr>
+                    <td>Language: </td>
+                    <td>@libraryMaterial.Language</td>
+
+                </tr>
+
+                <tr>
+                    <td>Subject: </td>
+                    <td>@libraryMaterial.Subject</td>
+
+                </tr>
+
+                <tr>
+                    <td>Genre: </td>
+                    <td>@libraryMaterial.Genre</td>
+
+                </tr>
+
+                <tr>
+                    <td>Subject Translation In English: </td>
+                    <td>@libraryMaterial.SubjectTranslationInEnglish</td>
+
+                </tr>
+
+                <tr>
+                    <td>City Published: </td>
+                    <td>@libraryMaterial.CityPublished</td>
+
+                </tr>
+
+                <tr>
+                    <td>Age Level: </td>
+                    <td>@libraryMaterial.AgeLevel</td>
+
+                </tr>
+
+                <tr>
+                    <td>Status: </td>
+                    <td>@libraryMaterial.Status</td>
+
+                </tr>
+
+                <tr>
+                    <td>Description: </td>
+                    <td>@libraryMaterial.Description</td>
+
+                </tr>
+
+                <tr>
+                    <td>DOI URL: </td>
+                    <td>@libraryMaterial.DOIURL</td>
+
+                </tr>
+
+                <tr>
+                    <td>Restriction Type: </td>
+                    <td>@libraryMaterial.RestrictionType</td>
+
+                </tr>
+
+                <tr>
+                    <td>Library Material Type: </td>
+                    <td>@libraryMaterial.LibraryMaterialType</td>
+
+                </tr>
+
+                <tr>
+                      <td>Library: </td>
+                      <td>@libraryMaterial.Library.Name</td>
+
+                 </tr>
+
+                <tr>
+                    <td>Donor: </td>
+                    <td>@libraryMaterial.Donor.FullName</td>
+
+                </tr>
+
+            </table>
+
+            <br><br />
+            <h3>Journal Details</h3>
+
+            <table class="table table-hover">
+
+                <tr>
+                    <td>ISSN: </td>
+                    <td>@libraryMaterial.Journal.ISSN</td>
+                </tr>
+
+                <tr>
+                    <td>Volume: </td>
+                    <td>@libraryMaterial.Journal.Volume</td>
+                </tr>
+
+                <tr>
+                    <td>Issue:</td>
+                    <td>@libraryMaterial.Journal.Issue</td>
+                </tr>
+
+
+                <tr>
+                    <td>Journal Type: </td>
+                    <td>@libraryMaterial.Journal.JournalType</td>
+
+                </tr>
+
+            </table>
+
+            <br> <br>
+            <a href="/Catalog/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Catalog/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
+            <a href="/Catalog/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    LMSDbContext db = new LMSDbContext();
+
+    Library_Material libraryMaterial = new Library_Material();
+    List<Library_Material> libraryMaterials = new List<Library_Material>();
+    LibraryMaterial_Author author = new LibraryMaterial_Author();
+
+
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        libraryMaterials = Library_MaterialService.GetLibraryMaterials();
+
+        libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
+    }
+
+
+}

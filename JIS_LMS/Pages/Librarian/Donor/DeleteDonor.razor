@@ -1,0 +1,56 @@
+﻿@page "/Librarian/Donor/Delete/{Id:int}"
+@layout LibrarianLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject NavigationManager NavigationManager
+@inject DonorService DonorService
+
+
+<div class="container" style="margin-left:1em">
+    <h3>Delete Donor</h3>
+
+    <div class="alert alert-danger ">
+        Do you want to Delete this Donor?
+    </div>
+
+    <table>
+        <tr>
+            <th>Name: </th>
+            <td>@donor.FirstName  @donor.MiddleName  @donor.LastName</td>
+        </tr>
+        <tr>
+            <th>Mobile: </th>
+            <td>@donor.Mobile</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>@donor.Email</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemoveDonor">Delete Donor</button>
+    <a href="/Librarian/Donors/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+
+    <div class="mt-4"></div>
+</div>
+
+@code {
+
+    Donor donor = new Donor();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private void RemoveDonor()
+    {
+        DonorService.DeleteDonor(Id);
+
+        NavigationManager.NavigateTo("/Librarian/Donors/Search");
+    }
+
+    protected override void OnInitialized()
+    {
+        donor = DonorService.GetDonor(Id);
+    }
+
+}

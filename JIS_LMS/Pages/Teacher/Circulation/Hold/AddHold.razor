@@ -1,0 +1,166 @@
+﻿@page "/Teacher/Hold/Add"
+@layout SystemAdminLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@using Microsoft.AspNetCore.Components.Forms
+@using Radzen.Blazor.Rendering
+@inject HoldService HoldService
+@inject NavigationManager NavigationManager
+@inject LMSDbContext DbContext
+
+
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <legend>Add New Hold</legend>
+            <EditForm Model="hold" OnValidSubmit="CreateHold">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; margin-top:2em;">
+                        <span style="margin-right: 20px">*Patron:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@patronLoadData" AllowFiltering="true"
+                                        Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 10px;margin-left:5em;width:300px" Placeholder="Select Patron" @bind-Value="hold.PatronId"
+                                        Change="@(args => patronChange(args, "patron DropDown "))" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Library Material:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@materialLoadData" AllowFiltering="true"
+                                        Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 10px;width:300px" Placeholder="Select Library Materail" @bind-Value="hold.LibraryMaterialId"
+                                        Change="@(args => materialChange(args, "material DropDown "))" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="hold-date-time">*Hold Date & Time:</label>
+                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.HoldDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" Style="margin-left: 1em" DateFormat="MM/dd/yyyy HH:mm" />
+                </div>
+
+                <div class="form-group">
+                    <label for="expiry-date-time">*Expiry Date & Time:</label>
+                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.ExpiryDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10"  DateFormat="MM/dd/yyyy HH:mm" />
+                </div>
+
+                <div class="form-group">
+                    <label for="pickup-date-time">Pickup Date & Time:</label>
+                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.PickupDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10"  DateFormat="MM/dd/yyyy HH:mm" />
+                </div>
+
+
+                @*<div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Status:</span>
+                        <RadzenDropDown Data="@status" @bind-Value="hold.Status" />
+                    </label>
+                </div>*@
+
+                <br>
+                <div class="form-group">
+                    <label  style="margin-right: 32px" for="remark">Remark: </label>
+                    <RadzenTextArea @bind-Value="hold.Remark" Cols="30" Rows="3" Style="align-items:center;" />
+                </div>
+
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Teacher/Catalog/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+@code {
+    Hold hold = new Hold();
+
+
+    private List<Hold> holds = new List<Hold>();
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+
+        holds = HoldService.GetHolds();
+    }
+
+
+
+    private void CreateHold()
+    {
+
+
+        HoldService.AddNewHold(hold);
+
+        // To empty the form, find more elegant why
+        hold = new Hold();
+
+        // May navigate to the Holds component
+        NavigationManager.NavigateTo("/Teacher/Catalog/Serach");
+    }
+}
+
+@code
+{// code section for the drop down list to link the patron with the hold
+
+    IEnumerable<Patron> patronList;
+
+    void patronChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+
+        StateHasChanged();
+    }
+
+    void patronLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Patron.AsQueryable();
+
+        patronList = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    // code section for the drop down list to link the library material with the hold
+
+    IEnumerable<Library_Material> materialList;
+
+    void materialChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+
+        StateHasChanged();
+    }
+
+    void materialLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Library_Material.AsQueryable();
+
+        materialList = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    //code for date and time input
+
+    DateTime value = DateTime.Now;
+
+    IEnumerable<DateTime> dates = new DateTime[] { DateTime.Today.AddDays(-1), DateTime.Today.AddDays(1) };
+
+    //Code for status drop down list
+    //IEnumerable<HoldStatus> status = Enum.GetValues(typeof(HoldStatus)).Cast<HoldStatus>();
+
+
+
+}

@@ -1,0 +1,56 @@
+﻿@page "/Student/Hold/Delete/{Id:int}"
+@layout StudentLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject NavigationManager NavigationManager
+@inject HoldService HoldService
+
+
+<div class="container" style="margin-left:1em">
+    <h3>Delete Hold</h3>
+
+    <div class="alert alert-danger ">
+        Do you want to Delete this Hold?
+    </div>
+
+    <table>
+        <tr>
+            <td>Patron Name: </td>
+            <td>@hold.Patron.FullName</td>
+        </tr>
+        <tr>
+            <td>Library Material Title: </td>
+            <td>@hold.LibraryMaterial.Title</td>
+        </tr>
+        <tr>
+            <td>Hold Date & Time:</td>
+            <td>@hold.HoldDateTime</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemoveHold">Delete Hold</button>
+    <a href="/Student/MyLibraryMaterials" class="btn btn-outline-secondary" role="button">Cancel</a>
+
+    <div class="mt-4"></div>
+</div>
+
+@code {
+
+    Hold hold = new Hold();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private void RemoveHold()
+    {
+        HoldService.DeleteHold(Id);
+
+        NavigationManager.NavigateTo("/Circulation");
+    }
+
+    protected override void OnInitialized()
+    {
+        hold = HoldService.GetHold(Id);
+    }
+
+}

@@ -1,0 +1,74 @@
+﻿@page "/Teacher/Hold/Details/{Id:int}"
+@inject HoldService HoldService
+@layout SystemAdminLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Hold Details</h3>
+
+            <table class="table table-hover ">
+
+                <tr>
+                    <td>Patron Name: </td>
+                    <td>@hold.Patron.FullName</td>
+                </tr>
+
+                <tr>
+                    <td>Library Material Title: </td>
+                    <td>@hold.LibraryMaterial.Title</td>
+                </tr>
+
+                <tr>
+                    <td>Hold Date & Time::</td>
+                    <td>@hold.HoldDateTime</td>
+                </tr>
+
+                <tr>
+                    <td>Expiry Date & Time:</td>
+                    <td>@hold.ExpiryDateTime</td>
+                </tr>
+
+                <tr>
+                    <td>Pickup Date & Time: </td>
+                    <td>@hold.PickupDateTime</td>
+                </tr>
+
+                <tr>
+                    <td>Status: </td>
+                    <td>@hold.HoldStatus</td>
+                </tr>
+
+                
+                <tr>
+                    <td>Remark: </td>
+                    <td>@hold.Remark</td>
+                </tr>
+
+            </table>
+
+
+            <a href="/Teacher/Hold/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Teacher/Hold/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
+            <a href="/Teacher/Circulation" class="btn btn-outline-secondary" role="button">Back</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    Hold hold = new Hold();
+    List<Hold> borrowings = new List<Hold>();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        hold = HoldService.GetHold(Id);
+    }
+}

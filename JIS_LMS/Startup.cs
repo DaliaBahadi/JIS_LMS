@@ -101,6 +101,9 @@ namespace JIS_LMS
             //LibraryMaterial_Author Service
             services.AddScoped<LibraryMaterilaAuthorService>();
 
+            //Notification Service
+            services.AddScoped<NotificationService>();
+
             //Dialog Service
             //services.AddScoped<DialogService>();
 

@@ -7,6 +7,7 @@
 @inject HoldService HoldService
 @inject NavigationManager NavigationManager
 @inject LMSDbContext DbContext
+@inject SharedVariablesService VariablesService
 
 
 
@@ -28,14 +29,6 @@
                     </label>
                 </div>
 
-                <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@materialLoadData" AllowFiltering="true"
-                                        Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 10px;width:300px" Placeholder="Select Library Materail" @bind-Value="hold.LibraryMaterialId"
-                                        Change="@(args => materialChange(args, "material DropDown "))" />
-                    </label>
-                </div>
 
                 <div class="form-group">
                     <label for="hold-date-time">*Hold Date & Time:</label>
@@ -44,25 +37,25 @@
 
                 <div class="form-group">
                     <label for="expiry-date-time">*Expiry Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.ExpiryDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10"  DateFormat="MM/dd/yyyy HH:mm" />
+                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.ExpiryDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
                 </div>
 
                 <div class="form-group">
                     <label for="pickup-date-time">Pickup Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.PickupDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10"  DateFormat="MM/dd/yyyy HH:mm" />
+                    <RadzenDatePicker TValue="DateTime" @bind-Value="hold.PickupDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
                 </div>
 
 
                 @*<div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Status:</span>
-                        <RadzenDropDown Data="@status" @bind-Value="hold.Status" />
-                    </label>
-                </div>*@
+                        <label style="display: flex; align-items: center">
+                            <span style="margin-right: 32px">*Status:</span>
+                            <RadzenDropDown Data="@status" @bind-Value="hold.Status" />
+                        </label>
+                    </div>*@
 
                 <br>
                 <div class="form-group">
-                    <label  style="margin-right: 32px" for="remark">Remark: </label>
+                    <label style="margin-right: 32px" for="remark">Remark: </label>
                     <RadzenTextArea @bind-Value="hold.Remark" Cols="30" Rows="3" Style="align-items:center;" />
                 </div>
 
@@ -98,10 +91,15 @@
     private void CreateHold()
     {
 
+        //bind the library material Id to the hold library material Id forign key
+        hold.LibraryMaterialId = VariablesService.HoldMaterialId;
+
+        //changing the status of the hold to true 
+        hold.HoldStatus = true;
 
         HoldService.AddNewHold(hold);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         hold = new Hold();
 
         // May navigate to the Holds component

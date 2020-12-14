@@ -2,6 +2,7 @@
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject SharedVariablesService VariablesService
 
 
 
@@ -78,6 +79,7 @@
     string username;
     string password;
     int type;
+    string name;
     string message;
     bool found = false;
 
@@ -96,9 +98,11 @@
             {
                 StudentList = db.Student.Where(c => c.PatronId == patronid).ToList();
 
+                name = patronList[0].FullName;
 
+                VariablesService.GetPatronId = patronid;
 
-                navigationManager.NavigateTo($"/Employees");
+                navigationManager.NavigateTo($"/Student/MyLibraryMaterials");
             }
 
         }

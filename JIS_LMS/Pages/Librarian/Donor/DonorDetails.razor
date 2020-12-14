@@ -1,0 +1,61 @@
+﻿@page "/Librarian/Donor/Details/{Id:int}"
+@layout LibrarianLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject DonorService DonorService
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Donor Details</h3>
+
+            <table class="table table-hover ">
+
+                <tr>
+                    <td>First Name: </td>
+                    <td>@donor.FirstName</td>
+                </tr>
+                <tr>
+                    <td>Middle Name: </td>
+                    <td>@donor.MiddleName</td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td>@donor.LastName</td>
+                </tr>
+                
+                <tr>
+                    <td>Email: </td>
+                    <td>@donor.Email</td>
+                </tr>
+                <tr>
+                    <td>Mobile: </td>
+                    <td>@donor.Mobile</td>
+                </tr>
+                
+
+            </table>
+
+
+            <a href="/Librarian/Donor/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+
+            <a href="/Librarian/Donors/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    Donor donor = new Donor();
+    List<Donor> donors = new List<Donor>();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        donor = DonorService.GetDonor(Id);
+    }
+}

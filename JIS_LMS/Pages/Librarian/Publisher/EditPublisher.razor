@@ -1,0 +1,62 @@
+﻿@page "/Librarian/Publisher/Edit/{Id:int}"
+@inject NavigationManager NavigationManager
+@layout LibrarianLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject PublisherService PublisherService
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>Edit Publisher Information</h3>
+        <fieldset>
+            <legend>Edit</legend>
+            <EditForm Model="publisher" OnValidSubmit="UpdatePublisher">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group">
+                    <label for="first-name">*Name:</label>
+                    <InputText id="first-name" @bind-Value="publisher.Name" class="form-control" placeholder="Enter Publisher Name" />
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Librarian/Publishers/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+
+<br />
+
+<p>@message</p>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    Publisher publisher = new Publisher();
+
+
+    string message;
+
+    protected override void OnInitialized()
+    {
+        publisher = PublisherService.GetPublisher(Id);
+    }
+
+
+
+    public void UpdatePublisher()
+    {
+
+
+
+        // Edit Publisher
+        PublisherService.EditPublisher(publisher);
+
+        message = "Publisher updated successfully";
+        NavigationManager.NavigateTo("/Librarian/Publishers/Search");
+    }
+}

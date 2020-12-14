@@ -1,0 +1,179 @@
+﻿@page  "/Librarian/Account/{Id:int}"
+@layout LibrarianLayout
+@inject NavigationManager NavigationManager
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject EmployeeService EmployeeService
+@inject SharedVariablesService VariablesService
+@inject LMSDbContext DbContext
+
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>My Account</h3>
+
+
+        <fieldset>
+
+            <EditForm Model="employee" OnValidSubmit="UpdateEmployee">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="first-name">*First Name:</label>
+                    <InputText id="first-name" @bind-Value="employee.FirstName" class="form-control" placeholder="Enter Employee Fisrt Name" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="middle-name">Middle Name:</label>
+                    <InputText id="middle-name" @bind-Value="employee.MiddleName" class="form-control" placeholder="Enter Employee Middle Name" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="last-name">*Last Name:</label>
+                    <InputText id="last-name" @bind-Value="employee.LastName" class="form-control" placeholder="Enter Employee Last Name" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">*Date Of Birth:</label>
+                    <InputDate id="date" @bind-Value="employee.DateOfBirth" class="form-control" disabled/>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label">Email: </label>
+                    <InputText type="email" id="email" @bind-Value="employee.Email" class="form-control" placeholder="sam@example.com" disabled />
+                    <ValidationMessage For="@(() => employee.Email)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">*Mobile:</label>
+                    <InputText id="mobile" @bind-Value="employee.Mobile" class="form-control" placeholder="0500000000" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Language:</span>
+                        <RadzenDropDown Data="@language" @bind-Value="employee.Language" disabled />
+                    </label>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Gender:</span>
+                        <RadzenDropDown Data="@gender" @bind-Value="employee.Gender" disabled />
+                    </label>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="PhoneExtension">Phone Extension:</label>
+                    <InputText id="PhoneExtension" @bind-Value="employee.PhoneExtension" class="form-control" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Employee Type:</span>
+                        <RadzenDropDown Data="@type" @bind-Value="employee.EmployeeType" disabled />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">*Username:</label>
+                    <InputText id="username" @bind-Value="employee.UserName" class="form-control" placeholder="Enter Employee Username" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">*Password:</label>
+                    <InputText type="password" id="password" @bind-Value="employee.Password" class="form-control" placeholder="Enter Password" disabled="@isDisable" />
+                </div>
+
+
+                <button type="submit" class="btn btn-outline-primary" @onclick="@onDisable" style="visibility:@EditButtonVisible; width: 80px;">Edit</button>
+                <button type="submit" class="btn btn-outline-primary" style="visibility:@SaveButtonVisible; width: 80px;">Save</button>
+                <a href="Employees/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+<br />
+
+
+
+@code {
+
+    //code section to update infromation of both employee
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected bool isDisable { get; set; } = true;
+    string EditButtonVisible = "visible";
+    string SaveButtonVisible = "hidden";
+
+    //edit passowrd when clicking edit button to enable editing
+    private void onDisable()
+    {
+        this.isDisable = false;
+
+        EditButtonVisible = "hidden";
+
+        SaveButtonVisible = "visible";
+
+
+    }
+
+
+    Employee employee = new Employee();
+    List<Employee> employees = new List<Employee>();
+
+
+
+    protected override void OnInitialized()
+    {
+        employees = EmployeeService.GetEmployees();
+
+        Id = VariablesService.GetEmployeeId;
+
+        employee = EmployeeService.GetEmployee(Id);
+
+
+
+
+    }
+
+
+    //Method to update Employee information
+    public void UpdateEmployee()
+    {
+
+        // Edit Employee
+        EmployeeService.EditEmployee(employee);
+
+
+    }
+
+
+
+}
+
+@code
+{
+
+    //Code for gender drop down list
+    IEnumerable<EmployeeGender> gender = Enum.GetValues(typeof(EmployeeGender)).Cast<EmployeeGender>();
+
+    //Code for language drop down list
+    IEnumerable<EmployeeLanguage> language = Enum.GetValues(typeof(EmployeeLanguage)).Cast<EmployeeLanguage>();
+
+
+    //Code for employee type drop down list
+    IEnumerable<EmployeeType> type = Enum.GetValues(typeof(EmployeeType)).Cast<EmployeeType>();
+
+    
+}
+

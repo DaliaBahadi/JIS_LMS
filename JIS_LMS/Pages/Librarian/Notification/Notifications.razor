@@ -1,0 +1,63 @@
+﻿@page "/Librarian/Notifications"
+@layout LibrarianLayout
+@using Microsoft.EntityFrameworkCore
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@using Microsoft.AspNetCore.Components.Forms
+@inject Services.NotificationService NotificationService
+@inject LMSDbContext DbContext
+
+<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Notifications</h3>
+
+
+@if (notifications == null)
+{
+    <p style="color:red">loading....</p>
+}
+else
+{
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="8"
+                AllowSorting="true" Data="@notifications" TItem="Notification" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+        <Columns>
+            <RadzenGridColumn TItem="Notification" Property="NotificationDateTime" Title="Notification Date & Time">
+                <Template Context="data">
+                    @String.Format("{0}", data.NotificationDateTime)
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Notification" Property="NotificationType" Title="Notification Type  " />
+            <RadzenGridColumn TItem="Notification" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <Template Context="data">
+                    <a href="/Librarian/Notification/Details/@data.NotificationId">
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                    </a>
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Notification" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <Template Context="data">
+                    <a href="/Librarian/Notification/Delete/@data.NotificationId">
+                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
+                    </a>
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+
+}
+
+
+
+
+
+@code
+{
+
+    IEnumerable<Notification> notifications;
+
+    RadzenGrid<Notification> notificationsGrid;
+
+    protected override void OnInitialized()
+    {
+        notifications = DbContext.Notification;
+    }
+
+}

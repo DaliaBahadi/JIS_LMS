@@ -4,6 +4,7 @@
 @using JIS_LMS.Model;
 @inject Library_MaterialService Library_MaterialService
 @inject JournalService JournalService
+@inject SharedVariablesService VariablesService
 
 <div class="container">
     <div class="container-fluid container-contact100">
@@ -44,15 +45,15 @@
 
                 </tr>
 
-              <tr>
-                <td>Publisher: </td>
-                <td>@libraryMaterial.Publisher.Name</td>
-             </tr>
+                <tr>
+                    <td>Publisher: </td>
+                    <td>@libraryMaterial.Publisher.Name</td>
+                </tr>
 
-              @*<tr>
-                  <td>Author: </td>
-                   <td>@author.Author</td>
-             </tr>*@
+                @*<tr>
+                         <td>Author: </td>
+                          <td>@author.Author</td>
+                    </tr>*@
 
                 <tr>
                     <td>Number Of Pages: </td>
@@ -141,10 +142,10 @@
                 </tr>
 
                 <tr>
-                      <td>Library: </td>
-                      <td>@libraryMaterial.Library.Name</td>
+                    <td>Library: </td>
+                    <td>@libraryMaterial.Library.Name</td>
 
-                 </tr>
+                </tr>
 
                 <tr>
                     <td>Donor: </td>
@@ -210,6 +211,10 @@
         libraryMaterials = Library_MaterialService.GetLibraryMaterials();
 
         libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
+
+        VariablesService.BorrowingMaterialId = Id;
+
+        VariablesService.HoldMaterialId = Id;
     }
 
 

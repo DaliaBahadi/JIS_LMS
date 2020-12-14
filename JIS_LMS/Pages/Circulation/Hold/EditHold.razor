@@ -24,14 +24,6 @@
                     </label>
                 </div>
 
-                <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@materialLoadData" AllowFiltering="true"
-                                        Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 10px;width:300px" Placeholder="Select Library Materail" @bind-Value="hold.LibraryMaterialId"
-                                        Change="@(args => materialChange(args, "material DropDown "))" />
-                    </label>
-                </div>
 
                 <div class="form-group">
                     <label for="hold-date-time">*Hold Date & Time:</label>

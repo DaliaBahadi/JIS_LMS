@@ -1,0 +1,53 @@
+﻿
+@page "/Librarian/Publisher/Delete/{Id:int}"
+@layout LibrarianLayout
+@inject NavigationManager NavigationManager
+@inject PublisherService PublisherService
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+
+
+
+<div class="container" style="margin-left:1em">
+    <h3>Delete Publisher</h3>
+
+    <div class="alert alert-danger">
+        Do you want to delete this Publisher?
+    </div>
+
+    <table>
+        <tr>
+            <th>Name: </th>
+            <td>@publisher.Name </td>
+        </tr>
+
+
+    </table>
+    <br />
+    <button type="submit" class="btn btn-outline-danger" style=" width: 160px;" @onclick="RemovePublisher">Delete Publisher</button>
+    <a href="/Librarian/Publishers/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+
+    <div class="mt-4"></div>
+</div>
+
+@code {
+
+    Publisher publisher = new Publisher();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private void RemovePublisher()
+    {
+        PublisherService.DeletePublisher(Id);
+
+        NavigationManager.NavigateTo("/Librarian/Publishers/Search");
+    }
+
+    protected override void OnInitialized()
+    {
+        publisher = PublisherService.GetPublisher(Id);
+    }
+
+}

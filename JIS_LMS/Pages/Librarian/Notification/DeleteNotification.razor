@@ -1,0 +1,55 @@
+﻿@page "/Librarian/Notification/Delete/{Id:int}"
+@layout LibrarianLayout
+@inject NavigationManager NavigationManager
+@inject Services.NotificationService NotificationService
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+
+<div class="container" style="margin-left:1em">
+    <h3>Delete Notification</h3>
+
+    <div class="alert alert-danger">
+        Do you want to delete this Notification?
+    </div>
+
+    <table>
+        <tr>
+            <th>Notification Date & time: </th>
+            <td>@notification.NotificationDateTime</td>
+        </tr>
+        <tr>
+            <th>Notification Type: </th>
+            <td>@notification.NotificationType</td>
+        </tr>
+        <tr>
+            <th>MessageContent:</th>
+            <td>@notification.MessageContent</td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemoveNotification">Delete Notification</button>
+    <a href="/Librarian/Notifications" class="btn btn-outline-secondary" role="button">Cancel</a>
+
+    <div class="mt-4"></div>
+</div>
+
+@code {
+
+    Notification notification = new Notification();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private void RemoveNotification()
+    {
+        NotificationService.DeleteNotification(Id);
+
+        NavigationManager.NavigateTo("/Librarian/Notifications");
+    }
+
+    protected override void OnInitialized()
+    {
+        notification = NotificationService.GetNotification(Id);
+    }
+
+}
