@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Gender:</span>
-                        <RadzenDropDown Data="@gender" @bind-Value="patron.Gender" />
+                        <RadzenDropDown Data="@gender" @bind-Value="@patronGender" Change="ChooseGender" />
                     </label>
                 </div>
 
@@ -73,7 +73,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
-                        <RadzenDropDown Data="@language" @bind-Value="patron.Language" Style="align-items:center" />
+                        <RadzenDropDown Data="@language" @bind-Value="@patronLanguage" Style="align-items:center" Change="ChooseLanguage" />
                     </label>
                 </div>
 
@@ -81,14 +81,14 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Section:</span>
-                        <RadzenDropDown Data="@patronSection" @bind-Value="patron.Section" Style="align-items:center" />
+                        <RadzenDropDown Data="section" @bind-Value="@patronSection" Style="align-items:center" Change="ChooseSection" />
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Status:</span>
-                        <RadzenDropDown Data="@status" @bind-Value="patron.Status" Style="align-items:center" />
+                        <RadzenDropDown Data="@status" @bind-Value="@patronStatus" Style="align-items:center" Change="ChooseStatus" />
                     </label>
                 </div>
 
@@ -121,6 +121,7 @@
                     </Select>
                 </div>
                 <br>
+
 
                 <div class="form-group">
                     <label for="type">Image File: </label>
@@ -200,7 +201,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Age Level:</span>
-                        <RadzenDropDown Data="@ageLevel" @bind-Value="student.AgeLevel" />
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="@studentAgeLevel" Change="ChooseAgeLevel" />
                     </label>
                 </div>
 
@@ -361,7 +362,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -398,25 +398,89 @@
     //Code for gender drop down list
     IEnumerable<PatronGender> gender = Enum.GetValues(typeof(PatronGender)).Cast<PatronGender>();
 
+    int genderValue;
+
+    PatronGender patronGender;
+
+    //Method For biding the value to the database
+    public void ChooseGender()
+    {
+        genderValue = (int)patronGender;
+        patron.Gender = genderValue;
+    }
+
     //Code for language drop down list
     IEnumerable<PatronLanguage> language = Enum.GetValues(typeof(PatronLanguage)).Cast<PatronLanguage>();
 
+    int languageValue;
 
-    //Code for employee type drop down list
-    IEnumerable<PatronType> type = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+    PatronLanguage patronLanguage;
+
+    //Method For biding the value to the database
+    public void ChooseLanguage()
+    {
+        languageValue = (int)patronLanguage;
+        patron.Language = languageValue;
+    }
+
+
+    //Code for patron type drop down list
+    //IEnumerable<PatronType> type = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+
+    //int typeValue;
+
+    //PatronType typeOfPatron;
+
+    ////Method For biding the value to the database
+    //public void ChooseType()
+    //{
+    //    typeValue = (int)typeOfPatron;
+    //    patron.PatronType = typeValue;
+    //}
 
     //Code for section drop down list
-    IEnumerable<PatronSection> patronSection = Enum.GetValues(typeof(PatronSection)).Cast<PatronSection>();
+    IEnumerable<PatronSection> section = Enum.GetValues(typeof(PatronSection)).Cast<PatronSection>();
+
+    int sectionValue;
+
+    PatronSection patronSection;
+
+    //Method For biding the value to the database
+    public void ChooseSection()
+    {
+        sectionValue = (int)patronSection;
+        patron.Section = sectionValue;
+    }
 
     //Code for status drop down list
     IEnumerable<PatronStatus> status = Enum.GetValues(typeof(PatronStatus)).Cast<PatronStatus>();
 
-    //Code for type drop down list
-    IEnumerable<PatronType> typePatron = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+    int statusValue;
+
+    PatronStatus patronStatus;
+
+    //Method For biding the value to the database
+    public void ChooseStatus()
+    {
+        statusValue = (int)patronStatus;
+        patron.Status = statusValue;
+    }
 
 
     //Code for age level drop down list
     IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
+
+    int ageLevelValue;
+
+    StudentAgeLevel studentAgeLevel;
+
+    //Method For biding the value to the database
+    public void ChooseAgeLevel()
+    {
+        ageLevelValue = (int)studentAgeLevel;
+        student.AgeLevel = ageLevelValue;
+    }
+
 
 
 }

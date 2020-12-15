@@ -1,9 +1,8 @@
 ﻿@page "/Publisher/Edit/{Id:int}"
-@inject NavigationManager NavigationManager
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-
+@inject NavigationManager NavigationManager
 @inject PublisherService PublisherService
 
 <div class="container-fluid container-contact100">
@@ -51,8 +50,6 @@
 
     public void UpdatePublisher()
     {
-
-
 
         // Edit Publisher
         PublisherService.EditPublisher(publisher);

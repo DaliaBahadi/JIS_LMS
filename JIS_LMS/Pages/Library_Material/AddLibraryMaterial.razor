@@ -81,7 +81,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
-                        <RadzenDropDown Data="@language" @bind-Value="catalog.Language" Style="align-items:center" />
+                        <RadzenDropDown Data="@language" @bind-Value="@materialLanguage" Style="align-items:center" Change="ChooseLanguage" />
                     </label>
                 </div>
 
@@ -110,14 +110,14 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Age Level:</span>
-                        <RadzenDropDown Data="@ageLevel" @bind-Value="catalog.AgeLevel" />
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="@materialAgeLevel" Change="ChooseAgeLevel"/>
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Status:</span>
-                        <RadzenDropDown Data="@status" @bind-Value="catalog.Status" Style="align-items:center" />
+                        <RadzenDropDown Data="@status" @bind-Value="@materialStatus" Style="align-items:center" Change="ChooseStatus" />
                     </label>
                 </div>
 
@@ -141,7 +141,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">Restriction Type:</span>
-                        <RadzenDropDown Data="@restrectionType" @bind-Value="catalog.RestrictionType" Placeholder="Select Restrection Type" Style="align-items:center" />
+                        <RadzenDropDown Data="@restrictionType" @bind-Value="@materialRestriction" Placeholder="Select Restrection Type" Style="align-items:center" Change="ChooseRestriction" />
                     </label>
                 </div>
 
@@ -261,7 +261,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Book Type:</span>
-                        <RadzenDropDown Data="@bookType" @bind-Value="book.BookType" />
+                        <RadzenDropDown Data="@bookType" @bind-Value="@typeBook" Change="ChooseBookType"/>
                     </label>
                 </div>
 
@@ -303,7 +303,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Journal Type:</span>
-                        <RadzenDropDown Data="@journalType" @bind-Value="journal.JournalType" />
+                        <RadzenDropDown Data="@journalType" @bind-Value="@typeJournal" Change="ChooseJournalType" />
                     </label>
                 </div>
 
@@ -357,7 +357,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Type:</span>
-                        <RadzenDropDown Data="@cD_DVD_BR_Type" @bind-Value="cD_DVD_BR.Type" />
+                        <RadzenDropDown Data="@cD_DVD_BR_Type" @bind-Value="@typeCdDvdBr" Change="ChooseCdDvdBrType" />
                     </label>
                 </div>
 
@@ -418,7 +418,7 @@
 @code {
 
     LibraryMaterial_Author author = new LibraryMaterial_Author();
-    private List<Book> authors = new List<Book>();
+    private List<LibraryMaterial_Author> authors = new List<LibraryMaterial_Author>();
 
 
     private void CreateLibraryMaterialAuthor()
@@ -438,7 +438,7 @@
 
     private void GetLibraryMaterialId()
     {
-        //get the library material id and binding it with the book
+        //get the library material id and binding it
         SharedVariables.GetLibraryMaterialId = db.Library_Material.OrderBy(d => d.LibraryMaterialId).LastOrDefault().LibraryMaterialId;
        
 
@@ -455,7 +455,6 @@
     private void CreateBook()
     {
         //get the library material id and binding it with the book
-        //SharedVariables.BookId = db.Library_Material.Last().LibraryMaterialId;
 
         book.LibraryMaterialId = SharedVariables.GetLibraryMaterialId;
 
@@ -480,8 +479,6 @@
     private void CreateJournal()
     {
         // get the library material id and binding it with the Jouranl
-        //SharedVariables.JournalId = db.Library_Material.Last().LibraryMaterialId;
-
         journal.LibraryMaterialId = SharedVariables.GetLibraryMaterialId;
 
         //Add Journal
@@ -504,7 +501,6 @@
     private void CreateCD_DVD_BR()
     {
         // get the library material id and binding it with the Jouranl
-        //SharedVariables.CD_DVD_BR_Id = db.Library_Material.Last().LibraryMaterialId;
 
         cD_DVD_BR.LibraryMaterialId = SharedVariables.GetLibraryMaterialId;
 
@@ -551,6 +547,8 @@
             Bookvisible = "visible";
             Journalvisible = "hidden";
             CD_DVD_BR_visible = "hidden";
+
+            catalog.LibraryMaterialType = 1;
         }
 
         else if (libraryMaterialType == "Journal")
@@ -558,6 +556,8 @@
             Journalvisible = "visible";
             Bookvisible = "hidden";
             CD_DVD_BR_visible = "hidden";
+
+            catalog.LibraryMaterialType = 2;
         }
 
         else if (libraryMaterialType == "CdDvdBr")
@@ -565,6 +565,8 @@
             CD_DVD_BR_visible = "visible";
             Journalvisible = "hidden";
             Bookvisible = "hidden";
+
+            catalog.LibraryMaterialType = 3;
 
         }
 
@@ -610,7 +612,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -625,19 +626,16 @@
     }
 
 
-    //Author List box Methods
+    //Author drop down Methods
 
     int authorId;
 
     IEnumerable<Author> materialAuthor;
 
-
-
     public void SetMaterialAuthor()
     {
         author.AuthorId = authorId;
 
-        //author.LibraryMaterialId = db.LibraryMaterial_Author.LastOrDefault().LibraryMaterialId;
     }
 
     void AuthorOnChange(object value, string name)
@@ -661,9 +659,6 @@
 
 
 
-    IEnumerable<string> multipleValues = new string[] { "ALFKI", "ANATR" };
-    string value = "ALFKI";
-
     //Publisher Drop Down List Methods
 
     IEnumerable<Publisher> materialPublisher;
@@ -672,7 +667,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -695,7 +689,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -712,28 +705,114 @@
     //Code for language drop down list
     IEnumerable<LibraryMaterialLanguage> language = Enum.GetValues(typeof(LibraryMaterialLanguage)).Cast<LibraryMaterialLanguage>();
 
+    int languageValue;
+
+    LibraryMaterialLanguage materialLanguage = LibraryMaterialLanguage.English;
+
+    //Method For biding the value to the database
+    public void ChooseLanguage()
+    {
+        languageValue = (int)materialLanguage;
+        catalog.Language = languageValue;
+    }
 
     //Code for Library Material type drop down list
     IEnumerable<LibraryMaterialType> type = Enum.GetValues(typeof(LibraryMaterialType)).Cast<LibraryMaterialType>();
 
+    int typeValue;
+
+    LibraryMaterialType materialType = LibraryMaterialType.Book;
+
+    //Method For biding the value to the database
+    public void ChooseType()
+    {
+        typeValue = (int)materialType;
+        catalog.LibraryMaterialType = typeValue;
+    }
 
     //Code for status drop down list
     IEnumerable<LibraryMaterialStatus> status = Enum.GetValues(typeof(LibraryMaterialStatus)).Cast<LibraryMaterialStatus>();
 
+    int statusValue;
+
+    LibraryMaterialStatus materialStatus = LibraryMaterialStatus.Available;
+
+    //Method For biding the value to the database
+    public void ChooseStatus()
+    {
+        statusValue = (int)materialStatus;
+        catalog.Status = statusValue;
+    }
+
     //Code for Restrection type drop down list
-    IEnumerable<RestrectionType> restrectionType = Enum.GetValues(typeof(RestrectionType)).Cast<RestrectionType>();
+    IEnumerable<RestrictionType> restrictionType = Enum.GetValues(typeof(RestrictionType)).Cast<RestrictionType>();
+
+    int RestrictionValue;
+
+    RestrictionType materialRestriction;
+
+    //Method For biding the value to the database
+    public void ChooseRestriction()
+    {
+        RestrictionValue = (int)materialRestriction;
+        catalog.RestrictionType = RestrictionValue;
+    }
 
     //Code for age level drop down list
     IEnumerable<LibraryMaterialAgeLevel> ageLevel = Enum.GetValues(typeof(LibraryMaterialAgeLevel)).Cast<LibraryMaterialAgeLevel>();
 
+    int ageLevelValue;
+
+    LibraryMaterialAgeLevel materialAgeLevel;
+
+    //Method For biding the value to the database
+    public void ChooseAgeLevel()
+    {
+        ageLevelValue = (int)materialAgeLevel;
+        catalog.AgeLevel = ageLevelValue;
+    }
+
     //Code for Book Type drop down list
     IEnumerable<BookType> bookType = Enum.GetValues(typeof(BookType)).Cast<BookType>();
+
+    int bookTypeValue;
+
+    BookType typeBook = BookType.PhysicalBook;
+
+    //Method For biding the value to the database
+    public void ChooseBookType()
+    {
+        bookTypeValue = (int)typeBook;
+        book.BookType = bookTypeValue;
+    }
 
     //Code for Journal Type drop down list
     IEnumerable<JournalType> journalType = Enum.GetValues(typeof(JournalType)).Cast<JournalType>();
 
+    int journalTypeValue;
+
+    JournalType typeJournal = JournalType.Journals;
+
+    //Method For biding the value to the database
+    public void ChooseJournalType()
+    {
+        journalTypeValue = (int)typeJournal;
+        journal.JournalType = journalTypeValue;
+    }
+
     //Code for CD/DVD/BR Type drop down list
     IEnumerable<CD_DVD_BR_Type> cD_DVD_BR_Type = Enum.GetValues(typeof(CD_DVD_BR_Type)).Cast<CD_DVD_BR_Type>();
+
+    int cD_DVD_BR_TypeValue;
+
+    CD_DVD_BR_Type typeCdDvdBr = CD_DVD_BR_Type.DVD;
+
+    //Method For biding the value to the database
+    public void ChooseCdDvdBrType()
+    {
+        cD_DVD_BR_TypeValue = (int)typeCdDvdBr;
+        cD_DVD_BR.Type = cD_DVD_BR_TypeValue;
+    }
 
 
 

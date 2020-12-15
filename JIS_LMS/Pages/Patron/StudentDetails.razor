@@ -5,16 +5,24 @@
 @inject PatronService PatronService
 @inject StudentService StudentService
 
+
+
 <div class="container">
     <div class="container-fluid container-contact100">
         <div class="wrap-contact100">
             <h3>Patron Details</h3>
 
+            <div class="form-group">
+                <label for="first-name">Image:</label>
+                <RadzenImage Path="@patron.ImageFile" />
+            </div>
+
             <table class="table table-hover">
 
                 <tr>
                     <td>Image: </td>
-                    <td><img src="@patron.ImageFile" alt="patron image" width="200" height="250"></td>
+                    @*<td><img src="@patron.ImageFile" alt="patron image" width="200" height="250"></td>*@
+                    @*<RadzenImage Path="@patron.ImageFile" Style="width:100px;" />*@
                 </tr>
 
                 <tr>

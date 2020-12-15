@@ -1,11 +1,11 @@
-﻿
-@page "/Author/Add"
+﻿@page "/Author/Add"
+@layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@layout SystemAdminLayout
 @inject AuthorService AuthorService
-
 @inject NavigationManager NavigationManager
+
+
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
 
@@ -52,10 +52,9 @@
     private void CreateAuthor()
     {
 
-
         AuthorService.AddNewAuthor(author);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         author = new Author();
 
         // May navigate to the Author component

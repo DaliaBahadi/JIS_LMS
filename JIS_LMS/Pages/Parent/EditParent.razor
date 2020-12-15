@@ -37,14 +37,14 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Relation:</span>
-                        <RadzenDropDown Data="@relation" @bind-Value="@relationParent" />
+                        <RadzenDropDown Data="@relation" @bind-Value="parentRelation" Change="ChooseRelation" />
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
-                        <RadzenDropDown Data="@language" @bind-Value="@languageParent" />
+                        <RadzenDropDown Data="@language" @bind-Value="parentLanguage" Change="ChooseLanguage" />
                     </label>
                 </div>
 
@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Gender:</span>
-                        <RadzenDropDown Data="@gender" @bind-Value="@genderParent" />
+                        <RadzenDropDown Data="@gender" @bind-Value="genderParent" Change="ChooseGender" />
                     </label>
                 </div>
 
@@ -79,7 +79,6 @@
                     <InputText type="email" id="email" @bind-Value="parent.SecondaryEmail" class="form-control" placeholder="sam@example.com" />
                     <ValidationMessage For="@(() => parent.SecondaryEmail)" />
                 </div>
-
 
 
                 <div class="form-group">
@@ -120,12 +119,10 @@
         parent = ParentService.GetParent(Id);
     }
 
-    
+
 
     public void UpdateParent()
     {
-
-
 
         // Edit Parent
         ParentService.EditParent(parent);
@@ -137,23 +134,56 @@
 
 @code
 {
-
-
-
     //Code for gender drop down list
     IEnumerable<ParentGender> gender = Enum.GetValues(typeof(ParentGender)).Cast<ParentGender>();
+
+    int genderValue;
+
+    ParentGender genderParent;
+
+    //Method For biding the value to the database
+    public void ChooseGender()
+    {
+        genderValue = (int)genderParent;
+        parent.Gender = genderValue;
+    }
 
     //Code for language drop down list
     IEnumerable<ParentLanguage> language = Enum.GetValues(typeof(ParentLanguage)).Cast<ParentLanguage>();
 
+    int languageValue;
+
+    ParentLanguage parentLanguage;
+
+    //Method For biding the value to the database
+    public void ChooseLanguage()
+    {
+        languageValue = (int)parentLanguage;
+        parent.Language = languageValue;
+    }
+
     //Code for relation drop down list
     IEnumerable<ParentRelation> relation = Enum.GetValues(typeof(ParentRelation)).Cast<ParentRelation>();
 
-    ParentGender genderParent = ParentGender.Female;
+    int relationValue;
 
-    ParentLanguage languageParent = ParentLanguage.English;
+    ParentRelation parentRelation;
 
-    ParentRelation relationParent = ParentRelation.Father;
+    //Method For biding the value to the database
+    public void ChooseRelation()
+    {
+        relationValue = (int)parentRelation;
+        parent.Relation = relationValue;
+    }
+
+
+}
+
+
+@code
+{
+
+
 
     IEnumerable<Address> parentAddresses;
 
@@ -161,18 +191,12 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
     void LoadData(LoadDataArgs args)
     {
         var query = DbContext.Address.AsQueryable();
-
-        //if (!string.IsNullOrEmpty(args.Filter))
-        //{
-        //    query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.AddressName.ToLower().Contains(args.Filter.ToLower()));
-        //}
 
         parentAddresses = query.ToList();
 

@@ -8,13 +8,13 @@ using JIS_LMS.Model;
 
 namespace JIS_LMS.Services
 {
-    public class LibraryMaterilaAuthorService
+    public class StudentParentService
     {
         // Instance of the db context
         private readonly LMSDbContext db;
 
         // Constructor using dependency injection
-        public LibraryMaterilaAuthorService(LMSDbContext context)
+        public StudentParentService(LMSDbContext context)
         {
             db = context;
         }
@@ -22,15 +22,15 @@ namespace JIS_LMS.Services
 
 
         /// <summary>
-        /// Add content to library material author 
+        /// Add content to stundent parent 
         /// </summary>
-        /// <param name="materialAuthor">The library material author to add</param>
-        /// <returns>True if materialAuthor is added successfuly otherwise false</returns>
-        public bool AddNewLibraryMaterialAuthor(LibraryMaterial_Author materialAuthor)
+        /// <param name="studentParent">The student Parent to add</param>
+        /// <returns>True if studentParent is added successfuly otherwise false</returns>
+        public bool AddNewStudentParent(Student_Parent studentParent)
         {
-            if (materialAuthor != null)
+            if (studentParent != null)
             {
-                db.LibraryMaterial_Author.Add(materialAuthor);
+                db.Student_Parent.Add(studentParent);
                 db.SaveChanges();
                 return true;
             }

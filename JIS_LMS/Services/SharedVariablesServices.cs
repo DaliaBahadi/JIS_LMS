@@ -21,10 +21,9 @@ namespace JIS_LMS.Services
 
         public int GetLibraryMaterialId { get; set; }
         
-
         public int AcquirePatronId { get; set; }
 
-
+        public int AcquireParentId { get; set; }
         public int BorrowingMaterialId { get; set; }
 
         public int HoldMaterialId { get; set; }

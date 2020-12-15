@@ -104,8 +104,10 @@ namespace JIS_LMS
             //Notification Service
             services.AddScoped<NotificationService>();
 
-            //Dialog Service
-            //services.AddScoped<DialogService>();
+            //Student_Parent Service
+            services.AddScoped<StudentParentService>();
+
+
 
         }
 

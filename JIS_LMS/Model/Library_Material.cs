@@ -95,7 +95,7 @@ public enum LibraryMaterialStatus
     Available = 1, Borrowed, Hold, Lost, Damaged, Missing, Restricted
 }
 
-public enum RestrectionType
+public enum RestrictionType
 {
     TeachersTextbooks = 1, References, Other
 }

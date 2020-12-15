@@ -1,0 +1,208 @@
+﻿@page "/Admin/Homepage"
+@layout SystemAdminLayout
+@using Microsoft.EntityFrameworkCore
+@using JIS_LMS.Data;
+@using JIS_LMS.Model
+@using Microsoft.AspNetCore.Components.Forms
+@inject ParentService ParentService
+@inject LMSDbContext DbContext
+
+<div class="row">
+    <h1 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Dashboard</h1>
+    <div style="margin-left:75rem;margin-top:2rem">
+        <i class="far fa-save fa-3x " style="margin-right:2rem"></i>
+        <i class="fas fa-print fa-3x"></i>
+    </div>
+</div>
+
+    <br>
+    <br>
+
+    <div class="row" style="margin-left:8rem">
+        <div>
+            <RadzenCard Style="width:430px; margin-bottom: 20px;margin-right:5rem; height:200px;">
+
+                <div style="font-size:18px">
+                    Number Of Materials Cataloged This Month:
+                </div>
+
+                <br>
+
+                <div style="font-size:30px;text-align:center; font-weight:bold">
+                    10
+                </div>
+
+            </RadzenCard>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <div>
+
+            <RadzenCard Style="width:400px; margin-bottom: 20px;margin-right:5rem; height:200px;">
+
+                <div style="font-size:18px">
+                    Number Of Holds this This Month:
+                </div>
+                <br>
+                <br>
+                <div style="font-size:30px;text-align:center; font-weight:bold">
+                    12
+                </div>
+
+            </RadzenCard>
+
+        </div>
+
+
+        <div>
+
+            <RadzenCard Style="width:400px; margin-bottom: 20px; margin-right:5rem; height:200px;">
+
+                <div style="font-size:18px">
+                    Number Of Borrowings this This Month:
+                </div>
+
+                <br>
+                <br>
+
+                <div style="font-size:30px;text-align:center; font-weight:bold">
+                    15
+                </div>
+
+            </RadzenCard>
+        </div>
+
+    </div>
+
+
+    <br>
+    <br>
+
+    <div style="margin-left:2rem;margin-top:1rem" class="row">
+
+        <RadzenCard Style="width:600px; margin-bottom: 20px;margin-right:5rem; height:500px;">
+            <h5>Most Borrowed Language:</h5>
+            <br>
+            <div>
+                <RadzenChart>
+                    <RadzenPieSeries Data="@count" Title="BorrowedLanguage" CategoryProperty="Language" ValueProperty="BorrowingCount" />
+                </RadzenChart>
+            </div>
+        </RadzenCard>
+
+        <RadzenCard Style="width:800px; margin-bottom: 20px;margin-right:5rem; height:500px;">
+            <div>
+                <h5>Number of Holds and Borrowings by Month:</h5>
+                <RadzenChart>
+                    <RadzenColumnSeries Data="@borrowings" CategoryProperty="Month" Title="Borrowings" LineType="LineType.Dashed" ValueProperty="Count" />
+                    <RadzenColumnSeries Data="@holds" CategoryProperty="Month" Title="Holds" ValueProperty="Count" />
+                    <RadzenColumnOptions Radius="5" />
+                    <RadzenValueAxis>
+                        <RadzenGridLines Visible="true" />
+                        <RadzenAxisTitle Text="Count" />
+                    </RadzenValueAxis>
+                </RadzenChart>
+            </div>
+        </RadzenCard>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    @code
+{
+        //code for the pie chart
+        class DataItem
+        {
+            public string Language { get; set; }
+            public double BorrowingCount { get; set; }
+        }
+
+        DataItem[] count = new DataItem[] {
+        new DataItem
+        {
+            Language = "Englsih",
+            BorrowingCount = 30
+        },
+        new DataItem
+        {
+            Language = "Arabic",
+            BorrowingCount = 10
+        },
+
+    };
+    }
+
+    @code {
+
+        //code for the bar chart
+        class DataItem2
+        {
+            public string Month { get; set; }
+            public double Count { get; set; }
+        }
+
+
+
+        DataItem2[] borrowings = new DataItem2[] {
+        new DataItem2
+        {
+            Month = "Oct 2019",
+            Count = 20
+        },
+        new DataItem2
+        {
+            Month = "Nov 2019",
+            Count = 5
+        },
+        new DataItem2
+        {
+            Month = "Dec 2019",
+            Count = 25
+        },
+        new DataItem2
+        {
+            Month = "Jan 2020",
+            Count = 10
+        },
+        new DataItem2
+        {
+            Month = "Feb 2020",
+            Count = 7
+        },
+    };
+
+        DataItem2[] holds = new DataItem2[] {
+        new DataItem2
+        {
+            Month = "Oct 2019",
+            Count = 5
+        },
+        new DataItem2
+        {
+            Month = "Nov 2019",
+            Count = 2
+        },
+        new DataItem2
+        {
+            Month = "Dec 2019",
+            Count = 10
+        },
+        new DataItem2
+        {
+            Month = "Jan 2020",
+            Count = 6
+        },
+        new DataItem2
+        {
+            Month = "Feb 2020",
+            Count = 5
+        },
+
+    };
+    }

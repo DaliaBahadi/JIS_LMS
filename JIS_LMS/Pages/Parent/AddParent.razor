@@ -1,13 +1,12 @@
-﻿
-@page "/Parent/Add"
+﻿@page "/Parent/Add"
+@layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@layout SystemAdminLayout
-
 @inject ParentService ParentService
 @inject AddressService AddressService
+@inject StudentParentService StudentParentService
+@inject SharedVariablesService SharedVariables
 @inject NavigationManager NavigationManager
-
 @inject LMSDbContext DbContext
 
 
@@ -95,14 +94,14 @@
                             <div class="form-group">
                                 <label style="display: flex; align-items: center">
                                     <span style="margin-right: 32px">*Relation:</span>
-                                    <RadzenDropDown Data="@relation" @bind-Value="parent.Relation" />
+                                    <RadzenDropDown Data="@relation" @bind-Value="parentRelation" Change="ChooseRelation" />
                                 </label>
                             </div>
 
                             <div class="form-group">
                                 <label style="display: flex; align-items: center">
                                     <span style="margin-right: 32px">*Language:</span>
-                                    <RadzenDropDown Data="@language" @bind-Value="parent.Language" />
+                                    <RadzenDropDown Data="@language" @bind-Value="parentLanguage" Change="ChooseLanguage" />
                                 </label>
                             </div>
 
@@ -111,7 +110,7 @@
                             <div class="form-group">
                                 <label style="display: flex; align-items: center">
                                     <span style="margin-right: 32px">*Gender:</span>
-                                    <RadzenDropDown Data="@gender" @bind-Value="parent.Gender" />
+                                    <RadzenDropDown Data="@gender" @bind-Value="genderParent" Change="ChooseGender" />
                                 </label>
                             </div>
 
@@ -157,6 +156,39 @@
                     </fieldset>
                 </div>
             </div>
+
+            <div class="container-fluid container-contact100">
+                <div class="wrap-contact100">
+
+                    <fieldset>
+                        <legend>Student</legend>
+                        <EditForm Model="student" OnValidSubmit="CreateStudentParent">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+                            
+                            
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center" for="student">
+                                    <span style="margin-right: 32px">*Student: </span>
+                                    <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Student"
+                                                    LoadData="@patronLoadData" AllowFiltering="true"
+                                                    Data="@patron" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 7px"  @bind-Value="student.PatronId"
+                                                    Change="@(args => patronChange(args, "DropDown with custom filtering"))" />
+                                </label>
+                            </div>
+
+                            <div class="mt-4"></div>
+                            <button type="submit" class="btn btn-outline-primary" style=" width: 220px;">Add Another Student</button>
+                            <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                            <a href="Parents" class="btn btn-outline-secondary">Cancel</a>
+                        </EditForm>
+                    </fieldset>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+
         </RadzenTabsItem>
     </Tabs>
 </RadzenTabs>
@@ -191,15 +223,44 @@
 
     private void CreateParent()
     {
-        
 
         ParentService.AddNewParent(parent);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         parent = new Parent();
 
-        // May navigate to the parents component
-        NavigationManager.NavigateTo("/Parents");
+        //Geeting parent Id
+        GetParentId();
+    }
+}
+
+@code {
+
+    Student_Parent student = new Student_Parent();
+    private List<Student_Parent> students = new List<Student_Parent>();
+
+
+    private void CreateStudentParent()
+    {
+        student.ParentId = SharedVariables.AcquireParentId;
+
+        //Adding student to parent
+        StudentParentService.AddNewStudentParent(student);
+
+        // To empty the form
+        student = new Student_Parent();
+
+
+
+    }
+
+
+    private void GetParentId()
+    {
+        //get the parent id and binding it
+        SharedVariables.AcquireParentId = DbContext.Parent.OrderBy(d => d.ParentId).LastOrDefault().ParentId;
+
+
     }
 }
 
@@ -212,30 +273,18 @@
 
     private List<Address> addresses = new List<Address>();
 
-    // Execute when component starts / initializes
-    //protected override void OnInitialized()
-    //{
-
-    //    addresses = AddressService.GetAddresses();
-    //}
-
-
+    //Address dropdown list method
     void Change(object value, string name)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
+    //Address dropdown list method
     void LoadData(LoadDataArgs args)
     {
         var query = DbContext.Address.AsQueryable();
-
-        //if (!string.IsNullOrEmpty(args.Filter))
-        //{
-        //    query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.AddressName.ToLower().Contains(args.Filter.ToLower()));
-        //}
 
         parentAddresses = query.ToList();
 
@@ -245,31 +294,79 @@
     private void CreateAddress()
     {
 
-
         AddressService.AddNewAddress(address);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         address = new Address();
 
-        // May navigate to the parents component
-        //NavigationManager.NavigateTo("/Libraries");
     }
+
+
 }
 
 @code
 {
+    // code section for the patron drop down list 
+
+    IEnumerable<Patron> patron;
+
+    void patronChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+
+        StateHasChanged();
+    }
+
+    void patronLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Patron.AsQueryable();
+
+        patron = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
     //Code for gender drop down list
     IEnumerable<ParentGender> gender = Enum.GetValues(typeof(ParentGender)).Cast<ParentGender>();
+
+    int genderValue;
+
+    ParentGender genderParent;
+
+    //Method For biding the value to the database
+    public void ChooseGender()
+    {
+        genderValue = (int)genderParent;
+        parent.Gender = genderValue;
+    }
 
     //Code for language drop down list
     IEnumerable<ParentLanguage> language = Enum.GetValues(typeof(ParentLanguage)).Cast<ParentLanguage>();
 
+    int languageValue;
+
+    ParentLanguage parentLanguage = ParentLanguage.Arabic;
+
+    //Method For biding the value to the database
+    public void ChooseLanguage()
+    {
+        languageValue = (int)parentLanguage;
+        parent.Language = languageValue;
+    }
+
     //Code for relation drop down list
     IEnumerable<ParentRelation> relation = Enum.GetValues(typeof(ParentRelation)).Cast<ParentRelation>();
 
-    //ParentGender genderParent = ParentGender.Female;
+    int relationValue;
 
-    //ParentLanguage languageParent = ParentLanguage.English;
+    ParentRelation parentRelation;
 
-    //ParentRelation relationParent = ParentRelation.Father;
+    //Method For biding the value to the database
+    public void ChooseRelation()
+    {
+        relationValue = (int)parentRelation;
+        parent.Relation = relationValue;
+    }
+
+
 }

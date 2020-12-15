@@ -1,14 +1,10 @@
-﻿
-@page "/Employee/Add"
+﻿@page "/Employee/Add"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @using Microsoft.AspNetCore.Components.Forms
 @using Radzen.Blazor.Rendering
-
-
 @inject EmployeeService EmployeeService
-
 @inject NavigationManager NavigationManager
 
 
@@ -58,7 +54,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
-                        <RadzenDropDown Data="@language" @bind-Value="employeeLanguage" />
+                        <RadzenDropDown Data="@language" @bind-Value="@employeeLanguage"  Change="ChooseLanguage" />
                        
                     </label>
                 </div>
@@ -68,7 +64,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Gender:</span>
-                        <RadzenDropDown Data="@gender" @bind-Value="employeeGender"  Change="chooseGender"/>
+                        <RadzenDropDown Data="@gender" @bind-Value="@employeeGender"  Change="ChooseGender"/>
                     </label>
                 </div>
 
@@ -82,7 +78,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Employee Type:</span>
-                        <RadzenDropDown Data="@type" @bind-Value="employeeType" Placeholder="Select type" />
+                        <RadzenDropDown Data="@type" @bind-Value="employeeType" Placeholder="Select type"  Change="ChooseType" />
                     </label>
                 </div>
 
@@ -149,10 +145,10 @@
 
     int genderValue;
 
-    EmployeeGender employeeGender = EmployeeGender.Female;
+    EmployeeGender employeeGender;
 
     //Method For biding the value to the database
-    public void chooseGender()
+    public void ChooseGender()
     {
         genderValue = (int)employeeGender;
         employee.Gender = genderValue;
@@ -168,9 +164,11 @@
     EmployeeLanguage employeeLanguage = EmployeeLanguage.English;
 
     //Method For biding the value to the database
-    public void chooseLanguage()
+    public void ChooseLanguage()
     {
         languageValue = (int)employeeLanguage;
+
+        employee.Language = languageValue;
     }
 
 
@@ -182,9 +180,11 @@
     EmployeeType employeeType;
 
     //Method For biding the value to the database
-    public void chooseType()
+    public void ChooseType()
     {
         typeValue = (int)employeeType;
+
+        employee.EmployeeType = typeValue;
     }
 
 

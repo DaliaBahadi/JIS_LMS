@@ -33,6 +33,8 @@
                 <div class="form-group">
                     <label for="dateOfBirth">*Date Of Birth:</label>
                     <InputDate id="date" @bind-Value="employee.DateOfBirth" class="form-control" />
+                    <ValidationMessage For="@(() => employee.DateOfBirth)" />
+
                 </div>
 
                 <div class="form-group">
@@ -49,7 +51,8 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
-                        <RadzenDropDown Data="@language" @bind-Value="employee.Language" />
+                        <RadzenDropDown Data="@language" @bind-Value="@employeeLanguage" Change="ChooseLanguage" />
+
                     </label>
                 </div>
 
@@ -58,7 +61,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Gender:</span>
-                        <RadzenDropDown Data="@gender" @bind-Value="employee.Gender" />
+                        <RadzenDropDown Data="@gender" @bind-Value="@employeeGender" Change="ChooseGender" />
                     </label>
                 </div>
 
@@ -72,7 +75,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Employee Type:</span>
-                        <RadzenDropDown Data="@type" @bind-Value="employee.EmployeeType" />
+                        <RadzenDropDown Data="@type" @bind-Value="employeeType" Placeholder="Select type" Change="ChooseType" />
                     </label>
                 </div>
 
@@ -85,8 +88,6 @@
                     <label for="password">*Password:</label>
                     <InputText type="password" id="password" @bind-Value="employee.Password" class="form-control" placeholder="Enter Employee Password" />
                 </div>
-
-
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
                 <a href="Employees/Search" class="btn btn-outline-secondary">Cancel</a>
@@ -108,8 +109,6 @@
 
     Employee employee = new Employee();
 
-
-
     string message;
 
     protected override void OnInitialized()
@@ -119,8 +118,6 @@
 
     public void UpdateEmployee()
     {
-
-
 
         // Edit employee
         EmployeeService.EditEmployee(employee);
@@ -133,15 +130,55 @@
 @code
 {
 
+    //code for validation
+    bool popup;
+
     //Code for gender drop down list
     IEnumerable<EmployeeGender> gender = Enum.GetValues(typeof(EmployeeGender)).Cast<EmployeeGender>();
 
+    int genderValue;
+
+    EmployeeGender employeeGender;
+
+    //Method For biding the value to the database
+    public void ChooseGender()
+    {
+        genderValue = (int)employeeGender;
+        employee.Gender = genderValue;
+    }
+
+
+
     //Code for language drop down list
     IEnumerable<EmployeeLanguage> language = Enum.GetValues(typeof(EmployeeLanguage)).Cast<EmployeeLanguage>();
+
+    int languageValue;
+
+    EmployeeLanguage employeeLanguage;
+
+    //Method For biding the value to the database
+    public void ChooseLanguage()
+    {
+        languageValue = (int)employeeLanguage;
+
+        employee.Language = languageValue;
+    }
 
 
     //Code for employee type drop down list
     IEnumerable<EmployeeType> type = Enum.GetValues(typeof(EmployeeType)).Cast<EmployeeType>();
 
-    //ParentGender genderParent = ParentGender.Female;
+    int typeValue;
+
+    EmployeeType employeeType;
+
+    //Method For biding the value to the database
+    public void ChooseType()
+    {
+        typeValue = (int)employeeType;
+
+        employee.EmployeeType = typeValue;
+    }
+
+
 }

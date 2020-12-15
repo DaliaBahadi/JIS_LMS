@@ -7,6 +7,7 @@
 @inject CD_DVD_BR_Service CD_DVD_BR_Service
 @inject BookService BookService
 @inject JournalService JournalService
+@inject LibraryMaterilaAuthorService AuthorService
 @inject NavigationManager NavigationManager
 @inject LMSDbContext DbContext
 
@@ -53,23 +54,6 @@
                 </div>
                 <br>
 
-                <div class="form-group">
-                        <label for="author">*Authors:</label>
-                        <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value="@multipleValues" Data=@materialAuthor Multiple="true"
-                                       TextProperty="FullName" ValueProperty="AuthorId" Change=@(args => AuthorOnChange(args, "ListBox with multiple selection")) Style="height:200px" />
-                        <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
-                    </div>
-
-                <div class="form-group">
-                    <label style="display: flex; align-items: center" for="publisher">
-                        <span style="margin-right: 32px">*Author/s: </span>
-                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Authors"
-                                        LoadData="@AuthorLoadData" AllowFiltering="true"
-                                        Data="@materialAuthor" TextProperty="FullName" ValueProperty="AuthorId" Style="margin-bottom: 7px" @bind-Value="author.AuthorId"
-                                        Change="@(args => AuthorOnChange(args, "DropDown with custom filtering"))" />
-                        <a href="/Author/Add" class="btn btn-outline-primary" style="align-items:start;margin-left:4.5em">Add Author</a>
-                    </label>
-                </div>
 
                 <div class="form-group">
                     <label for="Pages-Number">Number Of Pages:</label>
@@ -84,7 +68,7 @@
 
                 <div class="form-group">
                     <label for="cost-price">Cost Price:</label>
-                    <SfNumericTextBox TValue="decimal?" @bind-Value="catalog.CostPrice" Format="SAR"></SfNumericTextBox>
+                    <SfNumericTextBox TValue="decimal?" @bind-Value="catalog.CostPrice"></SfNumericTextBox>
                 </div>
 
                 <div class="form-group">
@@ -95,7 +79,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
-                        <RadzenDropDown Data="@language" @bind-Value="catalog.Language" Style="align-items:center" />
+                        <RadzenDropDown Data="@language" @bind-Value="@materialLanguage" Style="align-items:center" Change="ChooseLanguage" />
                     </label>
                 </div>
 
@@ -124,14 +108,14 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Age Level:</span>
-                        <RadzenDropDown Data="@ageLevel" @bind-Value="catalog.AgeLevel" />
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="@materialAgeLevel" Change="ChooseAgeLevel" />
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Status:</span>
-                        <RadzenDropDown Data="@status" @bind-Value="catalog.Status" Style="align-items:center" />
+                        <RadzenDropDown Data="@status" @bind-Value="@materialStatus" Style="align-items:center" Change="ChooseStatus" />
                     </label>
                 </div>
 
@@ -155,7 +139,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">Restriction Type:</span>
-                        <RadzenDropDown Data="@restrectionType" @bind-Value="catalog.RestrictionType" Style="align-items:center" />
+                        <RadzenDropDown Data="@restrictionType" @bind-Value="@materialRestriction" Placeholder="Select Restrection Type" Style="align-items:center" Change="ChooseRestriction" />
                     </label>
                 </div>
 
@@ -193,6 +177,7 @@
                                         Change="@(args => DonorChange(args, "Donor DropDown "))" />
                     </label>
                 </div>
+
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
                 <a href="/Catalog/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
@@ -216,17 +201,6 @@
                 <ValidationSummary />
 
                 <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int"
-                                        LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="book.LibraryMaterialId"
-                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
-                    </label>
-                </div>
-
-
-                <div class="form-group">
                     <label for="ISBN">*ISBN:</label>
                     <InputText id="ISBN" @bind-Value="book.ISBN" class="form-control" placeholder="000-0-00-000000-0" />
                 </div>
@@ -239,7 +213,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Book Type:</span>
-                        <RadzenDropDown Data="@bookType" @bind-Value="book.BookType" />
+                        <RadzenDropDown Data="@bookType" @bind-Value="@typeBook" Change="ChooseBookType" />
                     </label>
                 </div>
 
@@ -265,14 +239,6 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
-                <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="journal.LibraryMaterialId"
-                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
-                    </label>
-                </div>
 
                 <div class="form-group">
                     <label for="ISSN">*ISSN:</label>
@@ -292,7 +258,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Journal Type:</span>
-                        <RadzenDropDown Data="@journalType" @bind-Value="journal.JournalType" />
+                        <RadzenDropDown Data="@journalType" @bind-Value="@typeJournal" Change="ChooseJournalType" />
                     </label>
                 </div>
 
@@ -319,14 +285,6 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
-                <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@MaterialLoadData" AllowFiltering="true"
-                                        Data="@libraryMaterialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Material" @bind-Value="cD_DVD_BR.LibraryMaterialId"
-                                        Change="@(args => MaterialChange(args, "library Material DropDown "))" />
-                    </label>
-                </div>
 
                 <div class="form-group">
                     <label for="ISBN">*ISBN:</label>
@@ -357,7 +315,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Type:</span>
-                        <RadzenDropDown Data="@cD_DVD_BR_Type" @bind-Value="cD_DVD_BR.Type" />
+                        <RadzenDropDown Data="@cD_DVD_BR_Type" @bind-Value="@typeCdDvdBr" Change="ChooseCdDvdBrType" />
                     </label>
                 </div>
 
@@ -571,12 +529,6 @@
     {
         var query = DbContext.Donor.AsQueryable();
 
-
-        //if (!string.IsNullOrEmpty(args.Filter))
-        //{
-        //    //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        //}
-
         materialDonor = query.ToList();
 
         InvokeAsync(StateHasChanged);
@@ -591,7 +543,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -600,18 +551,13 @@
         var query = DbContext.Library.AsQueryable();
 
 
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
-
         materialLibrary = query.ToList();
 
         InvokeAsync(StateHasChanged);
     }
 
 
-    //Author List box Methods
+    //Author drop down Methods
 
     IEnumerable<Author> materialAuthor;
 
@@ -629,21 +575,12 @@
         var query = DbContext.Author.AsQueryable();
 
 
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
-
         materialAuthor = query.ToList();
 
         InvokeAsync(StateHasChanged);
     }
 
 
-
-
-    IEnumerable<string> multipleValues = new string[] { "ALFKI", "ANATR" };
-    string value = "ALFKI";
 
     //Publisher Drop Down List Methods
 
@@ -653,7 +590,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -661,11 +597,6 @@
     {
         var query = DbContext.Publisher.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         materialPublisher = query.ToList();
 
@@ -681,7 +612,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -689,11 +619,6 @@
     {
         var query = DbContext.Library_Material.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         libraryMaterialList = query.ToList();
 
@@ -704,28 +629,115 @@
     //Code for language drop down list
     IEnumerable<LibraryMaterialLanguage> language = Enum.GetValues(typeof(LibraryMaterialLanguage)).Cast<LibraryMaterialLanguage>();
 
+    int languageValue;
+
+    LibraryMaterialLanguage materialLanguage;
+
+    //Method For biding the value to the database
+    public void ChooseLanguage()
+    {
+        languageValue = (int)materialLanguage;
+        catalog.Language = languageValue;
+    }
 
     //Code for Library Material type drop down list
     IEnumerable<LibraryMaterialType> type = Enum.GetValues(typeof(LibraryMaterialType)).Cast<LibraryMaterialType>();
 
+    int typeValue;
+
+    LibraryMaterialType LibraryMaterialType;
+
+    //Method For biding the value to the database
+    public void ChooseType()
+    {
+        typeValue = (int)LibraryMaterialType;
+        catalog.LibraryMaterialType = typeValue;
+    }
 
     //Code for status drop down list
     IEnumerable<LibraryMaterialStatus> status = Enum.GetValues(typeof(LibraryMaterialStatus)).Cast<LibraryMaterialStatus>();
 
+    int statusValue;
+
+    LibraryMaterialStatus materialStatus;
+
+    //Method For biding the value to the database
+    public void ChooseStatus()
+    {
+        statusValue = (int)materialStatus;
+        catalog.Status = statusValue;
+    }
+
     //Code for Restrection type drop down list
-    IEnumerable<RestrectionType> restrectionType = Enum.GetValues(typeof(RestrectionType)).Cast<RestrectionType>();
+    IEnumerable<RestrictionType> restrictionType = Enum.GetValues(typeof(RestrictionType)).Cast<RestrictionType>();
+
+    int RestrictionValue;
+
+    RestrictionType materialRestriction;
+
+    //Method For biding the value to the database
+    public void ChooseRestriction()
+    {
+        RestrictionValue = (int)materialRestriction;
+        catalog.RestrictionType = RestrictionValue;
+    }
 
     //Code for age level drop down list
     IEnumerable<LibraryMaterialAgeLevel> ageLevel = Enum.GetValues(typeof(LibraryMaterialAgeLevel)).Cast<LibraryMaterialAgeLevel>();
 
+    int ageLevelValue;
+
+    LibraryMaterialAgeLevel materialAgeLevel;
+
+    //Method For biding the value to the database
+    public void ChooseAgeLevel()
+    {
+        ageLevelValue = (int)materialAgeLevel;
+        catalog.AgeLevel = ageLevelValue;
+    }
+
     //Code for Book Type drop down list
     IEnumerable<BookType> bookType = Enum.GetValues(typeof(BookType)).Cast<BookType>();
+
+    int bookTypeValue;
+
+    BookType typeBook;
+
+    //Method For biding the value to the database
+    public void ChooseBookType()
+    {
+        bookTypeValue = (int)typeBook;
+        book.BookType = bookTypeValue;
+    }
 
     //Code for Journal Type drop down list
     IEnumerable<JournalType> journalType = Enum.GetValues(typeof(JournalType)).Cast<JournalType>();
 
+    int journalTypeValue;
+
+    JournalType typeJournal;
+
+    //Method For biding the value to the database
+    public void ChooseJournalType()
+    {
+        journalTypeValue = (int)typeJournal;
+        journal.JournalType = journalTypeValue;
+    }
+
     //Code for CD/DVD/BR Type drop down list
     IEnumerable<CD_DVD_BR_Type> cD_DVD_BR_Type = Enum.GetValues(typeof(CD_DVD_BR_Type)).Cast<CD_DVD_BR_Type>();
+
+    int cD_DVD_BR_TypeValue;
+
+    CD_DVD_BR_Type typeCdDvdBr;
+
+    //Method For biding the value to the database
+    public void ChooseCdDvdBrType()
+    {
+        cD_DVD_BR_TypeValue = (int)typeCdDvdBr;
+        cD_DVD_BR.Type = cD_DVD_BR_TypeValue;
+    }
+
 
 
 

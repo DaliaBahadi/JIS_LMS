@@ -1,11 +1,9 @@
 ﻿@page "/Library/Edit/{Id:int}"
 @layout SystemAdminLayout
-@inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-
+@inject NavigationManager NavigationManager
 @inject LibraryService LibraryService
-
 @inject AddressService AddressService
 @inject LMSDbContext DbContext
 
@@ -13,7 +11,7 @@
     <div class="wrap-contact100">
         <h3>Edit Library Information</h3>
         <fieldset>
-            
+
             <EditForm Model="library" OnValidSubmit="UpdateLibrary">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -26,14 +24,14 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Section:</span>
-                        <RadzenDropDown Data="@librarySection" @bind-Value="library.Section" />
+                        <RadzenDropDown Data="section" @bind-Value="librarySection" Change="ChooseSection" />
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Status:</span>
-                        <RadzenDropDown Data="@status" @bind-Value="library.Status" />
+                        <RadzenDropDown Data="@status" @bind-Value="@libraryStatus" Change="ChooseStatus" />
                     </label>
                 </div>
 
@@ -49,14 +47,13 @@
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Employee:</span>
+                        <span style="margin-right: 32px">*Library Employee:</span>
                         <RadzenDropDown AllowClear="true" TValue="int"
                                         LoadData="@EmployeeLoadData" AllowFiltering="true"
                                         Data="@libraryEmployee" TextProperty="FullName" ValueProperty="EmployeeId" Style="margin-bottom: 20px" @bind-Value="library.LibrarianId"
                                         Change="@(args => EmployeeChange(args, "DropDown with custom filtering"))" />
                     </label>
                 </div>
-
 
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
@@ -80,22 +77,19 @@
 
     Library library = new Library();
 
-
     string message;
 
     protected override void OnInitialized()
     {
         library = LibraryService.GetLibrary(Id);
-       
+
     }
 
 
- 
+
 
     public void UpdateLibrary()
     {
-
-
 
         // Edit library
         LibraryService.EditLibrary(library);
@@ -115,19 +109,12 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
     void LoadData(LoadDataArgs args)
     {
         var query = DbContext.Address.AsQueryable();
-
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         libraryAddress = query.ToList();
 
@@ -138,7 +125,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -146,21 +132,39 @@
     {
         var query = DbContext.Employee.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
-
         libraryEmployee = query.ToList();
 
         InvokeAsync(StateHasChanged);
     }
+
+
     //Code for section drop down list
-    IEnumerable<LibrarySection> librarySection = Enum.GetValues(typeof(LibrarySection)).Cast<LibrarySection>();
+    IEnumerable<LibrarySection> section = Enum.GetValues(typeof(LibrarySection)).Cast<LibrarySection>();
+
+    int sectionValue;
+
+    LibrarySection librarySection;
+
+    //Method For biding the value to the database
+    public void ChooseSection()
+    {
+        sectionValue = (int)librarySection;
+        library.Section = sectionValue;
+    }
 
     //Code for status drop down list
     IEnumerable<LibraryStatus> status = Enum.GetValues(typeof(LibraryStatus)).Cast<LibraryStatus>();
+
+    int statusValue;
+
+    LibraryStatus libraryStatus;
+
+    //Method For biding the value to the database
+    public void ChooseStatus()
+    {
+        statusValue = (int)libraryStatus;
+        library.Status = statusValue;
+    }
 
 
 

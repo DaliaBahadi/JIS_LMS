@@ -1,9 +1,7 @@
-﻿
-@page "/Library/Add"
+﻿@page "/Library/Add"
+@layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@layout SystemAdminLayout
-
 @inject LibraryService LibraryService
 @inject AddressService AddressService
 @inject NavigationManager NavigationManager
@@ -79,14 +77,14 @@
                             <div class="form-group">
                                 <label style="display: flex; align-items: center">
                                     <span style="margin-right: 32px">*Section:</span>
-                                    <RadzenDropDown Data="@librarySection" @bind-Value="library.Section" />
+                                    <RadzenDropDown Data="section" @bind-Value="librarySection" Change="ChooseSection" />
                                 </label>
                             </div>
 
                             <div class="form-group">
                                 <label style="display: flex; align-items: center">
                                     <span style="margin-right: 32px">*Status:</span>
-                                    <RadzenDropDown Data="@status" @bind-Value="library.Status" />
+                                    <RadzenDropDown Data="@status" @bind-Value="@libraryStatus" Change="ChooseStatus"/>
                                 </label>
                             </div>
 
@@ -146,11 +144,9 @@
     private void CreateLibrary()
     {
 
-
-
         LibraryService.AddNewLibrary(library);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         library = new Library();
 
         // May navigate to the Libraries component
@@ -163,30 +159,18 @@
 @code {
     Address address = new Address();
 
-
-
     private List<Address> addresses = new List<Address>();
-
-    // Execute when component starts / initializes
-    //protected override void OnInitialized()
-    //{
-
-    //    addresses = AddressService.GetAddresses();
-    //}
-
 
 
     private void CreateAddress()
     {
 
-
         AddressService.AddNewAddress(address);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         address = new Address();
 
-        // May navigate to the libraries component
-        //NavigationManager.NavigateTo("/Libraries");
+       
     }
 }
 
@@ -200,19 +184,12 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
     void LoadData(LoadDataArgs args)
     {
         var query = DbContext.Address.AsQueryable();
-
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
 
         libraryAddress = query.ToList();
 
@@ -223,7 +200,6 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-        //events.Add(DateTime.Now, $"{name} value changed to {str}");
         StateHasChanged();
     }
 
@@ -231,22 +207,39 @@
     {
         var query = DbContext.Employee.AsQueryable();
 
-
-        if (!string.IsNullOrEmpty(args.Filter))
-        {
-            //query = query.Where(c => c.AddressId.ToLower().Contains(args.Filter.ToLower()) || c.StreetName.ToLower().Contains(args.Filter.ToLower()));
-        }
-
         libraryEmployee = query.ToList();
 
         InvokeAsync(StateHasChanged);
     }
+
+
     //Code for section drop down list
-    IEnumerable<LibrarySection> librarySection = Enum.GetValues(typeof(LibrarySection)).Cast<LibrarySection>();
+    IEnumerable<LibrarySection> section = Enum.GetValues(typeof(LibrarySection)).Cast<LibrarySection>();
+
+    int sectionValue;
+
+    LibrarySection librarySection;
+
+    //Method For biding the value to the database
+    public void ChooseSection()
+    {
+        sectionValue = (int)librarySection;
+        library.Section= sectionValue;
+    }
 
     //Code for status drop down list
     IEnumerable<LibraryStatus> status = Enum.GetValues(typeof(LibraryStatus)).Cast<LibraryStatus>();
 
+    int statusValue;
+
+    LibraryStatus libraryStatus = LibraryStatus.Opened;
+
+    //Method For biding the value to the database
+    public void ChooseStatus()
+    {
+        statusValue = (int)libraryStatus;
+        library.Status = statusValue;
+    }
 
 
 }

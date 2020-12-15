@@ -1,10 +1,10 @@
-﻿
-@page "/Library/Details/{Id:int}"
+﻿@page "/Library/Details/{Id:int}"
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
 @layout SystemAdminLayout
 @inject LibraryService LibraryService
 @inject AddressService AddressService
-@using JIS_LMS.Data;
-@using JIS_LMS.Model;
+
 
 <div class="container">
     <div class="container-fluid container-contact100">
@@ -29,7 +29,7 @@
             </table>
 
             <br><br><br>
-            
+
             <a href="/Library/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
             <a href="/Libraries/Search" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
@@ -40,13 +40,13 @@
 @code {
 
     Library library = new Library();
-  
+
     [Parameter]
     public int Id { get; set; }
 
     protected override void OnInitialized()
     {
         library = LibraryService.GetLibrary(Id);
-        
+
     }
 }

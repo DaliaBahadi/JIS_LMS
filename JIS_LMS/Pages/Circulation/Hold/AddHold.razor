@@ -46,13 +46,6 @@
                 </div>
 
 
-                @*<div class="form-group">
-                        <label style="display: flex; align-items: center">
-                            <span style="margin-right: 32px">*Status:</span>
-                            <RadzenDropDown Data="@status" @bind-Value="hold.Status" />
-                        </label>
-                    </div>*@
-
                 <br>
                 <div class="form-group">
                     <label style="margin-right: 32px" for="remark">Remark: </label>
@@ -156,8 +149,6 @@
 
     IEnumerable<DateTime> dates = new DateTime[] { DateTime.Today.AddDays(-1), DateTime.Today.AddDays(1) };
 
-    //Code for status drop down list
-    //IEnumerable<HoldStatus> status = Enum.GetValues(typeof(HoldStatus)).Cast<HoldStatus>();
 
 
 
