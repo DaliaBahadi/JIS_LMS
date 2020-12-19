@@ -18,6 +18,7 @@ namespace JIS_LMS.Model
         [StringLength(25)]
         public string ISBN { get; set; }
         public int? Edition { get; set; }
+        [Required]
         public int BookType { get; set; }
 
         [ForeignKey(nameof(LibraryMaterialId))]

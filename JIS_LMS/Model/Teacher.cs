@@ -14,6 +14,7 @@ namespace JIS_LMS.Model
     {
         [Key]
         public int PatronId { get; set; }
+        [Required(ErrorMessage = "The EmployeeId field is required ")]
         public int EmployeeId { get; set; }
 
         [ForeignKey(nameof(PatronId))]

@@ -37,6 +37,7 @@ namespace JIS_LMS.Model
         public string Email { get; set; }
         [Required]
         [StringLength(15)]
+       
         public string Mobile { get; set; }
         [Required]
         public int Language { get; set; }

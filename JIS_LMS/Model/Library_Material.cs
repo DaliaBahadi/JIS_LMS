@@ -25,10 +25,12 @@ namespace JIS_LMS.Model
 
         [Key]
         public int LibraryMaterialId { get; set; }
+        [Required(ErrorMessage = "The Accession Number field is required ")]
         public int AccessionNumber { get; set; }
         [Column(TypeName = "date")]
         public DateTime? DateAcquired { get; set; }
         [Column(TypeName = "date")]
+        [Required]
         public DateTime DateRecorded { get; set; }
         [Required]
         public string Title { get; set; }
@@ -38,8 +40,9 @@ namespace JIS_LMS.Model
         [Column(TypeName = "decimal(8, 2)")]
         public decimal? CostPrice { get; set; }
         [Required]
-        [StringLength(4)]
+        [StringLength(4,ErrorMessage = "The length of the Year Published must be 4")]
         public string YearPublished { get; set; }
+        [Required]
         public int Language { get; set; }
         public string SubjectTranslationInEnglish { get; set; }
         [Required]
@@ -50,15 +53,20 @@ namespace JIS_LMS.Model
         public string Subject { get; set; }
         [StringLength(80)]
         public string CityPublished { get; set; }
+        [Required]
         public int AgeLevel { get; set; }
+        [Required]
         public int Status { get; set; }
         public string Description { get; set; }
         public string ImageFile { get; set; }
         public string DOIURL { get; set; }
         public int? RestrictionType { get; set; }
+        [Required]
         public int LibraryMaterialType { get; set; }
+        [Required(ErrorMessage = "The Publisher field is required ")]
         public int PublisherId { get; set; }
         public int DonorId { get; set; }
+        [Required(ErrorMessage = "The Library field is required ")]
         public int LibraryId { get; set; }
 
         [ForeignKey(nameof(DonorId))]

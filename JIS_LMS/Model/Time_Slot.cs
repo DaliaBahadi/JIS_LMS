@@ -18,15 +18,19 @@ namespace JIS_LMS.Model
 
         [Key]
         public int TimeSlotId { get; set; }
+        [Required(ErrorMessage = "The Week Day field is required ")]
         public int WeekDay { get; set; }
+        [Required(ErrorMessage = "The Start Time field is required ")]
         public TimeSpan StartTime { get; set; }
+        [Required(ErrorMessage = "The End Time field is required ")]
         public TimeSpan EndTime { get; set; }
-        [Required]
-        [StringLength(4)]
+        [Required(ErrorMessage = "The Year field is required ")]
+        [StringLength(4,ErrorMessage = "The length of the Year must be 4")]
         public string Year { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Semester field is required ")]
         [StringLength(20)]
         public string Semester { get; set; }
+        [Required(ErrorMessage = "The Reserved field is required ")]
         public bool Reserved { get; set; }
         public int ScheduleId { get; set; }
         public int LibraryId { get; set; }

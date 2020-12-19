@@ -19,6 +19,7 @@ namespace JIS_LMS.Model
         public string ISSN { get; set; }
         public int? Volume { get; set; }
         public int? Issue { get; set; }
+        [Required]
         public int JournalType { get; set; }
 
         [ForeignKey(nameof(LibraryMaterialId))]

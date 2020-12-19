@@ -13,9 +13,11 @@ namespace JIS_LMS.Model
     {
         [Key]
         public int NotificationId { get; set; }
+        [Required]
         public DateTime NotificationDateTime { get; set; }
         [Required]
         public string MessageContent { get; set; }
+        [Required]
         public int NotificationType { get; set; }
         public int PatronId { get; set; }
         public int LibrarianId { get; set; }

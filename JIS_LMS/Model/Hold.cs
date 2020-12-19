@@ -13,9 +13,13 @@ namespace JIS_LMS.Model
     {
         [Key]
         public int HoldId { get; set; }
+        [Required]
         public DateTime HoldDateTime { get; set; }
+        [Required]
         public DateTime ExpiryDateTime { get; set; }
+        [Required]
         public DateTime PickupDateTime { get; set; }
+        [Required]
         public bool HoldStatus { get; set; }
         public string Remark { get; set; }
         public int LibraryMaterialId { get; set; }

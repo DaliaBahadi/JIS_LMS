@@ -22,28 +22,35 @@ namespace JIS_LMS.Model
 
         [Key]
         public int ParentId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The First Name field is required ")]
         [StringLength(30)]
         public string FirstName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Middle Name field is required ")]
         [StringLength(30)]
         public string MiddleName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Last Name field is required ")]
         [StringLength(30)]
         public string LastName { get; set; }
-        public int Gender { get; set; }
-        public int Relation { get; set; }
         [Required]
+        public int Gender { get; set; }
+        [Required]
+        public int Relation { get; set; }
+        [Required(ErrorMessage = "The Primary Contact Number field is required ")] 
         [StringLength(15)]
+        
         public string PrimaryContactNumber { get; set; }
         [StringLength(15)]
         public string SecondaryContactNumber { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Primary Email field is required ")]
         [StringLength(100)]
+        [EmailAddress]
         public string PrimaryEmail { get; set; }
         [StringLength(100)]
+        [EmailAddress]
         public string SecondaryEmail { get; set; }
+        [Required]
         public int Language { get; set; }
+        [Required(ErrorMessage = "The Address field is required ")]
         public int AddressId { get; set; }
 
         [ForeignKey(nameof(AddressId))]

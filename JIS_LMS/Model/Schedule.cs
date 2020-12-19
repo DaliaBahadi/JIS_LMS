@@ -18,16 +18,16 @@ namespace JIS_LMS.Model
 
         [Key]
         public int ScheduleId { get; set; }
-        [Required]
-        [StringLength(4)]
+        [Required (ErrorMessage = "The Year field is required")]
+        [StringLength(4, ErrorMessage = "The length of the Year  must be 4")]
         public string Year { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Semester field is required")]
         [StringLength(20)]
         public string Semester { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Class Name field is required")]
         [StringLength(5)]
         public string ClassName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Class Year field is required")]
         [StringLength(5)]
         public string ClassYear { get; set; }
         public int PatronId { get; set; }

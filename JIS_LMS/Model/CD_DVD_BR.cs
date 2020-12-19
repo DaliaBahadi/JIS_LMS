@@ -26,6 +26,7 @@ namespace JIS_LMS.Model
         public string Quality { get; set; }
         [StringLength(100)]
         public string Subtitles { get; set; }
+        [Required]
         public int Type { get; set; }
 
         [ForeignKey(nameof(LibraryMaterialId))]

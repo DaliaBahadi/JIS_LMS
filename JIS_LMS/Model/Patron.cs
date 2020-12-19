@@ -25,43 +25,54 @@ namespace JIS_LMS.Model
 
         [Key]
         public int PatronId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The First Name field is required ")]
         [StringLength(30)]
         public string FirstName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Middle Name field is required ")]
         [StringLength(30)]
         public string MiddleName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Last Name field is required ")]
         [StringLength(30)]
         public string LastName { get; set; }
+        [Required]
         public int Gender { get; set; }
+        [Required]
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Primary Contact Number field is required ")]
         [StringLength(15)]
         public string PrimaryContactNumber { get; set; }
         [StringLength(15)]
         public string SecondaryContactNumber { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Primary Email Number field is required ")]
         [StringLength(100)]
+        [EmailAddress]
         public string PrimaryEmail { get; set; }
         [StringLength(100)]
+        [EmailAddress]
         public string SecondaryEmail { get; set; }
+        [Required]
         public int Language { get; set; }
+        [Required]
         public int Section { get; set; }
         public string ImageFile { get; set; }
         public string Remark { get; set; }
+        [Required]
         public int Status { get; set; }
+        [Required(ErrorMessage = "The Primary Registration Date field is required ")]
         [Column(TypeName = "date")]
         public DateTime RegistrationDate { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The UserName field is required ")]
         [StringLength(10)]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Password field is required ")]
         [StringLength(15)]
         public string Password { get; set; }
+        [Required(ErrorMessage = "The Patron Type field is required ")]
         public int PatronType { get; set; }
+        [Required(ErrorMessage = "The Library field is required ")]
         public int LibraryId { get; set; }
+        [Required(ErrorMessage = "The Address field is required ")]]
         public int AddressId { get; set; }
 
         [ForeignKey(nameof(AddressId))]

@@ -21,15 +21,17 @@ namespace JIS_LMS.Model
 
         [Key]
         public int PatronId { get; set; }
+        [Required(ErrorMessage = "The StudentId field is required ")]
         public int StudentId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Class Year field is required")]
         [StringLength(5)]
         public string ClassYear { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Class Name field is required")]
         [StringLength(5)]
         public string ClassName { get; set; }
+        [Required(ErrorMessage = "The Age Level field is required")]
         public int AgeLevel { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Home Room Teacher Name field is required")]
         [StringLength(30)]
         public string HomeRoomTeacher { get; set; }
 
