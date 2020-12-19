@@ -1,23 +1,37 @@
 ﻿@page "/Parents"
 @layout SystemAdminLayout
 
-<h1 style=" margin-top: 150px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Parents</h1>
 
-<div class="row">
-    <div class="column">
-        <a href="/Parent/Add">
-            <i class="fas fa-user-plus icons-layout"></i>
+<h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;">Parents</h1>
+
+
+<div class="row " style="margin-top: 100px;margin-left:5rem">
+    <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;">
+
+
+
+        <a href="/Parent/Add" style="margin-bottom: 15rem">
+            <i style="margin-left:10rem;" class="fas fa-user-plus icons-layout"></i>
+
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Add Parent</h3>
         </a>
-        <h3 style="text-align: center; top: 40px;color: #013E7E;font-family: Courier New, Courier, monospace; font-weight: bolder;float:left">Add Parent</h3>
-    </div>
-    <div class="column" style="padding-right:6em;">
-        <a href="/Parents/Search">
-            <i class="fas fa-search icons-layout"></i>
+
+
+    </RadzenCard>
+
+    <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;margin-left:15rem">
+
+        <a href="/Parents/Search" style="margin-bottom: 15rem">
+
+            <i style="margin-left:8rem;" class="fas fa-search icons-layout"></i>
+
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Search For Parent</h3>
 
         </a>
-        <h3 style="text-align: center; top: 40px;color: #013E7E;font-family: Courier New, Courier, monospace; font-weight: bolder;float:left">Search For Parent</h3>
-    </div>
+
+    </RadzenCard>
 </div>
+
 
 @code {
 

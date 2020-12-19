@@ -36,7 +36,8 @@ app {
 }
 
 .top-row {
-    height: 2.5rem;
+/*    height: 2.5rem;
+*/    height: 4rem;
     display: flex;
     align-items: center;
 }
@@ -49,6 +50,7 @@ app {
         background-color:white /* #F0D175*/;
         border-bottom: 1px solid black /*#d6d5d5*/;
         justify-content: flex-end;
+        
     }
 
         .main .top-row > a, .main .top-row .btn-link {
@@ -254,13 +256,17 @@ app {
 .jisheading {
     text-align: Left;
     /*   margin-right: 900px;*/
-    padding-left: 1.5rem !important;
-    padding-right: 60.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 70.5rem !important;
+    align-items: start;
+    margin-top: 0.5rem;
+    /*   margin-right: 66rem;*/
     justify-content: flex-end;
     font-family: 'Bookman';
     font-weight: bolder;
     font-size: 22px;
     color: #013E7E;
+    justify-items: flex-end;
     /* position:sticky;*/
 }
 

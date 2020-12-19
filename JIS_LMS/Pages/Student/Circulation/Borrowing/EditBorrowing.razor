@@ -25,28 +25,20 @@
                     </label>
                 </div>
 
-                <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@materialLoadData" AllowFiltering="true"
-                                        Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Materail" @bind-Value="borrowing.LibraryMaterialId"
-                                        Change="@(args => materialChange(args, "material DropDown "))" />
-                    </label>
-                </div>
 
                 <div class="form-group">
                     <label for="borrowing-date-time">*Borrowing Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.BorrowingDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.BorrowingDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Disabled="true" />
                 </div>
 
                 <div class="form-group">
                     <label for="due-date-time">*Due Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.DueDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 3em" />
+                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.DueDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 3em" Disabled="true" />
                 </div>
 
                 <div class="form-group">
                     <label for="return-date-time">Return Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.ReturnDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 2em" />
+                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.ReturnDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 2em" Disabled="true" />
                 </div>
 
                 <div class="form-group">
@@ -56,16 +48,15 @@
 
                 <div class="form-group">
                     <label for="type">*Signature File: </label>
-                    <RadzenFileInput @bind-Value="borrowing.SignatureFile" Style="width:400px;margin-left: 1em" TValue="string" />
+                    <RadzenFileInput @bind-Value="borrowing.SignatureFile" Style="width:400px;margin-left: 1em" TValue="string" Disabled="true"/>
 
                 </div>
                 <br>
 
                 <div class="form-group">
                     <label for="remark">Remark: </label>
-                    <RadzenTextArea @bind-Value="borrowing.Remark" Cols="30" Rows="3" Style="align-items:center" />
+                    <RadzenTextArea @bind-Value="borrowing.Remark" Cols="30" Rows="3" Style="align-items:center" Disabled="true" />
                 </div>
-
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
                 <a href="/Student/MyLibraryMaterials" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
@@ -100,7 +91,7 @@
 
         message = "Borrowing updated successfully";
 
-        NavigationManager.NavigateTo("/Student/MyLibraryMaterials");
+        NavigationManager.NavigateTo("/Circulation");
     }
 }
 
@@ -156,5 +147,4 @@
 
 
 }
-
 

@@ -33,14 +33,15 @@
 
 
                 <div class="form-group">
-                    <label for="email" class="control-label">*Email: </label>
+                    <label for="email" class="control-label">Email: </label>
                     <InputText type="email" id="email" @bind-Value="donor.Email" class="form-control" placeholder="sam@example.com" />
                     <ValidationMessage For="@(() => donor.Email)" />
                 </div>
 
                 <div class="form-group">
-                    <label for="mobile">*Mobile:</label>
+                    <label for="mobile">Mobile:</label>
                     <InputText id="mobile" @bind-Value="donor.Mobile" class="form-control" placeholder="0500000000" />
+                    <ValidationMessage For="@(() => donor.Mobile)" />
                 </div>
 
 

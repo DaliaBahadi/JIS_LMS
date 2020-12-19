@@ -11,9 +11,8 @@
 
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
-
+        <h3>Add New Employee</h3>
         <fieldset>
-            <legend>Add New Employee</legend>
             <EditForm Model="employee" OnValidSubmit="CreateEmployee">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -54,8 +53,8 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Language:</span>
-                        <RadzenDropDown Data="@language" @bind-Value="@employeeLanguage"  Change="ChooseLanguage" />
-                       
+                        <RadzenDropDown Data="@language" @bind-Value="@employeeLanguage" Change="ChooseLanguage" />
+
                     </label>
                 </div>
 
@@ -64,11 +63,11 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Gender:</span>
-                        <RadzenDropDown Data="@gender" @bind-Value="@employeeGender"  Change="ChooseGender"/>
+                        <RadzenDropDown Data="@gender" @bind-Value="@employeeGender" Change="ChooseGender" />
                     </label>
                 </div>
 
-               
+
 
                 <div class="form-group">
                     <label for="PhoneExtension">Phone Extension:</label>
@@ -78,7 +77,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Employee Type:</span>
-                        <RadzenDropDown Data="@type" @bind-Value="employeeType" Placeholder="Select type"  Change="ChooseType" />
+                        <RadzenDropDown Data="@type" @bind-Value="employeeType" Placeholder="Select type" Change="ChooseType" />
                     </label>
                 </div>
 

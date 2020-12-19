@@ -1,4 +1,4 @@
-﻿@page  "/Patron/Student/Edit/{Id:int}"
+﻿@*@page  "/Patron/Student/Edit/{Id:int}"
 @inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -83,7 +83,7 @@
     //Code for age level drop down list
     IEnumerable<StudentAgeLevel> ageLevel = Enum.GetValues(typeof(StudentAgeLevel)).Cast<StudentAgeLevel>();
 
-}
+}*@
 
 
 

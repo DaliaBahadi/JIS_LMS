@@ -127,6 +127,9 @@
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
 
 
 
@@ -137,7 +140,7 @@
     Patron patron = new Patron();
     List<Patron> patrons = new List<Patron>();
 
-    
+
 
     [Parameter]
     public int Id { get; set; }
@@ -149,5 +152,5 @@
         patron = PatronService.GetPatron(Id);
     }
 
-    
+
 }

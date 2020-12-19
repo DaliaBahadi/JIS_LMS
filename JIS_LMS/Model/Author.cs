@@ -19,10 +19,10 @@ namespace JIS_LMS.Model
 
         [Key]
         public int AuthorId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The First Name field is required ")]
         [StringLength(30)]
         public string FirstName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Last Name field is required ")]
         [StringLength(30)]
         public string LastName { get; set; }
 

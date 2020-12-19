@@ -24,14 +24,14 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Section:</span>
-                        <RadzenDropDown Data="section" @bind-Value="librarySection" Change="ChooseSection" />
+                        <RadzenDropDown Data="section" @bind-Value="librarySection" Change="ChooseSection" Placeholder="Select Section" />
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Status:</span>
-                        <RadzenDropDown Data="@status" @bind-Value="@libraryStatus" Change="ChooseStatus" />
+                        <RadzenDropDown Data="@status" @bind-Value="@libraryStatus" Change="ChooseStatus" Placeholder="Select Status" />
                     </label>
                 </div>
 
@@ -39,7 +39,7 @@
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Address:</span>
                         <RadzenDropDown AllowClear="true" TValue="int"
-                                        LoadData="@LoadData" AllowFiltering="true"
+                                        LoadData="@LoadData" AllowFiltering="true" Placeholder="Select Address"
                                         Data="@libraryAddress" TextProperty="StreetName" ValueProperty="AddressId" Style="margin-bottom: 20px" @bind-Value="library.AddressId"
                                         Change="@(args => Change(args, "DropDown with custom filtering"))" />
                     </label>
@@ -49,7 +49,7 @@
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Library Employee:</span>
                         <RadzenDropDown AllowClear="true" TValue="int"
-                                        LoadData="@EmployeeLoadData" AllowFiltering="true"
+                                        LoadData="@EmployeeLoadData" AllowFiltering="true" Placeholder="Select Library Employee"
                                         Data="@libraryEmployee" TextProperty="FullName" ValueProperty="EmployeeId" Style="margin-bottom: 20px" @bind-Value="library.LibrarianId"
                                         Change="@(args => EmployeeChange(args, "DropDown with custom filtering"))" />
                     </label>

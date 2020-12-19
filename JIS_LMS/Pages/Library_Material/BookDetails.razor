@@ -193,6 +193,10 @@
     </div>
 </div>
 
+<br>
+<br>
+<br>
+
 @code {
 
     LMSDbContext db = new LMSDbContext();
@@ -212,10 +216,10 @@
 
         libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
 
-        
+
         VariablesService.BorrowingMaterialId = Id;
 
-        
+
         VariablesService.HoldMaterialId = Id;
     }
 

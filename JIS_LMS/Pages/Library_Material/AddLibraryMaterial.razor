@@ -16,9 +16,8 @@
 
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
-
+        <h3>Add New Catalog </h3>
         <fieldset>
-            <legend>Add New Catalog</legend>
             <EditForm Model="catalog" OnValidSubmit="CreateCatalog">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -110,7 +109,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Age Level:</span>
-                        <RadzenDropDown Data="@ageLevel" @bind-Value="@materialAgeLevel" Change="ChooseAgeLevel"/>
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="@materialAgeLevel" Change="ChooseAgeLevel" />
                     </label>
                 </div>
 
@@ -190,13 +189,12 @@
 
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
-
+        <h3>Author</h3>
         <fieldset>
-            <legend>Author</legend>
             <EditForm Model="author" OnValidSubmit="CreateLibraryMaterialAuthor">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
-                 @*delete later*@
+                @*delete later*@
                 @*<div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Library Material:</span>
@@ -230,9 +228,8 @@
 
 <div class="container-fluid container-contact100" style="visibility:@Bookvisible;">
     <div class="wrap-contact100">
-
+        <h3>Book</h3>
         <fieldset>
-            <legend>Book</legend>
             <EditForm Model="book" OnValidSubmit="CreateBook">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -261,7 +258,7 @@
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Book Type:</span>
-                        <RadzenDropDown Data="@bookType" @bind-Value="@typeBook" Change="ChooseBookType"/>
+                        <RadzenDropDown Data="@bookType" @bind-Value="@typeBook" Change="ChooseBookType" />
                     </label>
                 </div>
 
@@ -278,9 +275,8 @@
 <br>
 <div class="container-fluid container-contact100" style="visibility:@Journalvisible;margin-top:-600px">
     <div class="wrap-contact100">
-
+        <h3>Journal</h3>
         <fieldset>
-            <legend>Journal</legend>
             <EditForm Model="journal" OnValidSubmit="CreateJournal">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -320,9 +316,8 @@
 <br>
 <div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-800px">
     <div class="wrap-contact100">
-
+        <h3>CD/DVD/BR</h3>
         <fieldset>
-            <legend>CD/DVD/BR</legend>
             <EditForm Model="cD_DVD_BR" OnValidSubmit="CreateCD_DVD_BR">
                 <DataAnnotationsValidator />
                 <ValidationSummary />

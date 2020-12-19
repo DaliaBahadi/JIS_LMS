@@ -22,17 +22,19 @@ namespace JIS_LMS.Model
 
         [Key]
         public int DonorId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The First Name field is required ")]
         [StringLength(30)]
         public string FirstName { get; set; }
         [StringLength(30)]
         public string MiddleName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Last Name field is required ")]
         [StringLength(30)]
         public string LastName { get; set; }
         [StringLength(100)]
+        [EmailAddress]
         public string Email { get; set; }
         [StringLength(15)]
+        [Range(0000000000, 0999999999, ErrorMessage ="Please Enter a valid mobile number")]
         public string Mobile { get; set; }
 
         [InverseProperty(nameof(Library_Material.Donor))]

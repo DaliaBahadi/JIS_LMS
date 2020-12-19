@@ -1,23 +1,18 @@
-﻿
-@page "/Donor/Add"
+﻿@page "/Donor/Add"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @using Microsoft.AspNetCore.Components.Forms
 @using Radzen.Blazor.Rendering
-
-
 @inject DonorService DonorService
-
 @inject NavigationManager NavigationManager
 
 
 
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
-
+        <h3>Add New Donor</h3>
         <fieldset>
-            <legend>Add New Donor</legend>
             <EditForm Model="donor" OnValidSubmit="CreateDonor">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -37,20 +32,21 @@
                     <InputText id="last-name" @bind-Value="donor.LastName" class="form-control" placeholder="Enter Donor Last Name" />
                 </div>
 
-              
+
 
                 <div class="form-group">
-                    <label for="email" class="control-label">*Email: </label>
+                    <label for="email" class="control-label">Email: </label>
                     <InputText type="email" id="email" @bind-Value="donor.Email" class="form-control" placeholder="sam@example.com" />
                     <ValidationMessage For="@(() => donor.Email)" />
                 </div>
 
                 <div class="form-group">
-                    <label for="mobile">*Mobile:</label>
-                    <InputText id="mobile" @bind-Value="donor.Mobile" class="form-control" placeholder="0500000000" />
+                    <label for="mobile">Mobile:</label>
+                    <InputText id="mobile" @bind-Value="donor.Mobile" class="form-control" placeholder="0500000000"  />
+                    <ValidationMessage For="@(() => donor.Mobile)" />
                 </div>
 
-                
+
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
                 <a href="Donors" class="btn btn-outline-secondary">Cancel</a>

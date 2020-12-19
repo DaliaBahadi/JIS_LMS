@@ -64,7 +64,7 @@ else
         </RadzenGrid>
     </div>
 
-    <div style="visibility:@Teachervisible;margin-top:-210px">
+    <div style="visibility:@Teachervisible;margin-top:-310px">
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
                     AllowSorting="true" Data="@teachers" TItem="Teacher" Value="@teacher" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
             <Columns>
@@ -151,6 +151,15 @@ else
 
     RadzenGrid<Patron> patronsGrid;
 
+    Patron patron;
+    IQueryable<Patron> patronss;
+
+    Student student;
+    IQueryable<Student> students;
+
+    Teacher teacher;
+    IQueryable<Teacher> teachers;
+
     LMSDbContext db = new LMSDbContext();
 
     string patronType { get; set; }
@@ -195,14 +204,14 @@ else
 }
 
 @code {
-    Patron patron;
-    IQueryable<Patron> patronss;
+    //Patron patron;
+    //IQueryable<Patron> patronss;
 
-    Student student;
-    IQueryable<Student> students;
+    //Student student;
+    //IQueryable<Student> students;
 
-    Teacher teacher;
-    IQueryable<Teacher> teachers;
+    //Teacher teacher;
+    //IQueryable<Teacher> teachers;
 
 
 }

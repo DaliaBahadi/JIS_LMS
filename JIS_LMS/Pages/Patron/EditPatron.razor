@@ -1,8 +1,8 @@
 ﻿@page  "/Patron/Edit/{Id:int}"
+@layout SystemAdminLayout
 @inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@layout SystemAdminLayout
 @inject PatronService PatronService
 @inject StudentService StudentService
 @inject TeacherService TeacherService
@@ -213,14 +213,15 @@
         </fieldset>
     </div>
 </div>
-
+<br>
+<br>
 <br />
 
 <p>@studentMessage</p>
 
-<div class="container-fluid container-contact100" style="visibility:@Teachervisible;margin-top:-700px">
-    <div class="wrap-contact100">
 
+<div class="container-fluid container-contact100" style="visibility:@Teachervisible;margin-top:-800px">
+    <div class="wrap-contact100">
         <fieldset>
             <h3>Edit Teacher Information</h3>
             <EditForm Model="teacher" OnValidSubmit="UpdateTeacher">
@@ -239,26 +240,29 @@
         </fieldset>
     </div>
 </div>
+<br>
+<br>
+<br />
 
 
 @code {
 
-        //code section to update infromation of both patron, student, and Teacher
+    //code section to update infromation of both patron, student, and Teacher
 
-        [Parameter]
-        public int Id { get; set; }
+    [Parameter]
+    public int Id { get; set; }
 
-        Patron patron = new Patron();
+    Patron patron = new Patron();
 
-        string message;
+    string message;
 
-        Student student = new Student();
+    Student student = new Student();
 
-        string studentMessage;
+    string studentMessage;
 
-        Teacher teacher = new Teacher();
+    Teacher teacher = new Teacher();
 
-        int typeOfPatron;
+    int typeOfPatron;
 
     protected override void OnInitialized()
     {

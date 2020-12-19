@@ -19,32 +19,39 @@ namespace JIS_LMS.Model
 
         [Key]
         public int EmployeeId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The First Name field is required ")]
         [StringLength(30)]
         public string FirstName { get; set; }
         [StringLength(30)]
         public string MiddleName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Last Name field is required ")]
         [StringLength(30)]
         public string LastName { get; set; }
         [Column(TypeName = "date")]
+        [Required]
+
         public DateTime DateOfBirth { get; set; }
         [Required]
         [StringLength(100)]
+        [EmailAddress]
         public string Email { get; set; }
         [Required]
         [StringLength(15)]
         public string Mobile { get; set; }
+        [Required]
         public int Language { get; set; }
+        [Required]
         public int Gender { get; set; }
         [StringLength(15)]
+        [Range (1,10, ErrorMessage = "The range for Phone Extension is 10 character")]
         public string PhoneExtension { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The UserName field is required ")]
         [StringLength(10)]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Password field is required ")]
         [StringLength(15)]
         public string Password { get; set; }
+        [Required]
         public int EmployeeType { get; set; }
 
         [InverseProperty(nameof(Library.Librarian))]

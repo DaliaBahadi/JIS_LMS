@@ -12,14 +12,12 @@
 
 
 <RadzenTabs>
-
     <Tabs>
         <RadzenTabsItem Text="Add Address">
             <div class="container-fluid container-contact100">
                 <div class="wrap-contact100">
-
+                    <h3>Add Patron Address</h3>
                     <fieldset>
-                        <legend>Add Patron Address</legend>
                         <EditForm Model="address" OnValidSubmit="CreateAddress">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
@@ -69,7 +67,7 @@
         <RadzenTabsItem Text="Add Patron">
             <div class="container-fluid container-contact100">
                 <div class="wrap-contact100">
-
+                    <h3>Add New Patron </h3>
                     <fieldset>
                         <legend>Add New Patron</legend>
                         <EditForm Model="patron" OnValidSubmit="CreatePatron">
@@ -96,7 +94,7 @@
                             <div class="form-group">
                                 <label style="display: flex; align-items: center">
                                     <span style="margin-right: 32px">*Gender:</span>
-                                    <RadzenDropDown Data="@gender" @bind-Value="@patronGender"  Change="ChooseGender" />
+                                    <RadzenDropDown Data="@gender" @bind-Value="@patronGender" Change="ChooseGender" />
                                 </label>
                             </div>
 
@@ -224,13 +222,12 @@
 
             <div class="container-fluid container-contact100" style="visibility:@Studentvisible;">
                 <div class="wrap-contact100">
-
+                    <h3>Student</h3>
                     <fieldset>
-                        <legend>Student</legend>
                         <EditForm Model="student" OnValidSubmit="CreateStudent">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
-                            
+
 
                             <div class="form-group">
                                 <label for="student-id">*Student Id:</label>
@@ -271,14 +268,13 @@
             <br><br><br>
             <div class="container-fluid container-contact100" style="visibility:@Teachervisible;margin-top:-800px">
                 <div class="wrap-contact100">
-
+                    <h3>Teacher</h3>
                     <fieldset>
-                        <legend>Teacher</legend>
                         <EditForm Model="teacher" OnValidSubmit="CreateTeacher">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
 
-                          
+
                             <div class="form-group">
                                 <label for="student-id">*Employee Id:</label>
                                 <InputNumber id="student-id" @bind-Value="teacher.EmployeeId" class="form-control" placeholder="Enter Employee school Id" />

@@ -1,23 +1,36 @@
 ﻿@page "/Librarian/Authors"
 @layout LibrarianLayout
 
-<h1 style=" margin-top: 150px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Authors</h1>
+<h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;">Authors</h1>
 
-<div class="row">
-    <div class="column">
-        <a href="/Librarian/Author/Add">
-            <i class="fas fa-pencil-alt icons-layout"></i>
+
+<div class="row " style="margin-top: 100px;margin-left:5rem">
+    <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;">
+
+
+
+        <a href="/Librarian/Author/Add" style="margin-bottom: 15rem">
+            <i style="margin-left:10rem;" class="fas fa-pencil-alt icons-layout"></i>
+
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Add Author</h3>
         </a>
-        <h3 style="text-align: center; top: 40px;color: #013E7E;font-family: Courier New, Courier, monospace; font-weight: bolder;float:left">Add Author</h3>
-    </div>
-    <div class="column" style="padding-right:6em;">
-        <a href="/Librarian/Authors/Search">
-            <i class="fas fa-search icons-layout"></i>
+
+
+    </RadzenCard>
+
+    <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;margin-left:15rem">
+
+        <a href="/Librarian/Authors/Search" style="margin-bottom: 15rem">
+
+            <i style="margin-left:8rem;" class="fas fa-search icons-layout"></i>
+
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Search For Author</h3>
 
         </a>
-        <h3 style="text-align: center; top: 40px;color: #013E7E;font-family: Courier New, Courier, monospace; font-weight: bolder;float:left">Search For Author</h3>
-    </div>
+
+    </RadzenCard>
 </div>
+
 
 @code {
 

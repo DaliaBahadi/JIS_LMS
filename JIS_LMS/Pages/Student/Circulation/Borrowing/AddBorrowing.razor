@@ -7,14 +7,13 @@
 @inject BorrowingService BorrowingService
 @inject NavigationManager NavigationManager
 @inject LMSDbContext DbContext
-
+@inject SharedVariablesService VariablesService
 
 
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
-
+        <h3>Add New Borrowing </h3>
         <fieldset>
-            <legend>Add New Borrowing</legend>
             <EditForm Model="borrowing" OnValidSubmit="CreateBorrowing">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -23,19 +22,23 @@
                     <label style="display: flex; align-items: center; margin-top:2em;">
                         <span style="margin-right: 32px">*Patron:</span>
                         <RadzenDropDown AllowClear="true" TValue="int" LoadData="@patronLoadData" AllowFiltering="true"
-                                        Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 10px;margin-left:4em;width:300px"  Placeholder="Select Patron" @bind-Value="borrowing.PatronId"
+                                        Data="@patronList" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 10px;margin-left:4em;width:300px" Placeholder="Select Patron" @bind-Value="borrowing.PatronId"
                                         Change="@(args => patronChange(args, "patron DropDown "))" />
                     </label>
+                    <label style="color:red">@VariablesService.GetPatronId</label>
+
                 </div>
 
-                <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@materialLoadData" AllowFiltering="true"
-                                        Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Materail" @bind-Value="borrowing.LibraryMaterialId"
-                                        Change="@(args => materialChange(args, "material DropDown "))" />
-                    </label>
-                </div>
+                <!--<div class="form-group">-->
+                @*<label style="display: flex; align-items: center">
+                    <span style="margin-right: 32px">*Library Material:</span>
+                    <RadzenDropDown AllowClear="true" TValue="int" LoadData="@materialLoadData" AllowFiltering="true"
+                                    Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Materail" @bind-Value="borrowing.LibraryMaterialId"
+                                    Change="@(args => materialChange(args, "material DropDown "))" />
+                </label>*@
+
+                <label style="color:red">@VariablesService.BorrowingMaterialId </label>
+                @*</div>*@
 
                 <div class="form-group">
                     <label for="borrowing-date-time">*Borrowing Date & Time:</label>
@@ -71,7 +74,7 @@
 
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a href="Catalog/Search" class="btn btn-outline-secondary">Cancel</a>
+                <a href="/Student/Catalog/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
         </fieldset>
@@ -86,7 +89,6 @@
 @code {
     Borrowing borrowing = new Borrowing();
 
-
     private List<Borrowing> borrowings = new List<Borrowing>();
 
     // Execute when component starts / initializes
@@ -94,13 +96,18 @@
     {
 
         borrowings = BorrowingService.GetBorrowings();
+
     }
 
 
 
     private void CreateBorrowing()
     {
+        //bind the library material Id to the borrowing library material Id forign key
+        borrowing.LibraryMaterialId = VariablesService.BorrowingMaterialId;
 
+        //bind the patronId to the borrowing patron Id forign key
+        borrowing.PatronId= VariablesService.GetPatronId;
 
         BorrowingService.AddNewBorrowing(borrowing);
 
@@ -108,7 +115,7 @@
         borrowing = new Borrowing();
 
         // May navigate to the borrowings component
-        NavigationManager.NavigateTo("/Catalog/Search");
+        NavigationManager.NavigateTo("/Student/Catalog/Search");
     }
 }
 

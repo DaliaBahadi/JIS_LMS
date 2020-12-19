@@ -24,7 +24,9 @@ namespace JIS_LMS.Model
         [Required]
         [StringLength(30)]
         public string Name { get; set; }
+        [Required]
         public int Section { get; set; }
+        [Required]
         public int Status { get; set; }
         public string Description { get; set; }
         public int AddressId { get; set; }
