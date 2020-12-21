@@ -1,4 +1,7 @@
-﻿@page "/Parent/Delete/{Id:int}"
+﻿@*Page Name:Delete Parent
+  Page Description: This page is for deleting a parent from the datbase*@
+
+@page "/Parent/Delete/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -41,16 +44,20 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemoveParent()
-    {
-        ParentService.DeleteParent(Id);
-
-        NavigationManager.NavigateTo("/Parents/Search");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         parent = ParentService.GetParent(Id);
     }
+
+    // Deleting a parent from the database
+    private void RemoveParent()
+    {
+        ParentService.DeleteParent(Id);
+
+        // May navigate to the Author Search Page
+        NavigationManager.NavigateTo("/Parents/Search");
+    }
+
 
 }

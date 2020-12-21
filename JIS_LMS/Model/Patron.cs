@@ -72,7 +72,7 @@ namespace JIS_LMS.Model
         public int PatronType { get; set; }
         [Required(ErrorMessage = "The Library field is required ")]
         public int LibraryId { get; set; }
-        [Required(ErrorMessage = "The Address field is required ")]]
+        [Required(ErrorMessage = "The Address field is required ")]
         public int AddressId { get; set; }
 
         [ForeignKey(nameof(AddressId))]

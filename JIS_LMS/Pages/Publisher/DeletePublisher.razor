@@ -1,4 +1,7 @@
-﻿@page "/Publisher/Delete/{Id:int}"
+﻿@*Page Name:Delete Publisher
+  Page Description: This page is for deleting a publisher from the datbase*@
+
+@page "/Publisher/Delete/{Id:int}"
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @layout SystemAdminLayout
@@ -35,16 +38,21 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemovePublisher()
-    {
-        PublisherService.DeletePublisher(Id);
-
-        NavigationManager.NavigateTo("/Publishers/Search");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         publisher = PublisherService.GetPublisher(Id);
     }
+
+    // Deleting a publisher from the database
+    private void RemovePublisher()
+    {
+        PublisherService.DeletePublisher(Id);
+
+        // May navigate to the Publishers Search Page
+        NavigationManager.NavigateTo("/Publishers/Search");
+    }
+
+
 
 }

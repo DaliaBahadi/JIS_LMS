@@ -1,4 +1,7 @@
-﻿@page "/Parent/Add"
+﻿@*Page Name: Add Parent
+  Page Description: This page is for adding a parent*@
+
+@page "/Parent/Add"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -163,14 +166,14 @@
                         <EditForm Model="student" OnValidSubmit="CreateStudentParent">
                             <DataAnnotationsValidator />
                             <ValidationSummary />
-                            
-                            
+
+
                             <div class="form-group">
                                 <label style="display: flex; align-items: center" for="student">
                                     <span style="margin-right: 32px">*Student: </span>
                                     <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Student"
                                                     LoadData="@patronLoadData" AllowFiltering="true"
-                                                    Data="@patron" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 7px"  @bind-Value="student.PatronId"
+                                                    Data="@patron" TextProperty="FullName" ValueProperty="PatronId" Style="margin-bottom: 7px" @bind-Value="student.PatronId"
                                                     Change="@(args => patronChange(args, "DropDown with custom filtering"))" />
                                 </label>
                             </div>
@@ -207,7 +210,6 @@
 
     Student_Parent studentParent = new Student_Parent();
 
-
     private List<Parent> parents = new List<Parent>();
 
 
@@ -216,9 +218,11 @@
     {
 
         parents = ParentService.GetParents();
+
         addresses = AddressService.GetAddresses();
     }
 
+    // Creating and Adding a new parent to the database
     private void CreateParent()
     {
 
@@ -235,11 +239,13 @@
 @code {
 
     Student_Parent student = new Student_Parent();
+
     private List<Student_Parent> students = new List<Student_Parent>();
 
-
+    // Creating and Adding a student parent to the database
     private void CreateStudentParent()
     {
+        //binding the parentId to the stuednt_parent table
         student.ParentId = SharedVariables.AcquireParentId;
 
         //Adding student to parent
@@ -266,10 +272,10 @@
 @code {
     Address address = new Address();
 
-
     IEnumerable<Address> parentAddresses;
 
     private List<Address> addresses = new List<Address>();
+
 
     //Address dropdown list method
     void Change(object value, string name)
@@ -289,6 +295,7 @@
         InvokeAsync(StateHasChanged);
     }
 
+    // Creating and Adding an address to the database
     private void CreateAddress()
     {
 
@@ -304,7 +311,7 @@
 
 @code
 {
-    // code section for the patron drop down list 
+    // code section for the patron drop down list
 
     IEnumerable<Patron> patron;
 

@@ -1,4 +1,7 @@
-﻿@layout SystemAdminLayout
+﻿@*Page Name:Delete Donor
+    Page Description: This page is for deleting an donor from the datbase*@
+
+@layout SystemAdminLayout
 @page "/Donor/Delete/{Id:int}"
 @inject NavigationManager NavigationManager
 @inject DonorService DonorService
@@ -40,6 +43,13 @@
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+        donor = DonorService.GetDonor(Id);
+    }
+
+    // Deleting a donor from the database
     private void RemoveDonor()
     {
         DonorService.DeleteDonor(Id);
@@ -47,9 +57,6 @@
         NavigationManager.NavigateTo("/Donors/Search");
     }
 
-    protected override void OnInitialized()
-    {
-        donor = DonorService.GetDonor(Id);
-    }
+
 
 }

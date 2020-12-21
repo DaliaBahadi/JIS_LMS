@@ -1,4 +1,7 @@
-﻿@page "/Author/Edit/{Id:int}"
+﻿@*Page Name:Edit Author
+  Page Description: This page is for edting an author information*@
+
+@page "/Author/Edit/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -44,22 +47,23 @@
 
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         author = AuthorService.GetAuthor(Id);
     }
 
 
-
+    // Edting an author infromation 
     public void UpdateAuthor()
     {
-
-
 
         // Edit Author
         AuthorService.EditAuthor(author);
 
         message = "Author updated successfully";
+
+        // May navigate to the Author Search Page
         NavigationManager.NavigateTo("Authors/Search");
     }
 }

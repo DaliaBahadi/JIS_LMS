@@ -1,4 +1,7 @@
-﻿@page "/Library/Edit/{Id:int}"
+﻿@*Page Name:Edit Library
+  Page Description: This page is for edting a library information*@
+
+@page "/Library/Edit/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -79,15 +82,14 @@
 
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         library = LibraryService.GetLibrary(Id);
 
     }
 
-
-
-
+    // Edting and updating a library infromation 
     public void UpdateLibrary()
     {
 
@@ -95,6 +97,8 @@
         LibraryService.EditLibrary(library);
 
         message = "Library/Address updated successfully";
+
+        // May navigate to the Libraries Search Page
         NavigationManager.NavigateTo("Libraries/Search");
     }
 }

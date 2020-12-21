@@ -1,9 +1,12 @@
-﻿@page  "/Employee/Edit/{Id:int}"
-@inject NavigationManager NavigationManager
+﻿@*Page Name:Edit Employee
+    Page Description: This page is for edting an employee information*@
+
+
+@page  "/Employee/Edit/{Id:int}"
+@layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@layout SystemAdminLayout
-
+@inject NavigationManager NavigationManager
 @inject EmployeeService EmployeeService
 
 <div class="container-fluid container-contact100">
@@ -111,6 +114,7 @@
 
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         employee = EmployeeService.GetEmployee(Id);
@@ -123,6 +127,8 @@
         EmployeeService.EditEmployee(employee);
 
         message = "Employee updated successfully";
+
+        // May navigate to the Employees Search Page
         NavigationManager.NavigateTo("Employees/Search");
     }
 }
@@ -130,8 +136,6 @@
 @code
 {
 
-    //code for validation
-    bool popup;
 
     //Code for gender drop down list
     IEnumerable<EmployeeGender> gender = Enum.GetValues(typeof(EmployeeGender)).Cast<EmployeeGender>();

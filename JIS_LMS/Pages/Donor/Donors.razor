@@ -1,31 +1,33 @@
-﻿@page "/Donors"
+﻿@*Page Name: Donors
+  Page Description: This page is to be able to acess the Add Donor and Search for Donor pages *@
+
+
+@page "/Donors"
 @layout SystemAdminLayout
 
 
-<h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;">Donors</h1>
+<h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;margin-left:5rem">Donors</h1>
 
 
 <div class="row " style="margin-top: 100px;margin-left:5rem">
     <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;">
 
+        <a href="/Donor/Add" style=" margin-top: -3rem">
+            <i style="margin-left:9.5rem;" class="fas fa-user-plus icons-layout"></i>
 
-
-        <a href="/Donor/Add" style="margin-bottom: 15rem">
-            <i style="margin-left:10rem;" class="fas fa-user-plus icons-layout"></i>
-
-            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Add Donor</h3>
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;margin-top:1rem">Add Donor</h3>
         </a>
-
 
     </RadzenCard>
 
+
     <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;margin-left:15rem">
 
-        <a href="/Donors/Search" style="margin-bottom: 15rem">
+        <a href="/Donors/Search" style="margin-top: -3rem">
 
             <i style="margin-left:8rem;" class="fas fa-search icons-layout"></i>
 
-            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Search For Donor</h3>
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;margin-top:1rem">Search For Donor</h3>
 
         </a>
 
@@ -33,7 +35,4 @@
 </div>
 
 
-@code {
 
-
-}

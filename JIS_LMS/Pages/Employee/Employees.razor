@@ -1,37 +1,35 @@
-﻿@page "/Employees"
+﻿@*Page Name: Employees
+    Page Description: This page is to be able to acess the Add Employee and Search for Employees pages *@
+
+
+@page "/Employees"
 @layout SystemAdminLayout
 
-<h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;">Employees</h1>
+<h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;margin-left:5rem">Employees</h1>
 
 
 <div class="row " style="margin-top: 100px;margin-left:5rem">
     <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;">
-        
-        
 
-        <a href="/Employee/Add" style="margin-bottom: 15rem">
-            <i style="margin-left:10rem;" class="fas fa-user-plus icons-layout"></i>
+        <a href="/Employee/Add" style="margin-top: -3rem">
+            <i style="margin-left:9.5rem;" class="fas fa-user-plus icons-layout"></i>
 
-            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Add Employee</h3>
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;margin-top:1rem">Add Employee</h3>
         </a>
 
-       
     </RadzenCard>
 
+
     <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;margin-left:15rem">
-        
-        <a href="/Employees/Search" style="margin-bottom: 15rem">
+
+        <a href="/Employees/Search" style="margin-top: -3rem">
 
             <i style="margin-left:8rem;" class="fas fa-search icons-layout"></i>
 
-            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Search For Employee</h3>
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;margin-top:1rem">Search For Employee</h3>
 
         </a>
-        
+
     </RadzenCard>
 </div>
 
-@code {
-
-
-}

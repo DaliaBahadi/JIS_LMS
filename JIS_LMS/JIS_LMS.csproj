@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Address\" />
-    <Folder Include="Pages\Book\" />
-    <Folder Include="Pages\CD-DVD-BR\" />
-    <Folder Include="Pages\Journal\" />
     <Folder Include="Pages\Time-Slot\" />
   </ItemGroup>
 

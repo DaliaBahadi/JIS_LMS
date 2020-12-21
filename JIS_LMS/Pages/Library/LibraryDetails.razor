@@ -1,4 +1,7 @@
-﻿@page "/Library/Details/{Id:int}"
+﻿@*Page Name: Library Details
+  Page Description: This page is for showing the infromation and details of a library*@
+
+@page "/Library/Details/{Id:int}"
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @layout SystemAdminLayout
@@ -44,8 +47,10 @@
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the library detials 
         library = LibraryService.GetLibrary(Id);
 
     }

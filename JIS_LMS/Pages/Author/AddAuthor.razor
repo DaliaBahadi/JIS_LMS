@@ -1,4 +1,7 @@
-﻿@page "/Author/Add"
+﻿@*Page Name: Add Author
+Page Description: This page is for adding an author*@
+
+@page "/Author/Add"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -34,8 +37,8 @@
 </div>
 
 @code {
-    Author author = new Author();
 
+    Author author = new Author();
 
     private List<Author> authors = new List<Author>();
 
@@ -47,7 +50,7 @@
     }
 
 
-
+    // Creating and Adding a new author to the database
     private void CreateAuthor()
     {
 

@@ -1,4 +1,7 @@
-﻿@page "/Employee/Details/{Id:int}"
+﻿@*Page Name: Employee Details
+  Page Description: This page is for showing the infromation and details of an employee*@
+
+@page "/Employee/Details/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -81,13 +84,16 @@
 
 
     Employee employee = new Employee();
+
     List<Employee> employees = new List<Employee>();
 
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the employee detials 
         employee = EmployeeService.GetEmployee(Id);
     }
 }

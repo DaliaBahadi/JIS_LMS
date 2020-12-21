@@ -1,4 +1,7 @@
-﻿@page  "/Patron/Edit/{Id:int}"
+﻿@*Page Name:Edit Patron
+  Page Description: This page is for edting a patron information*@
+
+@page  "/Patron/Edit/{Id:int}"
 @layout SystemAdminLayout
 @inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
@@ -264,13 +267,14 @@
 
     int typeOfPatron;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         patron = PatronService.GetPatron(Id);
 
         typeOfPatron = patron.PatronType;
 
-
+        //check if patron is student or teacher to show the correct infromation
         if (typeOfPatron == 1)
         {
             student = StudentService.GetStudent(Id);

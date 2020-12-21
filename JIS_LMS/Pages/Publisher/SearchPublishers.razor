@@ -1,4 +1,7 @@
-﻿@page "/Publishers/Search"
+﻿@*Page Name:Search Publishers
+  Page Description: This page is for seaching publishers*@
+
+@page "/Publishers/Search"
 @layout SystemAdminLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
@@ -7,7 +10,8 @@
 @inject PublisherService PublisherService
 @inject LMSDbContext DbContext
 
-<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Search Publishers</h3>
+<h3 style=" margin-top: 50px;font-weight: bolder;color:#013E7E">Search Publishers</h3>
+<br>
 
 @if (publishers == null)
 {
@@ -15,35 +19,24 @@
 }
 else
 {
-    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
                 AllowSorting="true" Data="@publishers" TItem="Publisher" ColumnWidth="100px" Style=" font-family:'Courier New';font-weight:bolder">
         <Columns>
-
             <RadzenGridColumn TItem="Publisher" Property="Name" Title="Name" />
-
-
-
             <RadzenGridColumn TItem="Publisher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="7px">
                 <Template Context="data">
                     <a href="/Publisher/Details/@data.PublisherId">
                         <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                     </a>
                 </Template>
-
-
-
             </RadzenGridColumn>
-
             <RadzenGridColumn TItem="Publisher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="7px">
-
                 <Template Context="data">
                     <a href="/Publisher/Delete/@data.PublisherId">
                         <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
                     </a>
                 </Template>
-
             </RadzenGridColumn>
-
         </Columns>
     </RadzenGrid>
 
@@ -51,13 +44,14 @@ else
 
 
 @code
-        {
+{
 
 
     IEnumerable<Publisher> publishers;
 
     RadzenGrid<Publisher> PublishersGrid;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         publishers = DbContext.Publisher;

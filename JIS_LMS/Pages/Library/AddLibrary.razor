@@ -1,4 +1,7 @@
-﻿@page "/Library/Add"
+﻿@*Page Name: Add Library
+  Page Description: This page is for adding an library*@
+
+@page "/Library/Add"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -137,7 +140,7 @@
         addresses = AddressService.GetAddresses();
     }
 
-
+    // Creating and Adding a new library to the database
     private void CreateLibrary()
     {
 
@@ -158,7 +161,7 @@
 
     private List<Address> addresses = new List<Address>();
 
-
+    // Creating and Adding a new address to the database
     private void CreateAddress()
     {
 
@@ -167,7 +170,7 @@
         // To empty the form
         address = new Address();
 
-       
+
     }
 }
 
@@ -175,8 +178,10 @@
 @code{
 
     IEnumerable<Address> libraryAddress;
+
     IEnumerable<Employee> libraryEmployee;
 
+    //Address drop down list methods
     void Change(object value, string name)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
@@ -193,6 +198,8 @@
         InvokeAsync(StateHasChanged);
     }
 
+
+    //Employee drop down list methods
     void EmployeeChange(object value, string name)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
@@ -221,7 +228,7 @@
     public void ChooseSection()
     {
         sectionValue = (int)librarySection;
-        library.Section= sectionValue;
+        library.Section = sectionValue;
     }
 
     //Code for status drop down list

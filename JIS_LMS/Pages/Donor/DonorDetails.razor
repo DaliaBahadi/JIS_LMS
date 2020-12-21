@@ -1,4 +1,6 @@
-﻿
+﻿@*Page Name: Donor Details
+  Page Description: This page is for showing the infromation and details of a donor*@
+
 @page "/Donor/Details/{Id:int}"
 @inject DonorService DonorService
 @layout SystemAdminLayout
@@ -24,7 +26,7 @@
                     <td>Last Name:</td>
                     <td>@donor.LastName</td>
                 </tr>
-                
+
                 <tr>
                     <td>Email: </td>
                     <td>@donor.Email</td>
@@ -33,13 +35,11 @@
                     <td>Mobile: </td>
                     <td>@donor.Mobile</td>
                 </tr>
-                
+
 
             </table>
 
-
             <a href="/Donor/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-
             <a href="/Donors/Search" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>
@@ -50,13 +50,16 @@
 
 
     Donor donor = new Donor();
+
     List<Donor> donors = new List<Donor>();
 
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the donor detials 
         donor = DonorService.GetDonor(Id);
     }
 }

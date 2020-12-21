@@ -1,4 +1,7 @@
-﻿@page "/Employee/Delete/{Id:int}"
+﻿@*Page Name:Delete Employee
+    Page Description: This page is for deleting an employee from the datbase*@
+
+@page "/Employee/Delete/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -41,16 +44,21 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemoveEmployee()
-    {
-        EmployeeService.DeleteEmployee(Id);
-
-        NavigationManager.NavigateTo("/Employees/Search");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         employee = EmployeeService.GetEmployee(Id);
     }
+
+    // Deleting an employee from the database
+    private void RemoveEmployee()
+    {
+        EmployeeService.DeleteEmployee(Id);
+
+        // May navigate to the Employee Search Page
+        NavigationManager.NavigateTo("/Employees/Search");
+    }
+
+
 
 }

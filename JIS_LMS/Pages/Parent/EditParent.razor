@@ -1,4 +1,7 @@
-﻿@page  "/Parent/Edit/{Id:int}"
+﻿@*Page Name:Edit Parent
+  Page Description: This page is for edting a parent information*@
+
+@page  "/Parent/Edit/{Id:int}"
 @inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -114,13 +117,14 @@
 
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         parent = ParentService.GetParent(Id);
     }
 
 
-
+    // Edting and updating parent infromation 
     public void UpdateParent()
     {
 
@@ -128,6 +132,8 @@
         ParentService.EditParent(parent);
 
         message = "Parent updated successfully";
+
+        // May navigate to the Parents Search Page
         NavigationManager.NavigateTo("Parents/Search");
     }
 }

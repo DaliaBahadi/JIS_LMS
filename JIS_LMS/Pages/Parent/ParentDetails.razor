@@ -1,4 +1,7 @@
-﻿@page "/Parent/Details/{Id:int}"
+﻿@*Page Name: Parent Details
+  Page Description: This page is for showing the infromation and details of a parent*@
+
+@page "/Parent/Details/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -81,8 +84,10 @@
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the parent detials 
         parent = ParentService.GetParent(Id);
     }
 }

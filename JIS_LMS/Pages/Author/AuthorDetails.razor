@@ -1,9 +1,11 @@
-﻿@page "/Author/Details/{Id:int}"
+﻿@*Page Name: Author Details
+  Page Description: This page is for showing the infromation and details of an author*@
+
+@page "/Author/Details/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject AuthorService AuthorService
-
 
 
 <div class="container">
@@ -39,8 +41,10 @@
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the author detials 
         author = AuthorService.GetAuthor(Id);
     }
 }

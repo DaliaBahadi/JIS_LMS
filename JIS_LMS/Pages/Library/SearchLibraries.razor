@@ -1,4 +1,7 @@
-﻿@page "/Libraries/Search"
+﻿@*Page Name:Search Libraries
+    Page Description: This page is for seaching Libraries*@
+
+@page "/Libraries/Search"
 @layout SystemAdminLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
@@ -7,53 +10,55 @@
 @inject LibraryService LibraryService
 @inject LMSDbContext DbContext
 
-<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Search Libraries</h3>
+    <h3 style=" margin-top: 50px;font-weight: bolder;color:#013E7E">Search Libraries</h3>
+    <br>
 
 
-@if (libraries == null)
-{
-    <p style="color:red">loading....</p>
-}
-else
-{
-    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
-                AllowSorting="true" Data="@libraries" TItem="Library" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
-        <Columns>
-            <RadzenGridColumn TItem="Library" Property="Name" Title="Name" />
-            <RadzenGridColumn TItem="Library" Property="Section" Title="Section" />
-            <RadzenGridColumn TItem="Library" Property="Status" Title="Status" />
-            <RadzenGridColumn TItem="Library" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="40px">
-                <Template Context="data">
-                    <a href="/Library/Details/@data.LibraryId">
-                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
-                    </a>
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="Library" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="40px">
-                <Template Context="data">
-                    <a href="/Library/Delete/@data.LibraryId">
-                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
-                    </a>
-                </Template>
-            </RadzenGridColumn>
-        </Columns>
-    </RadzenGrid>
-
-}
-
-
-@code
-{
-
-    IEnumerable<Library> libraries;
-
-    RadzenGrid<Library> librariesGrid;
-
-    protected override void OnInitialized()
+    @if (libraries == null)
     {
-        libraries = DbContext.Library;
+        <p style="color:red">loading....</p>
+    }
+    else
+    {
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
+                    AllowSorting="true" Data="@libraries" TItem="Library" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+            <Columns>
+                <RadzenGridColumn TItem="Library" Property="Name" Title="Name" />
+                <RadzenGridColumn TItem="Library" Property="Section" Title="Section" />
+                <RadzenGridColumn TItem="Library" Property="Status" Title="Status" />
+                <RadzenGridColumn TItem="Library" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="40px">
+                    <Template Context="data">
+                        <a href="/Library/Details/@data.LibraryId">
+                            <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                        </a>
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="Library" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="40px">
+                    <Template Context="data">
+                        <a href="/Library/Delete/@data.LibraryId">
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
+                        </a>
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+
     }
 
 
+    @code
+{
 
-}
+        IEnumerable<Library> libraries;
+
+        RadzenGrid<Library> librariesGrid;
+
+        // Execute when component starts / initializes
+        protected override void OnInitialized()
+        {
+            libraries = DbContext.Library;
+        }
+
+
+
+    }

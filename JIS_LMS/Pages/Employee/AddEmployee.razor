@@ -1,4 +1,8 @@
-﻿@page "/Employee/Add"
+﻿@*Page Name: Add Employee
+  Page Description: This page is for adding an employee*@
+
+
+@page "/Employee/Add"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -59,14 +63,12 @@
                 </div>
 
 
-
                 <div class="form-group">
                     <label style="display: flex; align-items: center">
                         <span style="margin-right: 32px">*Gender:</span>
                         <RadzenDropDown Data="@gender" @bind-Value="@employeeGender" Change="ChooseGender" />
                     </label>
                 </div>
-
 
 
                 <div class="form-group">
@@ -117,15 +119,14 @@
         employees = EmployeeService.GetEmployees();
     }
 
-   
 
+    // Creating and Adding a new employee to the database
     private void CreateEmployee()
     {
-       
 
         EmployeeService.AddNewEmployee(employee);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         employee = new Employee();
 
         // May navigate to the Employees component
@@ -135,9 +136,6 @@
 
 @code
 {
-
-    //code for validation
-    bool popup;
 
     //Code for gender drop down list
     IEnumerable<EmployeeGender> gender = Enum.GetValues(typeof(EmployeeGender)).Cast<EmployeeGender>();
@@ -152,7 +150,6 @@
         genderValue = (int)employeeGender;
         employee.Gender = genderValue;
     }
-
 
 
     //Code for language drop down list

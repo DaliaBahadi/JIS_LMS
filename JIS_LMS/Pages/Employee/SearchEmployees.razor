@@ -1,4 +1,7 @@
-﻿@page "/Employees/Search"
+﻿@*Page Name:Search Employees
+  Page Description: This page is for seaching employees*@
+
+@page "/Employees/Search"
 @layout SystemAdminLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
@@ -7,8 +10,8 @@
 @inject EmployeeService EmployeeService
 @inject LMSDbContext DbContext
 
-<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Search Employees</h3>
-
+<h3 style=" margin-top: 50px;font-weight: bolder;color:#013E7E">Search Employees</h3>
+<br>
 
 @if (employees == null)
 {
@@ -16,7 +19,7 @@
 }
 else
 {
-    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
                 AllowSorting="true" Data="@employees" TItem="Employee" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
         <Columns>
             <RadzenGridColumn TItem="Employee" Property="FullName" Title="Name  " />
@@ -47,20 +50,20 @@ else
 
 
 @code
-        {
-    
+{       
+
 
     IEnumerable<Employee> employees;
 
     RadzenGrid<Employee> employeesGrid;
 
+    List<Employee> employee = new List<Employee>();
+
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         employees = DbContext.Employee;
     }
 
 
-    List<Employee> employee = new List<Employee>();
-
-   
 }

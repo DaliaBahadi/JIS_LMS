@@ -1,9 +1,11 @@
-﻿@page  "/Donor/Edit/{Id:int}"
+﻿@*Page Name:Edit Donor
+  Page Description: This page is for edting an donor information*@
+
+@page  "/Donor/Edit/{Id:int}"
 @inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @layout SystemAdminLayout
-
 @inject DonorService DonorService
 
 <div class="container-fluid container-contact100">
@@ -67,23 +69,26 @@
     Donor donor = new Donor();
 
 
-
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         donor = DonorService.GetDonor(Id);
     }
 
+
+    // Edting and updating author infromation 
     public void UpdateDonor()
     {
-
-
 
         // Edit Donor
         DonorService.EditDonor(donor);
 
+
         message = "Donor updated successfully";
+
+        // May navigate to the Donor Search Page
         NavigationManager.NavigateTo("Donors/Search");
     }
 }

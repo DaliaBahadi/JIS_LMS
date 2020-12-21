@@ -1,4 +1,7 @@
-﻿@page "/Patron/Delete/{Id:int}"
+﻿@*Page Name:Delete Patron
+  Page Description: This page is for deleting a patron from the datbase*@
+
+@page "/Patron/Delete/{Id:int}"
 @inject NavigationManager NavigationManager
 @inject PatronService PatronService
 @layout SystemAdminLayout
@@ -40,16 +43,21 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemovePatron()
-    {
-        PatronService.DeletePatron(Id);
-
-        NavigationManager.NavigateTo("/Patrons/Search");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         patron = PatronService.GetPatron(Id);
     }
+
+    // Deleting a patron from the database
+    private void RemovePatron()
+    {
+        PatronService.DeletePatron(Id);
+
+        // May navigate to the patron Search Page
+        NavigationManager.NavigateTo("/Patrons/Search");
+    }
+
+
 
 }

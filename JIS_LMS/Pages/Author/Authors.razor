@@ -1,32 +1,33 @@
-﻿@page "/Authors"
+﻿@*Page Name: Authors
+  Page Description: This page is to be able to acess the Add Author and Search for Author pages *@
+
+
+@page "/Authors"
 @layout SystemAdminLayout
 
 
-
-<h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;">Authors</h1>
+<h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;margin-left:5rem">Authors</h1>
 
 
 <div class="row " style="margin-top: 100px;margin-left:5rem">
     <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;">
 
-
-
-        <a href="/Author/Add" style="margin-bottom: 15rem">
+        <a href="/Author/Add" style="margin-top: -3rem">
             <i style="margin-left:10rem;" class="fas fa-pencil-alt icons-layout"></i>
 
-            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Add Author</h3>
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;margin-top:1rem">Add Author</h3>
         </a>
-
 
     </RadzenCard>
 
+
     <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;margin-left:15rem">
 
-        <a href="/Authors/Search" style="margin-bottom: 15rem">
+        <a href="/Authors/Search" style="margin-top: -3rem">
 
             <i style="margin-left:8rem;" class="fas fa-search icons-layout"></i>
 
-            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;">Search For Author</h3>
+            <h3 style="text-align:center;color:#013E7E;font-weight: bolder;margin-top:1rem">Search For Author</h3>
 
         </a>
 
@@ -34,6 +35,3 @@
 </div>
 
 
-@code {
-
-}

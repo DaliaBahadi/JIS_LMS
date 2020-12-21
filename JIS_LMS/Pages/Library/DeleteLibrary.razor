@@ -1,4 +1,7 @@
-﻿@page "/Library/Delete/{Id:int}"
+﻿@*Page Name:Delete Library
+  Page Description: This page is for deleting a library from the datbase*@
+
+@page "/Library/Delete/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -40,16 +43,21 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemoveLibrary()
-    {
-        LibraryService.DeleteLibrary(Id);
-
-        NavigationManager.NavigateTo("/Libraries/Search");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         library = LibraryService.GetLibrary(Id);
     }
+
+    // Deleting a library from the database
+    private void RemoveLibrary()
+    {
+        LibraryService.DeleteLibrary(Id);
+
+        // May navigate to the Libraries Search Page
+        NavigationManager.NavigateTo("/Libraries/Search");
+    }
+
+
 
 }
