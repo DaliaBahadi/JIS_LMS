@@ -17,7 +17,7 @@
                     <ValidationSummary />
 
 
-                    <span class="loginpage-form-title" style=" color: #013E7E; font-family:'Bookman'; text-align:center;margin-bottom:2em">
+                    <span class="loginpage-form-title" style=" color: #013E7E; text-align:center;margin-bottom:2em">
                         Employees Login
                     </span>
 
@@ -127,7 +127,7 @@
 
                 VariablesService.GetEmployeeId = employeeid;
 
-                navigationManager.NavigateTo($"/Employees");
+                navigationManager.NavigateTo($"/Admin/Homepage");
             }
 
             else if (employeetype == 2)
@@ -136,7 +136,7 @@
 
                 VariablesService.GetEmployeeId = employeeid;
 
-                navigationManager.NavigateTo($"/Employees");
+                navigationManager.NavigateTo($"/Librarian/Homepage");
             }
         }
 

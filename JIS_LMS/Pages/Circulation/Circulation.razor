@@ -64,37 +64,37 @@
 
             else
             {
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
-                    AllowSorting="true" Data="@holds" TItem="JIS_LMS.Model.Hold" Value="@hold" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
-            <Columns>
-                <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="Patron.FullName" Title="Patron Name  " />
-                <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="LibraryMaterial.Title" Title="Library Material Title" />
-                <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="HoldDateTime" Title="Hold Date & Time">
-                    <Template Context="data">
-                        @String.Format("{0}", data.HoldDateTime)
-                    </Template>
-                </RadzenGridColumn>
-                <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="PickupDateTime" Title="Pickup Date & Time">
-                    <Template Context="data">
-                        @String.Format("{0}", data.PickupDateTime)
-                    </Template>
-                </RadzenGridColumn>
-                <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
-                    <Template Context="data">
-                        <a href="/Hold/Details/@data.HoldId">
-                            <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
-                        </a>
-                    </Template>
-                </RadzenGridColumn>
-                <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
-                    <Template Context="data">
-                        <a href="/Hold/Delete/@data.HoldId">
-                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="clear" Size="ButtonSize.Small" Text="Cancel"></RadzenButton>
-                        </a>
-                    </Template>
-                </RadzenGridColumn>
-            </Columns>
-        </RadzenGrid>
+                <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+                            AllowSorting="true" Data="@holds" TItem="JIS_LMS.Model.Hold" Value="@hold" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+                    <Columns>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="Patron.FullName" Title="Patron Name  " />
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="LibraryMaterial.Title" Title="Library Material Title" />
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="HoldDateTime" Title="Hold Date & Time">
+                            <Template Context="data">
+                                @String.Format("{0}", data.HoldDateTime)
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="PickupDateTime" Title="Pickup Date & Time">
+                            <Template Context="data">
+                                @String.Format("{0}", data.PickupDateTime)
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                            <Template Context="data">
+                                <a href="/Hold/Details/@data.HoldId">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                                </a>
+                            </Template>
+                        </RadzenGridColumn>
+                        <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                            <Template Context="data">
+                                <a href="/Hold/Delete/@data.HoldId">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="clear" Size="ButtonSize.Small" Text="Cancel"></RadzenButton>
+                                </a>
+                            </Template>
+                        </RadzenGridColumn>
+                    </Columns>
+                </RadzenGrid>
             }
 
         </RadzenTabsItem>
