@@ -1,15 +1,18 @@
-﻿@page "/Librarian/Publisher/Edit/{Id:int}"
-@inject NavigationManager NavigationManager
+﻿@*Page Name:Edit Publisher
+  Page Description: This page is for edting a publisher information*@
+
+@page "/Librarian/Publisher/Edit/{Id:int}"
 @layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject NavigationManager NavigationManager
 @inject PublisherService PublisherService
 
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
         <h3>Edit Publisher Information</h3>
         <fieldset>
-          
+
             <EditForm Model="publisher" OnValidSubmit="UpdatePublisher">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -41,22 +44,22 @@
 
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         publisher = PublisherService.GetPublisher(Id);
     }
 
-
-
+    // Edting and updating author infromation 
     public void UpdatePublisher()
     {
-
-
 
         // Edit Publisher
         PublisherService.EditPublisher(publisher);
 
         message = "Publisher updated successfully";
+
+        // May navigate to the Publishers Search Page
         NavigationManager.NavigateTo("/Librarian/Publishers/Search");
     }
 }

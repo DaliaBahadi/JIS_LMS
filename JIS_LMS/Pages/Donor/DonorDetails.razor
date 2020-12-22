@@ -1,11 +1,11 @@
 ﻿@*Page Name: Donor Details
-  Page Description: This page is for showing the infromation and details of a donor*@
+    Page Description: This page is for showing the infromation and details of a donor*@
 
 @page "/Donor/Details/{Id:int}"
-@inject DonorService DonorService
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject DonorService DonorService
 
 <div class="container">
     <div class="container-fluid container-contact100">
@@ -59,7 +59,7 @@
     // Execute when component starts / initializes
     protected override void OnInitialized()
     {
-        //Get the donor detials 
+        //Get the donor detials
         donor = DonorService.GetDonor(Id);
     }
 }

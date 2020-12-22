@@ -1,10 +1,12 @@
-﻿@page "/Librarian/Author/Edit/{Id:int}"
+﻿@*Page Name:Edit Author
+  Page Description: This page is for edting an author information*@
+
+@page "/Librarian/Author/Edit/{Id:int}"
 @layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@inject NavigationManager NavigationManager
-
 @inject AuthorService AuthorService
+@inject NavigationManager NavigationManager
 
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
@@ -45,22 +47,23 @@
 
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         author = AuthorService.GetAuthor(Id);
     }
 
 
-
+    // Edting an author infromation 
     public void UpdateAuthor()
     {
-
-
 
         // Edit Author
         AuthorService.EditAuthor(author);
 
         message = "Author updated successfully";
+
+        // May navigate to the Author Search Page
         NavigationManager.NavigateTo("/Librarian/Authors/Search");
     }
 }

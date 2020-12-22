@@ -1,4 +1,8 @@
-﻿@page "/Circulation"
+﻿@*Page Name: Circulation
+    Page Description: This page is for listing and searching for the borrowing and the holdes*@
+
+
+@page "/Circulation"
 @layout SystemAdminLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
@@ -22,7 +26,7 @@
             else
             {
                 <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
-                            AllowSorting="true" Data="@borrowings" TItem="JIS_LMS.Model.Borrowing" Value="@borrowing" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+                            AllowSorting="true" Data="@borrowings" TItem="JIS_LMS.Model.Borrowing" Value="@borrowing" ColumnWidth="200px" Style="font-weight:bolder">
                     <Columns>
                         <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="Patron.FullName" Title="Name  " />
                         <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="LibraryMaterial.Title" Title="Library Material Title" />
@@ -112,6 +116,8 @@
     JIS_LMS.Model.Hold hold;
     IQueryable<JIS_LMS.Model.Hold> holds;
 
+
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
 

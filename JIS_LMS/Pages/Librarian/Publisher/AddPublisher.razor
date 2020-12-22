@@ -1,14 +1,17 @@
-﻿
+﻿@*Page Name: Add Publisher
+  Page Description: This page is for adding a publisher*@
+
 @page "/Librarian/Publisher/Add"
+@layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@layout LibrarianLayout
 @inject PublisherService PublisherService
-
 @inject NavigationManager NavigationManager
+
+
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
-        <h3>Add New Publisher</h3>
+        <h3>Add New Publisher </h3>
         <fieldset>
             <EditForm Model="publisher" OnValidSubmit="CreatePublisher">
                 <DataAnnotationsValidator />
@@ -41,14 +44,13 @@
     }
 
 
-
+    // Creating and Adding a new publisher to the database
     private void CreatePublisher()
     {
 
-
         PublisherService.AddNewPublisher(publisher);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         publisher = new Publisher();
 
         // May navigate to the Publishers component

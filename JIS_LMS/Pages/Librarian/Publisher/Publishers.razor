@@ -1,14 +1,16 @@
-﻿@page "/Librarian/Publishers"
-@layout LibrarianLayout
+﻿@*Page Name: Publishers
+  Page Description: This page is to be able to acess the Add Publisher and Search for Publisher pages *@
 
+@page "/Librarian/Publishers"
+@layout LibrarianLayout
 
 <h1 style=" margin-top: 80px;color:#013E7E;font-weight: bolder;margin-left:4.5rem">Publishers</h1>
 
 
-<div class="row" style="margin-top: 100px;margin-left:5rem">
-    <RadzenCard Style="width:450px; margin-bottom:20px; height:400px;">
+<div class="row " style="margin-top: 100px;margin-left:5rem">
+    <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;">
 
-        <a href="/Librarian/Publisher/Add" style="margin-top:-3rem">
+        <a href="/Librarian/Publisher/Add" style="margin-top: -3rem">
             <i style="margin-left:8.5rem;" class="fas fa-book-open icons-layout"></i>
 
             <h3 style="text-align:center;color:#013E7E;font-weight: bolder;margin-top:1rem">Add Publisher</h3>
@@ -17,9 +19,9 @@
     </RadzenCard>
 
 
-    <RadzenCard Style="width:450px; margin-bottom:20px; height:400px;margin-left:15rem">
+    <RadzenCard Style="width:450px; margin-bottom: 20px; height:400px;margin-left:15rem">
 
-        <a href="/Librarian/Publishers/Search" style="margin-top:-3rem">
+        <a href="/Librarian/Publishers/Search" style="margin-top: -3rem">
 
             <i style="margin-left:8rem;" class="fas fa-search icons-layout"></i>
 
@@ -30,7 +32,3 @@
     </RadzenCard>
 </div>
 
-
-@code {
-
-}

@@ -1,14 +1,17 @@
-﻿@page "/Librarian/Author/Add"
+﻿@*Page Name: Add Author
+Page Description: This page is for adding an author*@
+
+@page "/Librarian/Author/Add"
 @layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject AuthorService AuthorService
 @inject NavigationManager NavigationManager
 
+
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
         <h3>Add New Author</h3>
-
         <fieldset>
             <EditForm Model="author" OnValidSubmit="CreateAuthor">
                 <DataAnnotationsValidator />
@@ -34,8 +37,8 @@
 </div>
 
 @code {
-    Author author = new Author();
 
+    Author author = new Author();
 
     private List<Author> authors = new List<Author>();
 
@@ -47,14 +50,13 @@
     }
 
 
-
+    // Creating and Adding a new author to the database
     private void CreateAuthor()
     {
 
-
         AuthorService.AddNewAuthor(author);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         author = new Author();
 
         // May navigate to the Author component

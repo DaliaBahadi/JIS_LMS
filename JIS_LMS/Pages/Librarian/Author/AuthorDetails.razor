@@ -1,4 +1,7 @@
-﻿@page "/Librarian/Author/Details/{Id:int}"
+﻿@*Page Name: Author Details
+    Page Description: This page is for showing the infromation and details of an author*@
+
+@page "/Librarian/Author/Details/{Id:int}"
 @layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -38,8 +41,10 @@
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the author detials
         author = AuthorService.GetAuthor(Id);
     }
 }

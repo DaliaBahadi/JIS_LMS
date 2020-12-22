@@ -1,4 +1,7 @@
-﻿@page "/Hold/Add"
+﻿@*Page Name: Add Hold
+    Page Description: This page is for adding a Hold*@
+
+@page "/Hold/Add"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -79,14 +82,14 @@
     }
 
 
-
+    // Creating and Adding a new hold to the database
     private void CreateHold()
     {
 
         //bind the library material Id to the hold library material Id forign key
         hold.LibraryMaterialId = VariablesService.HoldMaterialId;
 
-        //changing the status of the hold to true 
+        //changing the status of the hold to true
         hold.HoldStatus = true;
 
         HoldService.AddNewHold(hold);

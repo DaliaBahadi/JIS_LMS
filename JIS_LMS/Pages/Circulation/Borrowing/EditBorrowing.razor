@@ -1,4 +1,8 @@
-﻿@page  "/Borrowing/Edit/{Id:int}"
+﻿@*Page Name:Edit Borrowing
+    Page Description: This page is for edting a borrowing information*@
+
+
+@page  "/Borrowing/Edit/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -80,11 +84,13 @@
 
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         borrowing = BorrowingService.GetBorrowing(Id);
     }
 
+    // Edting and updating the borrowing infromation 
     public void UpdateBorrowing()
     {
         // Edit Borrowing
@@ -92,6 +98,7 @@
 
         message = "Borrowing updated successfully";
 
+        // May navigate to the Author Search Page
         NavigationManager.NavigateTo("/Circulation");
     }
 }

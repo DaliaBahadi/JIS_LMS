@@ -1,8 +1,8 @@
 ﻿@*Page Name:Search Parents
     Page Description: This page is for seaching parents*@
 
-@page "/Parents/Search"
-@layout SystemAdminLayout
+@page "/Librarian/Parents/Search"
+@layout LibrarianLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -22,7 +22,7 @@
 else
 {
     <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
-                AllowSorting="true" Data="@parents" TItem="Parent" ColumnWidth="200px" Style="font-weight:bolder">
+                AllowSorting="true" Data="@parents" TItem="Parent" ColumnWidth="200px" Style=" font-weight:bolder">
         <Columns>
             <RadzenGridColumn TItem="Parent" Property="FullName" Title="Name  " />
             <RadzenGridColumn TItem="Parent" Property="PrimaryContactNumber" Title="Primary Contact Number" />
@@ -30,15 +30,8 @@ else
             <RadzenGridColumn TItem="Parent" Property="Relation" Title="Relation" />
             <RadzenGridColumn TItem="Parent" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                 <Template Context="data">
-                    <a href="/Parent/Details/@data.ParentId">
+                    <a href="/Librarian/Parent/Details/@data.ParentId">
                         <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
-                    </a>
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="Parent" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
-                <Template Context="data">
-                    <a href="/Parent/Delete/@data.ParentId">
-                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
                     </a>
                 </Template>
             </RadzenGridColumn>

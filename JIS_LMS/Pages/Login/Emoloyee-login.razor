@@ -1,7 +1,10 @@
-﻿@page "/Employees/Login"
-@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+﻿@*Page Name: Employee Login
+    Page Description: This page is for the employees to login to the application *@
+
+@page "/Employees/Login"
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 @inject SharedVariablesService VariablesService
 
 
@@ -83,8 +86,8 @@
     int employeetype;
     string message;
     bool found = false;
-    
 
+    //check the type of the employee and the username and password to login accordingly
     protected void loginButtonClicked()
     {
 
@@ -142,6 +145,7 @@
 
         else
         {
+            //show this message if the username or password does not exsists or wrong
             message = "Invalid username or password";
         }
 

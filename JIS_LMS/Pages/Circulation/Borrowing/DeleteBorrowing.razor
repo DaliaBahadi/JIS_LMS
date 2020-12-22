@@ -1,4 +1,8 @@
-﻿@page "/Borrowing/Delete/{Id:int}"
+﻿@*Page Name:Delete Borrowing
+    Page Description: This page is for deleting a borrowing from the datbase*@
+
+
+@page "/Borrowing/Delete/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -41,16 +45,20 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemoveBorrowing()
-    {
-        BorrowingService.DeleteBorrowing(Id);
-
-        NavigationManager.NavigateTo("/Circulation");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         borrowing = BorrowingService.GetBorrowing(Id);
     }
+
+    // Deleting a borrowing from the database
+    private void RemoveBorrowing()
+    {
+        BorrowingService.DeleteBorrowing(Id);
+
+        // May navigate to the Circulation Page
+        NavigationManager.NavigateTo("/Circulation");
+    }
+
 
 }

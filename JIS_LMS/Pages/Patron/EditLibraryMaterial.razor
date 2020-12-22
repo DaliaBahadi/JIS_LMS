@@ -1,7 +1,7 @@
 ﻿@*Page Name:Edit Patron
     Page Description: This page is for edting a patron information*@
 
-@page  "/Patron/Edit/{Id:int}"
+@page  "/P/Edit/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -244,7 +244,7 @@
     </div>
 </div>
 @*<br>
-    <br>*@
+<br>*@
 
 
 
@@ -310,8 +310,6 @@
         StudentService.EditStudent(student);
 
         studentMessage = "Student updated successfully";
-
-        // May navigate to the Patron Search Page
         NavigationManager.NavigateTo("Patrons/Search");
     }
 
@@ -437,7 +435,19 @@
     }
 
 
-  
+    //Code for patron type drop down list
+    //IEnumerable<PatronType> type = Enum.GetValues(typeof(PatronType)).Cast<PatronType>();
+
+    //int typeValue;
+
+    //PatronType typeOfPatron;
+
+    ////Method For biding the value to the database
+    //public void ChooseType()
+    //{
+    //    typeValue = (int)typeOfPatron;
+    //    patron.PatronType = typeValue;
+    //}
 
     //Code for section drop down list
     IEnumerable<PatronSection> section = Enum.GetValues(typeof(PatronSection)).Cast<PatronSection>();
@@ -485,3 +495,4 @@
 
 
 }
+

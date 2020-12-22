@@ -1,5 +1,9 @@
-﻿@page "/Librarian/Donor/Edit/{Id:int}"
+﻿@*Page Name:Edit Donor
+    Page Description: This page is for edting an donor information*@
+
+@page  "/Librarian/Donor/Edit/{Id:int}"
 @layout LibrarianLayout
+@inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject NavigationManager NavigationManager
@@ -39,7 +43,8 @@
 
                 <div class="form-group">
                     <label for="mobile">Mobile:</label>
-                    <InputText id="mobile" @bind-Value="donor.Mobile" class="form-control" placeholder="0500000000" />
+                    <InputText id="mobile" @bind-Value="donor.Mobile" class="form-control" placeholder="05xxxxxxxx" />
+                    <ValidationMessage For="@(() => donor.Mobile)" />
                 </div>
 
 
@@ -65,23 +70,26 @@
     Donor donor = new Donor();
 
 
-
     string message;
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         donor = DonorService.GetDonor(Id);
     }
 
+
+    // Edting and updating author infromation
     public void UpdateDonor()
     {
-
-
 
         // Edit Donor
         DonorService.EditDonor(donor);
 
+
         message = "Donor updated successfully";
+
+        // May navigate to the Donor Search Page
         NavigationManager.NavigateTo("/Librarian/Donors/Search");
     }
 }

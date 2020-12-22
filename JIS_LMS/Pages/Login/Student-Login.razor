@@ -1,7 +1,10 @@
-﻿@page "/Students/Login"
-@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+﻿@*Page Name: Student Login
+    Page Description: This page is for the students to login to the application *@
+
+@page "/Students/Login"
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 @inject SharedVariablesService VariablesService
 
 
@@ -83,6 +86,7 @@
     string message;
     bool found = false;
 
+    //check the type of the students and the username and password to login accordingly
     protected void loginButtonClicked()
     {
 
@@ -110,6 +114,7 @@
 
         else
         {
+            //show this message if the username or password does not exsists or wrong
             message = "Invalid username or password";
         }
 

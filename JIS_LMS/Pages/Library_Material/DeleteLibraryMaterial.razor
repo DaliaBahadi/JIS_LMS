@@ -1,9 +1,14 @@
-﻿@page "/Catalog/Delete/{Id:int}"
-@inject NavigationManager NavigationManager
-@inject Library_MaterialService Library_MaterialService
+﻿@*Page Name:Delete Library Material
+    Page Description: This page is for deleting a library material from the datbase*@
+
+
+@page "/Catalog/Delete/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject NavigationManager NavigationManager
+@inject Library_MaterialService Library_MaterialService
+
 
 <div class="container" style="margin-left:1em">
     <h3>Delete Library Material </h3>
@@ -22,7 +27,7 @@
             <th>Title: </th>
             <td>@libraryMaterial.Title</td>
         </tr>
-       
+
     </table>
     <br />
     <button type="submit" class="btn btn-outline-danger " style=" width: 200px;" @onclick="RemoveLibraryMaterial">Delete Library Material</button>
@@ -38,16 +43,21 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemoveLibraryMaterial()
-    {
-        Library_MaterialService.DeleteLibraryMaterial(Id);
-
-        NavigationManager.NavigateTo("/Catalog/Search");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
     }
+
+    // Deleting a library material from the database
+    private void RemoveLibraryMaterial()
+    {
+        Library_MaterialService.DeleteLibraryMaterial(Id);
+
+        // May navigate to the Catalog Search Page
+        NavigationManager.NavigateTo("/Catalog/Search");
+    }
+
+
 
 }

@@ -1,5 +1,8 @@
-﻿@layout SystemAdminLayout
+﻿@*Page Name: Add Library Material
+    Page Description: This page is for adding a library material*@
+
 @page "/Catalog/Add"
+@layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @using Syncfusion.Blazor.Inputs;
@@ -196,12 +199,12 @@
                 <ValidationSummary />
                 @*delete later*@
                 @*<div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <label style="background-color:red;"> @SharedVariables.GetLibraryMaterialId </label>
-                    </label>
+                        <label style="display: flex; align-items: center">
+                            <span style="margin-right: 32px">*Library Material:</span>
+                            <label style="background-color:red;"> @SharedVariables.GetLibraryMaterialId </label>
+                        </label>
 
-                </div>*@
+                    </div>*@
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center" for="publisher">
@@ -247,7 +250,7 @@
 
                 <div class="form-group">
                     <label for="ISBN">*ISBN:</label>
-                    <InputText id="ISBN" @bind-Value="book.ISBN" class="form-control" placeholder="000-0-00-000000-0" />
+                    <InputText id="ISBN" @bind-Value="book.ISBN" class="form-control" placeholder="xxx-x-xx-xxxxxx-x" />
                 </div>
 
                 <div class="form-group">
@@ -283,7 +286,7 @@
 
                 <div class="form-group">
                     <label for="ISSN">*ISSN:</label>
-                    <InputText id="ISSN" @bind-Value="journal.ISSN" class="form-control" placeholder="0000-0000" />
+                    <InputText id="ISSN" @bind-Value="journal.ISSN" class="form-control" placeholder="xxxx-xxxx" />
                 </div>
 
                 <div class="form-group">
@@ -325,7 +328,7 @@
 
                 <div class="form-group">
                     <label for="ISBN">*ISBN:</label>
-                    <InputText id="ISBN" @bind-Value="cD_DVD_BR.ISBN" class="form-control" placeholder="000-0-00-000000-0" />
+                    <InputText id="ISBN" @bind-Value="cD_DVD_BR.ISBN" class="form-control" placeholder="xxx-x-xx-xxxxxx-x" />
                 </div>
 
                 <div class="form-group">
@@ -385,16 +388,19 @@
     {
 
         library_Materials = Library_MaterialService.GetLibraryMaterials();
+
         books = BookService.GetBooks();
+
         journals = JournalService.GetJournals();
+
         cDs_DVDs_BRs = CD_DVD_BR_Service.GetCDs_DVDs_BRs();
 
-       
+
 
     }
 
 
-
+    // Creating and Adding a new library material to the database
     private void CreateCatalog()
     {
 
@@ -403,7 +409,7 @@
         // To empty the form
         catalog = new Library_Material();
 
-        //Geeting library maerial Id 
+        //Geeting library maerial Id
         GetLibraryMaterialId();
 
 
@@ -415,7 +421,7 @@
     LibraryMaterial_Author author = new LibraryMaterial_Author();
     private List<LibraryMaterial_Author> authors = new List<LibraryMaterial_Author>();
 
-
+    // linking and binding a library material to an author/s to the database
     private void CreateLibraryMaterialAuthor()
     {
         author.LibraryMaterialId = SharedVariables.GetLibraryMaterialId;
@@ -426,7 +432,7 @@
         // To empty the form
         author = new LibraryMaterial_Author();
 
-        
+
 
     }
 
@@ -435,7 +441,7 @@
     {
         //get the library material id and binding it
         SharedVariables.GetLibraryMaterialId = db.Library_Material.OrderBy(d => d.LibraryMaterialId).LastOrDefault().LibraryMaterialId;
-       
+
 
     }
 }
@@ -446,7 +452,7 @@
 
     private List<Book> books = new List<Book>();
 
-
+    // Creating and Adding a new book to the database
     private void CreateBook()
     {
         //get the library material id and binding it with the book
@@ -456,7 +462,7 @@
         //Add Book
         BookService.AddNewBook(book);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         book = new Book();
 
         // May navigate to the Catalog component
@@ -470,7 +476,7 @@
 
     private List<Journal> journals = new List<Journal>();
 
-
+    // Creating and Adding a new journal to the database
     private void CreateJournal()
     {
         // get the library material id and binding it with the Jouranl
@@ -479,7 +485,7 @@
         //Add Journal
         JournalService.AddNewJournal(journal);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         journal = new Journal();
 
         // May navigate to the Catalog component
@@ -492,7 +498,7 @@
 
     private List<CD_DVD_BR> cDs_DVDs_BRs = new List<CD_DVD_BR>();
 
-
+    // Creating and Adding a new CD_DVD_BRto the database
     private void CreateCD_DVD_BR()
     {
         // get the library material id and binding it with the Jouranl
@@ -502,7 +508,7 @@
         //Add CD/DVD/BR
         CD_DVD_BR_Service.AddNewCD_DVD_BR(cD_DVD_BR);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         cD_DVD_BR = new CD_DVD_BR();
 
         // May navigate to the Catalog component
@@ -516,7 +522,7 @@
 @code
 {
 
-    //code section for input select type
+    //code section for input select type of library material
 
     LMSDbContext db = new LMSDbContext();
 

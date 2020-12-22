@@ -1,12 +1,12 @@
-﻿
+﻿@*Page Name:Delete Publisher
+    Page Description: This page is for deleting a publisher from the datbase*@
+
 @page "/Librarian/Publisher/Delete/{Id:int}"
 @layout LibrarianLayout
-@inject NavigationManager NavigationManager
-@inject PublisherService PublisherService
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-
-
+@inject NavigationManager NavigationManager
+@inject PublisherService PublisherService
 
 
 <div class="container" style="margin-left:1em">
@@ -38,16 +38,21 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemovePublisher()
-    {
-        PublisherService.DeletePublisher(Id);
-
-        NavigationManager.NavigateTo("/Librarian/Publishers/Search");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         publisher = PublisherService.GetPublisher(Id);
     }
+
+    // Deleting a publisher from the database
+    private void RemovePublisher()
+    {
+        PublisherService.DeletePublisher(Id);
+
+        // May navigate to the Publishers Search Page
+        NavigationManager.NavigateTo("/Librarian/Publishers/Search");
+    }
+
+
 
 }

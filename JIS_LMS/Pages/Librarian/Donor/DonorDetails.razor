@@ -1,8 +1,11 @@
-﻿@page "/Librarian/Donor/Details/{Id:int}"
+﻿@*Page Name: Donor Details
+    Page Description: This page is for showing the infromation and details of a donor*@
+
+@page "/Librarian/Donor/Details/{Id:int}"
 @layout LibrarianLayout
+@inject DonorService DonorService
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
-@inject DonorService DonorService
 
 <div class="container">
     <div class="container-fluid container-contact100">
@@ -23,7 +26,7 @@
                     <td>Last Name:</td>
                     <td>@donor.LastName</td>
                 </tr>
-                
+
                 <tr>
                     <td>Email: </td>
                     <td>@donor.Email</td>
@@ -32,13 +35,11 @@
                     <td>Mobile: </td>
                     <td>@donor.Mobile</td>
                 </tr>
-                
+
 
             </table>
 
-
             <a href="/Librarian/Donor/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-
             <a href="/Librarian/Donors/Search" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>
@@ -49,13 +50,16 @@
 
 
     Donor donor = new Donor();
+
     List<Donor> donors = new List<Donor>();
 
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the donor detials
         donor = DonorService.GetDonor(Id);
     }
 }

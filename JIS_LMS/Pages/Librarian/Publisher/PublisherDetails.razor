@@ -1,9 +1,11 @@
-﻿
+﻿@*Page Name: Publisher Details
+  Page Description: This page is for showing the infromation and details of a publisher*@
+
 @page "/Librarian/Publisher/Details/{Id:int}"
 @layout LibrarianLayout
-@inject PublisherService PublisherService
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject PublisherService PublisherService
 
 <div class="container">
     <div class="container-fluid container-contact100">
@@ -33,8 +35,10 @@
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the publisher detials 
         publisher = PublisherService.GetPublisher(Id);
     }
 }

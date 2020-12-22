@@ -1,4 +1,7 @@
-﻿@page "/Librarian/Author/Delete/{Id:int}"
+﻿@*Page Name:Delete Author 
+  Page Description: This page is for deleting an author from the datbase*@
+
+@page "/Librarian/Author/Delete/{Id:int}"
 @layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -35,16 +38,21 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemoveAuthor()
-    {
-        AuthorService.DeleteAuthor(Id);
-
-        NavigationManager.NavigateTo("/Librarian/Authors/Search");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         author = AuthorService.GetAuthor(Id);
     }
+
+
+    // Deleting an author from the database
+    private void RemoveAuthor()
+    {
+        AuthorService.DeleteAuthor(Id);
+
+        // May navigate to the Author Search Page
+        NavigationManager.NavigateTo("/Librarian/Authors/Search");
+    }
+
 
 }

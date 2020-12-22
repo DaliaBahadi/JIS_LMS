@@ -1,12 +1,13 @@
 ﻿@*Page Name:Delete Donor
     Page Description: This page is for deleting an donor from the datbase*@
 
-@layout SystemAdminLayout
 @page "/Donor/Delete/{Id:int}"
-@inject NavigationManager NavigationManager
-@inject DonorService DonorService
+@layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject NavigationManager NavigationManager
+@inject DonorService DonorService
+
 
 <div class="container" style="margin-left:1em">
     <h3>Delete Donor</h3>

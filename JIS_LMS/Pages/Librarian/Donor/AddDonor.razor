@@ -1,4 +1,7 @@
-﻿@page "/Librarian/Donor/Add"
+﻿@*Page Name: Add Donor
+  Page Description: This page is for adding a Donor*@
+
+@page "/Librarian/Donor/Add"
 @layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -12,7 +15,6 @@
 <div class="container-fluid container-contact100">
     <div class="wrap-contact100">
         <h3>Add New Donor</h3>
-
         <fieldset>
             <EditForm Model="donor" OnValidSubmit="CreateDonor">
                 <DataAnnotationsValidator />
@@ -33,6 +35,8 @@
                     <InputText id="last-name" @bind-Value="donor.LastName" class="form-control" placeholder="Enter Donor Last Name" />
                 </div>
 
+
+
                 <div class="form-group">
                     <label for="email" class="control-label">Email: </label>
                     <InputText type="email" id="email" @bind-Value="donor.Email" class="form-control" placeholder="sam@example.com" />
@@ -41,12 +45,14 @@
 
                 <div class="form-group">
                     <label for="mobile">Mobile:</label>
-                    <InputText id="mobile" @bind-Value="donor.Mobile" class="form-control" placeholder="0500000000" />
+                    <InputText id="mobile" @bind-Value="donor.Mobile" class="form-control" placeholder="05xxxxxxxx" />
+                    <ValidationMessage For="@(() => donor.Mobile)" />
                 </div>
 
 
+
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a href="/Librarian/Donors" class="btn btn-outline-secondary">Cancel</a>
+                <a href="Librarian/Donors" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
         </fieldset>
@@ -72,14 +78,13 @@
     }
 
 
-
+    // Creating and Adding a new donor to the database
     private void CreateDonor()
     {
 
-
         DonorService.AddNewDonor(donor);
 
-        // To empty the form, find more elegant why
+        // To empty the form
         donor = new Donor();
 
         // May navigate to the Employees component

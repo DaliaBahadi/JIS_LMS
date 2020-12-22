@@ -1,4 +1,7 @@
-﻿@page "/Librarian/Donors/Search"
+﻿@*Page Name:Search Donors
+    Page Description: This page is for seaching donors*@
+
+@page "/Librarian/Donors/Search"
 @layout LibrarianLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
@@ -7,59 +10,56 @@
 @inject DonorService DonorService
 @inject LMSDbContext DbContext
 
-<h3 style=" margin-top: 50px;font-family: Courier New, Courier, monospace;font-weight: bolder;">Search Donors</h3>
+    <h3 style=" margin-top: 50px;font-weight: bolder;color:#013E7E">Search Donors</h3>
+    <br>
 
+    @if (donors == null)
+    {
+        <p style="color:red">loading....</p>
+    }
+    else
+    {
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
+                    AllowSorting="true" Data="@donors" TItem="Donor" ColumnWidth="200px" Style=" font-weight:bolder">
+            <Columns>
+                <RadzenGridColumn TItem="Donor" Property="FullName" Title="Name  " />
+                <RadzenGridColumn TItem="Donor" Property="Email" Title="Email" />
+                <RadzenGridColumn TItem="Donor" Property="Mobile" Title="Mobile" />
+                <RadzenGridColumn TItem="Donor" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="data">
+                        <a href="/Librarian/Donor/Details/@data.DonorId">
+                            <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
+                        </a>
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="Donor" Context="LMSDbContext" Title="Actions" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                    <Template Context="data">
+                        <a href="/Librarian/Donor/Delete/@data.DonorId">
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
+                        </a>
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
 
-@if (donors == null)
-{
-    <p style="color:red">loading....</p>
-}
-else
-{
-    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4"
-                AllowSorting="true" Data="@donors" TItem="Donor" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
-        <Columns>
-            <RadzenGridColumn TItem="Donor" Property="FullName" Title="Name  " />
-            <RadzenGridColumn TItem="Donor" Property="Email" Title="Email" />
-            <RadzenGridColumn TItem="Donor" Property="Mobile" Title="Mobile" />
-            <RadzenGridColumn TItem="Donor" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
-                <Template Context="data">
-                    <a href="/Librarian/Donor/Details/@data.DonorId">
-                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
-                    </a>
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn TItem="Donor" Context="LMSDbContext" Title="Actions" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
-
-                <Template Context="data">
-                    <a href="/Librarian/Donor/Delete/@data.DonorId">
-                        <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Text="Delete"></RadzenButton>
-                    </a>
-                </Template>
-            </RadzenGridColumn>
-        </Columns>
-    </RadzenGrid>
-
-}
-
-
+    }
 
 
 
 @code
 {
 
+        IEnumerable<Donor> donors;
 
-    IEnumerable<Donor> donors;
+        RadzenGrid<Donor> donorsGrid;
 
-    RadzenGrid<Donor> donorsGrid;
+        List<Donor> donor = new List<Donor>();
 
-    List<Donor> donor = new List<Donor>();
-
-    protected override void OnInitialized()
-    {
-        donors = DbContext.Donor;
-    }
+        // Execute when component starts / initializes
+        protected override void OnInitialized()
+        {
+            donors = DbContext.Donor;
+        }
 
 
 }

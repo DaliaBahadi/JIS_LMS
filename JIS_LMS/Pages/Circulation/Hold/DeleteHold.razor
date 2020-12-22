@@ -1,4 +1,7 @@
-﻿@page "/Hold/Delete/{Id:int}"
+﻿@*Page Name:Delete Hold
+    Page Description: This page is for deleting a hold from the datbase*@
+
+@page "/Hold/Delete/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -41,16 +44,20 @@
     [Parameter]
     public int Id { get; set; }
 
-    private void RemoveHold()
-    {
-        HoldService.DeleteHold(Id);
-
-        NavigationManager.NavigateTo("/Circulation");
-    }
-
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         hold = HoldService.GetHold(Id);
     }
+
+    // Deleting a hold from the database
+    private void RemoveHold()
+    {
+        HoldService.DeleteHold(Id);
+
+        // May navigate to the Circulation Page
+        NavigationManager.NavigateTo("/Circulation");
+    }
+
 
 }

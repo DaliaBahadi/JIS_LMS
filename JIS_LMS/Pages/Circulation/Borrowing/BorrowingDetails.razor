@@ -1,4 +1,7 @@
-﻿@page "/Borrowing/Details/{Id:int}"
+﻿@*Page Name: Borrowing Details
+    Page Description: This page is for showing the infromation and details of a borrowing*@
+
+@page "/Borrowing/Details/{Id:int}"
 @inject BorrowingService BorrowingService
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
@@ -71,8 +74,10 @@
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
+        //Get the borrowing detials 
         borrowing = BorrowingService.GetBorrowing(Id);
     }
 }

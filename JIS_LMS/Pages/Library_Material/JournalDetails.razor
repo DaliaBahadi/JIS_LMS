@@ -1,4 +1,8 @@
-﻿@page "/Catalog/Journal/Details/{Id:int}"
+﻿@*Page Name: Journal Details
+    Page Description: This page is for showing the infromation and details of a journal*@
+
+
+@page "/Catalog/Journal/Details/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -204,11 +208,10 @@
     List<Library_Material> libraryMaterials = new List<Library_Material>();
     LibraryMaterial_Author author = new LibraryMaterial_Author();
 
-
-
     [Parameter]
     public int Id { get; set; }
 
+    // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         libraryMaterials = Library_MaterialService.GetLibraryMaterials();
