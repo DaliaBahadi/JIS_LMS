@@ -26,7 +26,7 @@
             else
             {
                 <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
-                            AllowSorting="true" Data="@borrowings" TItem="JIS_LMS.Model.Borrowing" Value="@borrowing" ColumnWidth="200px" Style="font-weight:bolder">
+                            AllowSorting="true" Data="@borrowings" TItem="JIS_LMS.Model.Borrowing" Value="@borrowing" ColumnWidth="200px" >
                     <Columns>
                         <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="Patron.FullName" Title="Name  " />
                         <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="LibraryMaterial.Title" Title="Library Material Title" />

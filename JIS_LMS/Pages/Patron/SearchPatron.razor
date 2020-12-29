@@ -39,7 +39,7 @@ else
 
     <div style="visibility:@Studentvisible;">
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
-                    AllowSorting="true" Data="@students" TItem="Student" Value="@student" ColumnWidth="200px" Style="font-weight:bolder">
+                    AllowSorting="true" Data="@students" TItem="Student" Value="@student" ColumnWidth="200px">
             <Columns>
                 <RadzenGridColumn TItem="Student" Property="Patron.ImageFile" Title="Photo" Sortable="false" Filterable="false">
                     <Template Context="data">
@@ -71,7 +71,7 @@ else
 
     <div style="visibility:@Teachervisible;margin-top:-310px">
         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
-                    AllowSorting="true" Data="@teachers" TItem="Teacher" Value="@teacher" ColumnWidth="200px" Style="font-weight:bolder">
+                    AllowSorting="true" Data="@teachers" TItem="Teacher" Value="@teacher" ColumnWidth="200px" >
             <Columns>
                 <RadzenGridColumn TItem="Teacher" Property="Patron.ImageFile" Title="Photo" Sortable="false" Filterable="false">
                     <Template Context="data">

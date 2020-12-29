@@ -14,8 +14,10 @@ namespace JIS_LMS.Model
     {
         [Key]
         public int LibraryMaterialId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The ISBN field is required ")]
         [StringLength(25)]
+        [RegularExpression("[0-9]*[-| ][0-9]*[-| ][0-9]*[-| ][0-9]*[-| ][0-9]*", ErrorMessage = "Wrong ISBN format. Ex. 978-1-86197-876-9 ")]
+
         public string ISBN { get; set; }
         public int? Edition { get; set; }
         [Required]

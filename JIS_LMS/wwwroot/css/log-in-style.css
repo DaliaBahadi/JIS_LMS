@@ -173,8 +173,8 @@ span.psw {
 }
 
 .loginpage-form-title {
-    font-family: Raleway-Medium;
-    font-size: 30px;
+/*    font-family: Raleway-Medium;
+*/    font-size: 30px;
     color: #555555;
     line-height: 1.2;
     text-transform: uppercase;
@@ -307,8 +307,8 @@ span.psw {
 }
 
 .login0-form-btn {
-    font-family: Raleway-Bold;
-    font-size: 18px;
+/*    font-family: Raleway-Bold;
+*/    font-size: 18px;
     color: #fff;
     line-height: 1.2;
     display: -webkit-box;

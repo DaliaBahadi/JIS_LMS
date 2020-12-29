@@ -14,8 +14,10 @@ namespace JIS_LMS.Model
     {
         [Key]
         public int LibraryMaterialId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The ISSN field is required ")]
         [StringLength(15)]
+        [RegularExpression("[0-9]*[-| ][0-9]*", ErrorMessage = "Wrong ISSN format. Ex. 1237-4197 ")]
+
         public string ISSN { get; set; }
         public int? Volume { get; set; }
         public int? Issue { get; set; }

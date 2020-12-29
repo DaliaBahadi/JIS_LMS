@@ -33,8 +33,8 @@ namespace JIS_LMS.Model
         [StringLength(100)]
         [EmailAddress]
         public string Email { get; set; }
-        [StringLength(15)]
-        [Range(0000000000, 0999999999, ErrorMessage ="Please Enter a valid mobile number")]
+        [StringLength(15) ]
+        [RegularExpression("(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})", ErrorMessage = "Wrong mobile number format. Ex. 0578965147 ")]
         public string Mobile { get; set; }
 
         [InverseProperty(nameof(Library_Material.Donor))]

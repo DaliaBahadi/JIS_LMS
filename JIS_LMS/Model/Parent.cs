@@ -31,15 +31,18 @@ namespace JIS_LMS.Model
         [Required(ErrorMessage = "The Last Name field is required ")]
         [StringLength(30)]
         public string LastName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Gender field is required ")]
         public int Gender { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Relation field is required ")]
         public int Relation { get; set; }
         [Required(ErrorMessage = "The Primary Contact Number field is required ")] 
         [StringLength(15)]
-        
+        [RegularExpression("(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})", ErrorMessage = "Wrong Primary Contact Number format. Ex. 0578965147 ")]
+
         public string PrimaryContactNumber { get; set; }
         [StringLength(15)]
+        [RegularExpression("(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})", ErrorMessage = "Wrong Secondary Contact Number format. Ex. 0578965147 ")]
+
         public string SecondaryContactNumber { get; set; }
         [Required(ErrorMessage = "The Primary Email field is required ")]
         [StringLength(100)]
@@ -48,7 +51,7 @@ namespace JIS_LMS.Model
         [StringLength(100)]
         [EmailAddress]
         public string SecondaryEmail { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Language field is required ")]
         public int Language { get; set; }
         [Required(ErrorMessage = "The Address field is required ")]
         public int AddressId { get; set; }

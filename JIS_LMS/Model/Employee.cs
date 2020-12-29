@@ -28,20 +28,21 @@ namespace JIS_LMS.Model
         [StringLength(30)]
         public string LastName { get; set; }
         [Column(TypeName = "date")]
-        [Required]
+        [Required(ErrorMessage = "The Date Of Birth field is required ")]
 
         public DateTime DateOfBirth { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Email field is required ")]
         [StringLength(100)]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Mobile field is required ")]
         [StringLength(15)]
-       
+        [RegularExpression("(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})", ErrorMessage = "Wrong mobile number format. Ex. 0578965147 ")]
+
         public string Mobile { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Language field is required ")]
         public int Language { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Gender field is required ")]
         public int Gender { get; set; }
         [StringLength(15)]
         [Range (1,10, ErrorMessage = "The range for Phone Extension is 10 character")]
@@ -52,7 +53,7 @@ namespace JIS_LMS.Model
         [Required(ErrorMessage = "The Password field is required ")]
         [StringLength(15)]
         public string Password { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Employee Type field is required ")]
         public int EmployeeType { get; set; }
 
         [InverseProperty(nameof(Library.Librarian))]

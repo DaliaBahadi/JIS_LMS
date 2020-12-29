@@ -25,25 +25,37 @@ namespace JIS_LMS.Model
 
         [Key]
         public int PatronId { get; set; }
+
         [Required(ErrorMessage = "The First Name field is required ")]
         [StringLength(30)]
         public string FirstName { get; set; }
+
         [Required(ErrorMessage = "The Middle Name field is required ")]
         [StringLength(30)]
         public string MiddleName { get; set; }
+
         [Required(ErrorMessage = "The Last Name field is required ")]
         [StringLength(30)]
         public string LastName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "The Gender field is required ")]
         public int Gender { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "The Date Of Birth field is required ")]
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
+
         [Required(ErrorMessage = "The Primary Contact Number field is required ")]
         [StringLength(15)]
+        [RegularExpression("(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})", ErrorMessage = "Wrong Primary Contact Number format. Ex. 0578965147 ")]
+
         public string PrimaryContactNumber { get; set; }
+
         [StringLength(15)]
+        [RegularExpression("(05)(5|0|3|6|4|9|1|8|7)([0-9]{7})", ErrorMessage = "Wrong Secondary Contact Number format. Ex. 0578965147 ")]
+
         public string SecondaryContactNumber { get; set; }
+
         [Required(ErrorMessage = "The Primary Email Number field is required ")]
         [StringLength(100)]
         [EmailAddress]
@@ -51,27 +63,36 @@ namespace JIS_LMS.Model
         [StringLength(100)]
         [EmailAddress]
         public string SecondaryEmail { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "The Language field is required ")]
         public int Language { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "The Section field is required ")]
         public int Section { get; set; }
         public string ImageFile { get; set; }
         public string Remark { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "The Status field is required ")]
         public int Status { get; set; }
+
         [Required(ErrorMessage = "The Primary Registration Date field is required ")]
         [Column(TypeName = "date")]
         public DateTime RegistrationDate { get; set; }
+
         [Required(ErrorMessage = "The UserName field is required ")]
         [StringLength(10)]
         public string UserName { get; set; }
+
         [Required(ErrorMessage = "The Password field is required ")]
         [StringLength(15)]
         public string Password { get; set; }
+
         [Required(ErrorMessage = "The Patron Type field is required ")]
         public int PatronType { get; set; }
+
         [Required(ErrorMessage = "The Library field is required ")]
         public int LibraryId { get; set; }
+
         [Required(ErrorMessage = "The Address field is required ")]
         public int AddressId { get; set; }
 

@@ -20,7 +20,7 @@
 else
 {
     <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
-                AllowSorting="true" Data="@publishers" TItem="Publisher" ColumnWidth="100px" Style="font-weight:bolder">
+                AllowSorting="true" Data="@publishers" TItem="Publisher" ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="Publisher" Property="Name" Title="Name" />
             <RadzenGridColumn TItem="Publisher" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="7px">
