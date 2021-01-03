@@ -1,13 +1,12 @@
-﻿@*Page Name: Journal Details
-    Page Description: This page is for showing the infromation and details of a journal*@
+﻿@*Page Name: Book Details
+    Page Description: This page is for showing the infromation and details of a book*@
 
-
-@page "/Catalog/Journal/Details/{Id:int}"
-@layout SystemAdminLayout
+@page "/Librarian/Catalog/Book/Details/{Id:int}"
+@layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject Library_MaterialService Library_MaterialService
-@inject JournalService JournalService
+@inject BookService BookService
 @inject SharedVariablesService VariablesService
 
 <div class="container">
@@ -16,8 +15,8 @@
             <h3>Library Material Details</h3>
 
             <div style="margin-left:30em;margin-bottom:2em">
-                <a href="/Borrowing/Add" class="btn btn-outline-primary" role="button">Borrow</a>
-                <a href="/Hold/Add" class="btn btn-outline-primary" role="button">Hold</a>
+                <a href="/Librarian/Borrowing/Add" class="btn btn-outline-primary" role="button">Borrow</a>
+                <a href="/Librarian/Hold/Add" class="btn btn-outline-primary" role="button">Hold</a>
             </div>
 
             <table class="table table-hover">
@@ -54,11 +53,7 @@
                     <td>@libraryMaterial.Publisher.Name</td>
                 </tr>
 
-                @*<tr>
-                         <td>Author: </td>
-                          <td>@author.Author</td>
-                    </tr>*@
-
+                
                 <tr>
                     <td>Number Of Pages: </td>
                     <td>@libraryMaterial.NumberOfPages</td>
@@ -160,42 +155,43 @@
             </table>
 
             <br><br />
-            <h3>Journal Details</h3>
+            <h3>Book Details</h3>
 
             <table class="table table-hover">
 
                 <tr>
-                    <td>ISSN: </td>
-                    <td>@libraryMaterial.Journal.ISSN</td>
+                    <td>ISBN: </td>
+                    <td>@libraryMaterial.Book.ISBN</td>
                 </tr>
 
                 <tr>
-                    <td>Volume: </td>
-                    <td>@libraryMaterial.Journal.Volume</td>
+                    <td>Edition: </td>
+                    <td>@libraryMaterial.Book.Edition</td>
                 </tr>
 
                 <tr>
-                    <td>Issue:</td>
-                    <td>@libraryMaterial.Journal.Issue</td>
+                    <td>Book Type:</td>
+                    <td>@libraryMaterial.Book.BookType</td>
                 </tr>
 
 
                 <tr>
-                    <td>Journal Type: </td>
-                    <td>@libraryMaterial.Journal.JournalType</td>
+                    <td>Date Recorded: </td>
+                    <td>@libraryMaterial.Book.ISBN</td>
 
                 </tr>
 
             </table>
 
             <br> <br>
-            <a href="/Catalog/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-            <a href="/Catalog/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
-            <a href="/Catalog/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <a href="/Librarian/Catalog/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Librarian/Catalog/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
+            <a href="/Librarian/Catalog/Search" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>
     </div>
 </div>
+
 <br>
 <br>
 <br>
@@ -208,6 +204,8 @@
     List<Library_Material> libraryMaterials = new List<Library_Material>();
     LibraryMaterial_Author author = new LibraryMaterial_Author();
 
+
+
     [Parameter]
     public int Id { get; set; }
 
@@ -218,7 +216,9 @@
 
         libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
 
+
         VariablesService.BorrowingMaterialId = Id;
+
 
         VariablesService.HoldMaterialId = Id;
     }

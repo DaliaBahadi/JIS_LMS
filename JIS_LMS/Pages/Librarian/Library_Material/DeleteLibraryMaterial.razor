@@ -1,0 +1,63 @@
+﻿@*Page Name:Delete Library Material
+    Page Description: This page is for deleting a library material from the datbase*@
+
+
+@page "/Librarian/Catalog/Delete/{Id:int}"
+@layout LibrarianLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject NavigationManager NavigationManager
+@inject Library_MaterialService Library_MaterialService
+
+
+<div class="container" style="margin-left:1em">
+    <h3>Delete Library Material </h3>
+
+    <div class="alert alert-danger">
+        Do you want to delete this Library Material?
+    </div>
+
+    <table>
+        <tr>
+            <th>Acession Number: </th>
+            <td>@libraryMaterial.AccessionNumber</td>
+        </tr>
+
+        <tr>
+            <th>Title: </th>
+            <td>@libraryMaterial.Title</td>
+        </tr>
+
+    </table>
+    <br />
+    <button type="submit" class="btn btn-outline-danger " style=" width: 200px;" @onclick="RemoveLibraryMaterial">Delete Library Material</button>
+    <a href="/Librarian/Catalog/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+
+    <div class="mt-4"></div>
+</div>
+
+@code {
+
+    Library_Material libraryMaterial = new Library_Material();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+        libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
+    }
+
+    // Deleting a library material from the database
+    private void RemoveLibraryMaterial()
+    {
+        Library_MaterialService.DeleteLibraryMaterial(Id);
+
+        // May navigate to the Catalog Search Page
+        NavigationManager.NavigateTo("/Librarian/Catalog/Search");
+    }
+
+
+
+}

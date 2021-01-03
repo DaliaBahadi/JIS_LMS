@@ -24,10 +24,10 @@ namespace JIS_LMS.Model
         [Required(ErrorMessage = "The StudentId field is required ")]
         public int StudentId { get; set; }
         [Required(ErrorMessage = "The Class Year field is required")]
-        [StringLength(5)]
+        [StringLength(5, ErrorMessage = "The length of the field is 5 ")]
         public string ClassYear { get; set; }
         [Required(ErrorMessage = "The Class Name field is required")]
-        [StringLength(5)]
+        [StringLength(5, ErrorMessage = "The length of the field is 5")]
         public string ClassName { get; set; }
         [Required(ErrorMessage = "The Age Level field is required")]
         public int AgeLevel { get; set; }

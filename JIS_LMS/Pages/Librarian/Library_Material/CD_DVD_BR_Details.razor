@@ -1,8 +1,8 @@
-﻿@*Page Name: Book Details
-    Page Description: This page is for showing the infromation and details of a book*@
+﻿@*Page Name: CD_DVD_BR Details
+    Page Description: This page is for showing the infromation and details of a CD_DVD_BR*@
 
-@page "/Catalog/Book/Details/{Id:int}"
-@layout SystemAdminLayout
+@page "/Librarian/Catalog/CD_DVD_BR/Details/{Id:int}"
+@layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject Library_MaterialService Library_MaterialService
@@ -15,8 +15,8 @@
             <h3>Library Material Details</h3>
 
             <div style="margin-left:30em;margin-bottom:2em">
-                <a href="/Borrowing/Add" class="btn btn-outline-primary" role="button">Borrow</a>
-                <a href="/Hold/Add" class="btn btn-outline-primary" role="button">Hold</a>
+                <a href="/Librarian/Borrowing/Add" class="btn btn-outline-primary" role="button">Borrow</a>
+                <a href="/Librarian/Hold/Add" class="btn btn-outline-primary" role="button">Hold</a>
             </div>
 
             <table class="table table-hover">
@@ -26,10 +26,13 @@
                     <td>Image: </td>
                     <td><img src="@libraryMaterial.ImageFile" alt="library material image" width="100" height="150"></td>
                 </tr>
+
                 <tr>
                     <td>Accession Number: </td>
                     <td>@libraryMaterial.AccessionNumber</td>
                 </tr>
+
+
                 <tr>
                     <td>Date Acquired:</td>
                     <td>@libraryMaterial.DateAcquired</td>
@@ -52,11 +55,6 @@
                     <td>Publisher: </td>
                     <td>@libraryMaterial.Publisher.Name</td>
                 </tr>
-
-                @*<tr>
-                         <td>Author: </td>
-                          <td>@author.Author</td>
-                    </tr>*@
 
                 <tr>
                     <td>Number Of Pages: </td>
@@ -159,43 +157,54 @@
             </table>
 
             <br><br />
-            <h3>Book Details</h3>
+            <h3>CD/DVD/BR Details</h3>
 
             <table class="table table-hover">
 
                 <tr>
                     <td>ISBN: </td>
-                    <td>@libraryMaterial.Book.ISBN</td>
+                    <td>@libraryMaterial.CD_DVD_BR.ISBN</td>
                 </tr>
 
                 <tr>
-                    <td>Edition: </td>
-                    <td>@libraryMaterial.Book.Edition</td>
+                    <td>Format: </td>
+                    <td>@libraryMaterial.CD_DVD_BR.Format</td>
                 </tr>
 
                 <tr>
-                    <td>Book Type:</td>
-                    <td>@libraryMaterial.Book.BookType</td>
+                    <td>Runtime:</td>
+                    <td>@libraryMaterial.CD_DVD_BR.Runtime</td>
                 </tr>
 
 
                 <tr>
-                    <td>Date Recorded: </td>
-                    <td>@libraryMaterial.Book.ISBN</td>
+                    <td>Quality: </td>
+                    <td>@libraryMaterial.CD_DVD_BR.Quality</td>
+
+                </tr>
+
+                <tr>
+                    <td>Subtitles: </td>
+                    <td>@libraryMaterial.CD_DVD_BR.Subtitles</td>
+
+                </tr>
+
+                <tr>
+                    <td>Type: </td>
+                    <td>@libraryMaterial.CD_DVD_BR.Type</td>
 
                 </tr>
 
             </table>
 
             <br> <br>
-            <a href="/Catalog/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-            <a href="/Catalog/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
-            <a href="/Catalog/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <a href="/Librarian/Catalog/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Librarian/Catalog/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
+            <a href="/Librarian/Catalog/Search" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>
     </div>
 </div>
-
 <br>
 <br>
 <br>
@@ -220,9 +229,7 @@
 
         libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
 
-
         VariablesService.BorrowingMaterialId = Id;
-
 
         VariablesService.HoldMaterialId = Id;
     }

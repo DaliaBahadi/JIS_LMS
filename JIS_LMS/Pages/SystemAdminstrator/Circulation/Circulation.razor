@@ -69,7 +69,7 @@
             else
             {
                 <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
-                            AllowSorting="true" Data="@holds" TItem="JIS_LMS.Model.Hold" Value="@hold" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+                            AllowSorting="true" Data="@holds" TItem="JIS_LMS.Model.Hold" Value="@hold" ColumnWidth="200px" >
                     <Columns>
                         <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="Patron.FullName" Title="Patron Name  " />
                         <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="LibraryMaterial.Title" Title="Library Material Title" />

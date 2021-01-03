@@ -13,11 +13,11 @@ namespace JIS_LMS.Model
     {
         [Key]
         public int HoldId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Hold Date and Time field is required ")]
         public DateTime HoldDateTime { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Expiry Date and Time field is required ")]
         public DateTime ExpiryDateTime { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Pickup Date and Time field is required ")]
         public DateTime PickupDateTime { get; set; }
         [Required]
         public bool HoldStatus { get; set; }

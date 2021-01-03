@@ -1,0 +1,755 @@
+﻿@*Page Name:Edit Library Material
+    Page Description: This page is for edting a library material information*@
+
+@page "/Librarian/Catalog/Edit/{Id:int}"
+@layout LibrarianLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@using Syncfusion.Blazor.Inputs;
+@inject Library_MaterialService Library_MaterialService
+@inject CD_DVD_BR_Service CD_DVD_BR_Service
+@inject BookService BookService
+@inject JournalService JournalService
+@inject LibraryMaterilaAuthorService AuthorService
+@inject NavigationManager NavigationManager
+@inject LMSDbContext DbContext
+
+
+<div class="container-fluid container-contact100">
+    <div class="wrap-contact100">
+        <h3>Edit Libray Material Information</h3>
+        <fieldset>
+
+            <EditForm Model="catalog" OnValidSubmit="UpdateLibraryMaterial">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="Acession-Number">*Accession Number:</label>
+                    <InputNumber id="Acession-Number" @bind-Value="catalog.AccessionNumber" class="form-control" placeholder="Enter Library Material Accession Number" />
+                </div>
+
+                <div class="form-group">
+                    <label for="date-aquired">Date Acquired:</label>
+                    <InputDate id="date" @bind-Value="catalog.DateAcquired" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="date-Recorded">*Date Recorded:</label>
+                    <InputDate id="date" @bind-Value="catalog.DateRecorded" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Title">*Title:</label>
+                    <InputText id="Title" @bind-Value="catalog.Title" class="form-control" placeholder="Enter Library Material Title" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center" for="publisher">
+                        <span style="margin-right: 32px">*Publisher: </span>
+                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Publisher"
+                                        LoadData="@PublisherLoadData" AllowFiltering="true"
+                                        Data="@materialPublisher" TextProperty="Name" ValueProperty="PublisherId" Style="margin-bottom: 7px" @bind-Value="catalog.PublisherId"
+                                        Change="@(args => PublisherChange(args, "DropDown with custom filtering"))" />
+                        <a href="/Librarian/Publisher/Add" class="btn btn-outline-primary" style="align-items:start; margin-left:1em">Add Publisher</a>
+
+                    </label>
+                </div>
+                <br>
+
+
+                <div class="form-group">
+                    <label for="Pages-Number">Number Of Pages:</label>
+                    <InputNumber id="Pages-Number" @bind-Value="catalog.NumberOfPages" class="form-control" placeholder="Enter Library Material Number of Pages" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="source-of-fund">Source Of Fund:</label>
+                    <InputText id="source-of-fund" @bind-Value="catalog.SourceOfFund" class="form-control" placeholder="Enter Library Material Source of Fund" />
+                </div>
+
+                <div class="form-group">
+                    <label for="cost-price">Cost Price:</label>
+                    <SfNumericTextBox TValue="decimal?" @bind-Value="catalog.CostPrice"></SfNumericTextBox>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">*Year Published:</label>
+                    <InputText id="year" @bind-Value="catalog.YearPublished" class="form-control" placeholder="Enter Library Material Year of publication " />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Language:</span>
+                        <RadzenDropDown Data="@language" @bind-Value="@materialLanguage" Style="align-items:center" Change="ChooseLanguage" />
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="subject">*Subject:</label>
+                    <InputText id="subject" @bind-Value="catalog.Subject" class="form-control" placeholder="Enter Library Material Subject" />
+                </div>
+
+                <div class="form-group">
+                    <label for="genre">*Genre:</label>
+                    <InputText id="genre" @bind-Value="catalog.Genre" class="form-control" placeholder="Enter Library Material Genre" />
+                </div>
+
+                <div class="form-group">
+                    <label for="translation">Subject Translation In English:</label>
+                    <InputText id="translation" @bind-Value="catalog.SubjectTranslationInEnglish" class="form-control" placeholder="Enter Library Material Subject Translation In English" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="city-published">City Published:</label>
+                    <InputText id="city-published" @bind-Value="catalog.CityPublished" class="form-control" placeholder="Enter The City Where The Library Material Was Published" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Age Level:</span>
+                        <RadzenDropDown Data="@ageLevel" @bind-Value="@materialAgeLevel" Change="ChooseAgeLevel" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Status:</span>
+                        <RadzenDropDown Data="@status" @bind-Value="@materialStatus" Style="align-items:center" Change="ChooseStatus" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description: </label>
+                    <RadzenTextArea @bind-Value="catalog.Description" Cols="30" Rows="3" Style="align-items:center" />
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Image File: </label>
+                    <RadzenFileInput @bind-Value="catalog.ImageFile" Style="width:400px" TValue="string" />
+
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label for="DOI-URL">DOI URL:</label>
+                    <InputText id="city-published" @bind-Value="catalog.DOIURL" class="form-control" placeholder="https://doi.org/xxxxx" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">Restriction Type:</span>
+                        <RadzenDropDown Data="@restrictionType" @bind-Value="@materialRestriction" Placeholder="Select Restrection Type" Style="align-items:center" Change="ChooseRestriction" />
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">*Library Material Type: </label>
+                    <Select @onchange="MaterialChange">
+                        <option value="">Select Type</option>
+                        @foreach (var type in Enum.GetValues(typeof(LibraryMaterialType)))
+                        {
+
+
+                            <option value="@(type)"> @(type)</option>
+                        }
+                    </Select>
+                </div>
+
+                <br>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center" for="library">
+                        <span style="margin-right: 32px">*Library: </span>
+                        <RadzenDropDown AllowClear="true" TValue="int" Placeholder="Select Library"
+                                        LoadData="@LibraryLoadData" AllowFiltering="true"
+                                        Data="@materialLibrary" TextProperty="Name" ValueProperty="LibraryId" Style="margin-bottom: 20px" @bind-Value="catalog.LibraryId"
+                                        Change="@(args => LibraryChange(args, "Library DropDown "))" />
+                    </label>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">Donor:</span>
+                        <RadzenDropDown AllowClear="true" TValue="int"
+                                        LoadData="@DonorLoadData" AllowFiltering="true"
+                                        Data="@materialDonor" TextProperty="FullName" ValueProperty="DonorId" Style="margin-bottom: 20px" Placeholder="Select..." @bind-Value="catalog.DonorId"
+                                        Change="@(args => DonorChange(args, "Donor DropDown "))" />
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Librarian/Catalog/Search" class="btn btn-outline-secondary">Cancel</a>
+                <div class="mt-4"></div>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+
+
+<br />
+
+<p>@message</p>
+
+<div class="container-fluid container-contact100" style="visibility:@Bookvisible;">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <h3>Edit Book Information</h3>
+            <EditForm Model="book" OnValidSubmit="UpdateBook">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="ISBN">*ISBN:</label>
+                    <InputText id="ISBN" @bind-Value="book.ISBN" class="form-control" placeholder="xxx-x-xx-xxxxxx-x" />
+                </div>
+
+                <div class="form-group">
+                    <label for="student-id">Edition:</label>
+                    <InputNumber id="student-id" @bind-Value="book.Edition" class="form-control" placeholder="Enter Book Edition" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Book Type:</span>
+                        <RadzenDropDown Data="@bookType" @bind-Value="@typeBook" Change="ChooseBookType" />
+                    </label>
+                </div>
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Librarian/Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br />
+<p>@BookMessage</p>
+
+<div class="container-fluid container-contact100" style="visibility:@Journalvisible;margin-top:-670px">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <h3>Edit Journal Information</h3>
+            <EditForm Model="journal" OnValidSubmit="Updatejournal">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+
+                <div class="form-group">
+                    <label for="ISSN">*ISSN:</label>
+                    <InputText id="ISSN" @bind-Value="journal.ISSN" class="form-control" placeholder="xxxx-xxxx" />
+                </div>
+
+                <div class="form-group">
+                    <label for="volume">Volume:</label>
+                    <InputNumber id="volume" @bind-Value="journal.Volume" class="form-control" placeholder="Enter Journal Volume Number" />
+                </div>
+
+                <div class="form-group">
+                    <label for="issue">Issue:</label>
+                    <InputNumber id="issue" @bind-Value="journal.Issue" class="form-control" placeholder="Enter Journal Issue Number" />
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Journal Type:</span>
+                        <RadzenDropDown Data="@journalType" @bind-Value="@typeJournal" Change="ChooseJournalType" />
+                    </label>
+                </div>
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Librarian/Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br />
+<p>@JournalMessage</p>
+
+
+<div class="container-fluid container-contact100" style="visibility:@CD_DVD_BR_visible;margin-top:-700px">
+    <div class="wrap-contact100">
+
+        <fieldset>
+            <h3>Edit CD/DVD/BR Information</h3>
+            <EditForm Model="cD_DVD_BR" OnValidSubmit="UpdateCD_DVD_BR">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+
+                <div class="form-group">
+                    <label for="ISBN">*ISBN:</label>
+                    <InputText id="ISBN" @bind-Value="cD_DVD_BR.ISBN" class="form-control" placeholder="xxx-x-xx-xxxxxx-x" />
+                </div>
+
+                <div class="form-group">
+                    <label for="format">*Format:</label>
+                    <InputText id="format" @bind-Value="cD_DVD_BR.Format" class="form-control" placeholder="Enter Format" />
+                </div>
+
+                <div class="form-group">
+                    <label for="runtime">Runtime:</label>
+                    <InputText id="runtime" @bind-Value="cD_DVD_BR.Runtime" class="form-control" placeholder="Enter Runtime" />
+                </div>
+
+                <div class="form-group">
+                    <label for="quality">Quality:</label>
+                    <InputText id="quality" @bind-Value="cD_DVD_BR.Quality" class="form-control" placeholder="Enter Quality" />
+                </div>
+
+                <div class="form-group">
+                    <label for="subtitles">Subtitles:</label>
+                    <InputText id="subtitles" @bind-Value="cD_DVD_BR.Subtitles" class="form-control" placeholder="Enter In which Language The Subtitles are" />
+                </div>
+
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center">
+                        <span style="margin-right: 32px">*Type:</span>
+                        <RadzenDropDown Data="@cD_DVD_BR_Type" @bind-Value="@typeCdDvdBr" Change="ChooseCdDvdBrType" />
+                    </label>
+                </div>
+
+
+
+                <div class="mt-4"></div>
+                <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
+                <a href="/Librarian/Catalog" class="btn btn-outline-secondary">Cancel</a>
+            </EditForm>
+        </fieldset>
+    </div>
+</div>
+<br>
+<br>
+<br />
+<p>@cdDvdBrMessage</p>
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+
+
+    Library_Material catalog = new Library_Material();
+    LibraryMaterial_Author author = new LibraryMaterial_Author();
+    private List<Library_Material> library_Materials = new List<Library_Material>();
+
+
+    int materialType;
+    string message;
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+
+        catalog = Library_MaterialService.GetLibraryMaterial(Id);
+
+        materialType = catalog.LibraryMaterialType;
+
+        //check the type of the material to show the correct infromation
+        if (materialType == 1)
+        {
+            book = BookService.GetBook(Id);
+        }
+
+        else if (materialType == 2)
+        {
+            journal = JournalService.GetJournal(Id);
+        }
+
+        else if (materialType == 3)
+        {
+            cD_DVD_BR = CD_DVD_BR_Service.GetCD_DVD_BR(Id);
+
+        }
+
+
+    }
+
+    // Edting and updating library material infromation 
+    public void UpdateLibraryMaterial()
+    {
+
+        // Edit Library Material
+        Library_MaterialService.EditLibraryMaterial(catalog);
+
+        message = "Library Material updated successfully";
+
+    }
+}
+
+
+@code {
+
+    //code section fro updateing book information methods
+
+    Book book = new Book();
+    private List<Book> books = new List<Book>();
+
+    string BookMessage;
+
+
+    // Edting and updating book infromation 
+    public void UpdateBook()
+    {
+
+        // Edit Book
+        BookService.EditBook(book);
+
+        BookMessage = "Book updated successfully";
+
+        // May navigate to the Catalog Search Page
+        NavigationManager.NavigateTo("/Librarian/Catalog/Search");
+    }
+}
+
+@code {
+
+    //code section fro updateing Journal information methods
+
+    Journal journal = new Journal();
+    private List<Journal> journals = new List<Journal>();
+
+    string JournalMessage;
+
+
+    // Edting and updating journal infromation 
+    public void Updatejournal()
+    {
+
+        // Edit journal
+        JournalService.EditJournal(journal);
+
+        BookMessage = "Journal updated successfully";
+
+        // May navigate to the Catalog Search Page
+        NavigationManager.NavigateTo("/Librarian/Catalog/Search");
+    }
+}
+
+@code {
+
+    //code section fro updateing CD/DVD/BR information methods
+
+    CD_DVD_BR cD_DVD_BR = new CD_DVD_BR();
+    private List<CD_DVD_BR> cD_DVD_BRs = new List<CD_DVD_BR>();
+
+    string cdDvdBrMessage;
+
+
+    // Edting and updating CD/DVD/BR infromation 
+    public void UpdateCD_DVD_BR()
+    {
+
+        // Edit CD/DVD/BR
+        CD_DVD_BR_Service.EditCD_DVD_BR(cD_DVD_BR);
+
+        BookMessage = "CD/DVD/BR updated successfully";
+
+        // May navigate to the Catalog Search Page
+        NavigationManager.NavigateTo("/Librarian/Catalog/Search");
+    }
+}
+
+
+
+@code
+{
+
+    //code section for input select type
+
+    LMSDbContext db = new LMSDbContext();
+
+    string libraryMaterialType { get; set; }
+
+
+
+    string Bookvisible = "hidden";
+    string Journalvisible = "hidden";
+    string CD_DVD_BR_visible = "hidden";
+
+    private List<Book> BookForm;
+    private List<Journal> JournalForm;
+    private List<CD_DVD_BR> CD_DVD_BRForm;
+
+    //Method to change library Material type
+    private void MaterialChange(ChangeEventArgs libraryMaterialEvent)
+    {
+        libraryMaterialType = (libraryMaterialEvent.Value.ToString());
+
+        if (libraryMaterialType == "Book")
+        {
+            Bookvisible = "visible";
+            Journalvisible = "hidden";
+            CD_DVD_BR_visible = "hidden";
+        }
+
+        else if (libraryMaterialType == "Journal")
+        {
+            Journalvisible = "visible";
+            Bookvisible = "hidden";
+            CD_DVD_BR_visible = "hidden";
+        }
+
+        else if (libraryMaterialType == "CdDvdBr")
+        {
+            CD_DVD_BR_visible = "visible";
+            Journalvisible = "hidden";
+            Bookvisible = "hidden";
+
+        }
+
+    }
+
+}
+
+
+@code{
+
+    //Code Section for DropDown Lists
+
+
+
+    //Donor Drop Down List Methods
+
+    IEnumerable<Donor> materialDonor;
+
+    void DonorChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+
+        StateHasChanged();
+    }
+
+    void DonorLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Donor.AsQueryable();
+
+        materialDonor = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+
+    //Library Drop Down List Methods
+
+    IEnumerable<Library> materialLibrary;
+
+    void LibraryChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        StateHasChanged();
+    }
+
+    void LibraryLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Library.AsQueryable();
+
+
+        materialLibrary = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+
+    //Author drop down Methods
+
+    IEnumerable<Author> materialAuthor;
+
+    void AuthorOnChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        StateHasChanged();
+
+
+    }
+
+    void AuthorLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Author.AsQueryable();
+
+
+        materialAuthor = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+
+
+    //Publisher Drop Down List Methods
+
+    IEnumerable<Publisher> materialPublisher;
+
+    void PublisherChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        StateHasChanged();
+    }
+
+    void PublisherLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Publisher.AsQueryable();
+
+
+        materialPublisher = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+
+    //Picking the library material for the subtype and linking it to the librarymaterialId with a Drop Down List Methods
+
+    IEnumerable<Library_Material> libraryMaterialList;
+
+    void MaterialChange(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+        StateHasChanged();
+    }
+
+    void MaterialLoadData(LoadDataArgs args)
+    {
+        var query = DbContext.Library_Material.AsQueryable();
+
+
+        libraryMaterialList = query.ToList();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+
+    //Code for language drop down list
+    IEnumerable<LibraryMaterialLanguage> language = Enum.GetValues(typeof(LibraryMaterialLanguage)).Cast<LibraryMaterialLanguage>();
+
+    int languageValue;
+
+    LibraryMaterialLanguage materialLanguage;
+
+    //Method For biding the value to the database
+    public void ChooseLanguage()
+    {
+        languageValue = (int)materialLanguage;
+        catalog.Language = languageValue;
+    }
+
+    //Code for Library Material type drop down list
+    IEnumerable<LibraryMaterialType> type = Enum.GetValues(typeof(LibraryMaterialType)).Cast<LibraryMaterialType>();
+
+    int typeValue;
+
+    LibraryMaterialType LibraryMaterialType;
+
+    //Method For biding the value to the database
+    public void ChooseType()
+    {
+        typeValue = (int)LibraryMaterialType;
+        catalog.LibraryMaterialType = typeValue;
+    }
+
+    //Code for status drop down list
+    IEnumerable<LibraryMaterialStatus> status = Enum.GetValues(typeof(LibraryMaterialStatus)).Cast<LibraryMaterialStatus>();
+
+    int statusValue;
+
+    LibraryMaterialStatus materialStatus;
+
+    //Method For biding the value to the database
+    public void ChooseStatus()
+    {
+        statusValue = (int)materialStatus;
+        catalog.Status = statusValue;
+    }
+
+    //Code for Restrection type drop down list
+    IEnumerable<RestrictionType> restrictionType = Enum.GetValues(typeof(RestrictionType)).Cast<RestrictionType>();
+
+    int RestrictionValue;
+
+    RestrictionType materialRestriction;
+
+    //Method For biding the value to the database
+    public void ChooseRestriction()
+    {
+        RestrictionValue = (int)materialRestriction;
+        catalog.RestrictionType = RestrictionValue;
+    }
+
+    //Code for age level drop down list
+    IEnumerable<LibraryMaterialAgeLevel> ageLevel = Enum.GetValues(typeof(LibraryMaterialAgeLevel)).Cast<LibraryMaterialAgeLevel>();
+
+    int ageLevelValue;
+
+    LibraryMaterialAgeLevel materialAgeLevel;
+
+    //Method For biding the value to the database
+    public void ChooseAgeLevel()
+    {
+        ageLevelValue = (int)materialAgeLevel;
+        catalog.AgeLevel = ageLevelValue;
+    }
+
+    //Code for Book Type drop down list
+    IEnumerable<BookType> bookType = Enum.GetValues(typeof(BookType)).Cast<BookType>();
+
+    int bookTypeValue;
+
+    BookType typeBook;
+
+    //Method For biding the value to the database
+    public void ChooseBookType()
+    {
+        bookTypeValue = (int)typeBook;
+        book.BookType = bookTypeValue;
+    }
+
+    //Code for Journal Type drop down list
+    IEnumerable<JournalType> journalType = Enum.GetValues(typeof(JournalType)).Cast<JournalType>();
+
+    int journalTypeValue;
+
+    JournalType typeJournal;
+
+    //Method For biding the value to the database
+    public void ChooseJournalType()
+    {
+        journalTypeValue = (int)typeJournal;
+        journal.JournalType = journalTypeValue;
+    }
+
+    //Code for CD/DVD/BR Type drop down list
+    IEnumerable<CD_DVD_BR_Type> cD_DVD_BR_Type = Enum.GetValues(typeof(CD_DVD_BR_Type)).Cast<CD_DVD_BR_Type>();
+
+    int cD_DVD_BR_TypeValue;
+
+    CD_DVD_BR_Type typeCdDvdBr;
+
+    //Method For biding the value to the database
+    public void ChooseCdDvdBrType()
+    {
+        cD_DVD_BR_TypeValue = (int)typeCdDvdBr;
+        cD_DVD_BR.Type = cD_DVD_BR_TypeValue;
+    }
+
+
+
+
+}

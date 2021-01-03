@@ -13,13 +13,13 @@ namespace JIS_LMS.Model
     {
         [Key]
         public int BorrowingId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Borrowing Date and Time field is required ")]
         public DateTime? BorrowingDateTime { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Due Date and Time field is required ")]
         public DateTime? DueDateTime { get; set; }
         public DateTime? ReturnDateTime { get; set; }
         public DateTime? RenwalDateTime { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Signature File field is required ")]
         public string SignatureFile { get; set; }
         public string Remark { get; set; }
         public int LibraryMaterialId { get; set; }

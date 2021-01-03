@@ -30,38 +30,38 @@ namespace JIS_LMS.Model
         [Column(TypeName = "date")]
         public DateTime? DateAcquired { get; set; }
         [Column(TypeName = "date")]
-        [Required]
+        [Required(ErrorMessage = "The Date Recordedr field is required ")]
         public DateTime DateRecorded { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Title field is required ")]
         public string Title { get; set; }
         public int? NumberOfPages { get; set; }
         [StringLength(150)]
         public string SourceOfFund { get; set; }
         [Column(TypeName = "decimal(8, 2)")]
         public decimal? CostPrice { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Year Published field is required ")]
         [StringLength(4,ErrorMessage = "The length of the Year Published must be 4")]
         public string YearPublished { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Language field is required ")]
         public int Language { get; set; }
         public string SubjectTranslationInEnglish { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Genre field is required ")]
         [StringLength(80)]
         public string Genre { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Subject field is required ")]
         [StringLength(80)]
         public string Subject { get; set; }
         [StringLength(80)]
         public string CityPublished { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Age Level field is required ")]
         public int AgeLevel { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Status field is required ")]
         public int Status { get; set; }
         public string Description { get; set; }
         public string ImageFile { get; set; }
         public string DOIURL { get; set; }
         public int? RestrictionType { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Library Material Type field is required ")]
         public int LibraryMaterialType { get; set; }
         [Required(ErrorMessage = "The Publisher field is required ")]
         public int PublisherId { get; set; }

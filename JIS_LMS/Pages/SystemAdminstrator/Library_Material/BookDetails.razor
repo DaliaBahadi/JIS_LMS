@@ -1,7 +1,7 @@
-﻿@*Page Name: CD_DVD_BR Details
-    Page Description: This page is for showing the infromation and details of a CD_DVD_BR*@
+﻿@*Page Name: Book Details
+    Page Description: This page is for showing the infromation and details of a book*@
 
-@page "/Catalog/CD_DVD_BR/Details/{Id:int}"
+@page "/Catalog/Book/Details/{Id:int}"
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -26,13 +26,10 @@
                     <td>Image: </td>
                     <td><img src="@libraryMaterial.ImageFile" alt="library material image" width="100" height="150"></td>
                 </tr>
-
                 <tr>
                     <td>Accession Number: </td>
                     <td>@libraryMaterial.AccessionNumber</td>
                 </tr>
-
-
                 <tr>
                     <td>Date Acquired:</td>
                     <td>@libraryMaterial.DateAcquired</td>
@@ -56,10 +53,7 @@
                     <td>@libraryMaterial.Publisher.Name</td>
                 </tr>
 
-                @*<tr>
-                         <td>Author: </td>
-                          <td>@author.Author</td>
-                    </tr>*@
+               
 
                 <tr>
                     <td>Number Of Pages: </td>
@@ -162,41 +156,29 @@
             </table>
 
             <br><br />
-            <h3>CD/DVD/BR Details</h3>
+            <h3>Book Details</h3>
 
             <table class="table table-hover">
 
                 <tr>
                     <td>ISBN: </td>
-                    <td>@libraryMaterial.CD_DVD_BR.ISBN</td>
+                    <td>@libraryMaterial.Book.ISBN</td>
                 </tr>
 
                 <tr>
-                    <td>Format: </td>
-                    <td>@libraryMaterial.CD_DVD_BR.Format</td>
+                    <td>Edition: </td>
+                    <td>@libraryMaterial.Book.Edition</td>
                 </tr>
 
                 <tr>
-                    <td>Runtime:</td>
-                    <td>@libraryMaterial.CD_DVD_BR.Runtime</td>
+                    <td>Book Type:</td>
+                    <td>@libraryMaterial.Book.BookType</td>
                 </tr>
 
 
                 <tr>
-                    <td>Quality: </td>
-                    <td>@libraryMaterial.CD_DVD_BR.Quality</td>
-
-                </tr>
-
-                <tr>
-                    <td>Subtitles: </td>
-                    <td>@libraryMaterial.CD_DVD_BR.Subtitles</td>
-
-                </tr>
-
-                <tr>
-                    <td>Type: </td>
-                    <td>@libraryMaterial.CD_DVD_BR.Type</td>
+                    <td>Date Recorded: </td>
+                    <td>@libraryMaterial.Book.ISBN</td>
 
                 </tr>
 
@@ -210,6 +192,7 @@
         </div>
     </div>
 </div>
+
 <br>
 <br>
 <br>
@@ -234,7 +217,9 @@
 
         libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
 
+
         VariablesService.BorrowingMaterialId = Id;
+
 
         VariablesService.HoldMaterialId = Id;
     }

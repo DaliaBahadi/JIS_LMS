@@ -35,11 +35,14 @@
                 <div class="form-group">
                     <label for="hold-date-time">*Hold Date & Time:</label>
                     <RadzenDatePicker TValue="DateTime" @bind-Value="hold.HoldDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" Style="margin-left: 1em" DateFormat="MM/dd/yyyy HH:mm" />
+                    <ValidationMessage For="@(() => hold.HoldDateTime)" />
+
                 </div>
 
                 <div class="form-group">
                     <label for="expiry-date-time">*Expiry Date & Time:</label>
                     <RadzenDatePicker TValue="DateTime" @bind-Value="hold.ExpiryDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                    <ValidationMessage For="@(() => hold.ExpiryDateTime)" />
                 </div>
 
                 <div class="form-group">
@@ -98,7 +101,7 @@
         hold = new Hold();
 
         // May navigate to the Holds component
-        NavigationManager.NavigateTo("/Catalog/Serach");
+        NavigationManager.NavigateTo("/Catalog/Search");
     }
 }
 
@@ -147,7 +150,7 @@
 
     //code for date and time input
 
-    DateTime value = DateTime.Now;
+    DateTime? value = DateTime.Now;
 
     IEnumerable<DateTime> dates = new DateTime[] { DateTime.Today.AddDays(-1), DateTime.Today.AddDays(1) };
 

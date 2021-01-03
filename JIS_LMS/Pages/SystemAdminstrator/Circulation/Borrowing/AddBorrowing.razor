@@ -31,16 +31,7 @@
                     </label>
                 </div>
 
-                <!--<div class="form-group">-->
-                @*<label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <RadzenDropDown AllowClear="true" TValue="int" LoadData="@materialLoadData" AllowFiltering="true"
-                                        Data="@materialList" TextProperty="Title" ValueProperty="LibraryMaterialId" Style="margin-bottom: 20px;width:300px" Placeholder="Select Library Materail" @bind-Value="borrowing.LibraryMaterialId"
-                                        Change="@(args => materialChange(args, "material DropDown "))" />
-                    </label>*@
-
-                <!--<label style="color:red">@VariablesService.BorrowingMaterialId @borrowing.LibraryMaterial.Title </label>
-                </div>-->
+                
 
                 <div class="form-group">
                     <label for="borrowing-date-time">*Borrowing Date & Time:</label>
@@ -49,7 +40,7 @@
 
                 <div class="form-group">
                     <label for="due-date-time">*Due Date & Time:</label>
-                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.DueDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 3em" />
+                    <RadzenDatePicker TValue="DateTime?" @bind-Value="borrowing.DueDateTime" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" Style="margin-left: 3em"  />
                 </div>
 
                 <div class="form-group">
@@ -76,7 +67,7 @@
 
 
                 <button type="submit" class="btn btn-outline-primary" style=" width: 80px;">Save</button>
-                <a href="Catalog/Search" class="btn btn-outline-secondary">Cancel</a>
+                <a href="/Catalog/Search" class="btn btn-outline-secondary">Cancel</a>
                 <div class="mt-4"></div>
             </EditForm>
         </fieldset>
