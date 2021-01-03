@@ -1,5 +1,5 @@
 ﻿@*Page Name: Add Library
-  Page Description: This page is for adding an library*@
+    Page Description: This page is for adding an library*@
 
 @page "/Library/Add"
 @layout SystemAdminLayout
@@ -7,6 +7,7 @@
 @using JIS_LMS.Model;
 @inject LibraryService LibraryService
 @inject AddressService AddressService
+@inject SharedVariablesService SharedVariables
 @inject NavigationManager NavigationManager
 @inject LMSDbContext DbContext
 
@@ -170,8 +171,11 @@
         // To empty the form
         address = new Address();
 
+       
 
     }
+
+
 }
 
 

@@ -20,16 +20,17 @@ namespace JIS_LMS.Model
 
         [Key]
         public int AddressId { get; set; }
+        [Required(ErrorMessage = "The Building Number field is required ")]
         public int BuildingNumber { get; set; }
         public int? UnitNumber { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Street Name field is required ")]
         public string StreetName { get; set; }
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "The length of the Zip Code must be 5", MinimumLength = 5)]
         public string ZipCode { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The City field is required ")]
         [StringLength(100)]
         public string City { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Country field is required ")]
         [StringLength(100)]
         public string Country { get; set; }
 

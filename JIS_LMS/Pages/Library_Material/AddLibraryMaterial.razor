@@ -197,14 +197,7 @@
             <EditForm Model="author" OnValidSubmit="CreateLibraryMaterialAuthor">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
-                @*delete later*@
-                @*<div class="form-group">
-                        <label style="display: flex; align-items: center">
-                            <span style="margin-right: 32px">*Library Material:</span>
-                            <label style="background-color:red;"> @SharedVariables.GetLibraryMaterialId </label>
-                        </label>
-
-                    </div>*@
+                
 
                 <div class="form-group">
                     <label style="display: flex; align-items: center" for="publisher">
@@ -236,16 +229,6 @@
             <EditForm Model="book" OnValidSubmit="CreateBook">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
-
-                @*delete later*@
-                <div class="form-group">
-                    <label style="display: flex; align-items: center">
-                        <span style="margin-right: 32px">*Library Material:</span>
-                        <label style="background-color:red;"> @SharedVariables.GetLibraryMaterialId </label>
-                    </label>
-
-
-                </div>
 
 
                 <div class="form-group">

@@ -1,0 +1,84 @@
+﻿@*Page Name: Borrowing Details
+    Page Description: This page is for showing the infromation and details of a borrowing*@
+
+@page "/Librarian/Borrowing/Details/{Id:int}"
+@layout LibrarianLayout
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject BorrowingService BorrowingService
+
+
+<div class="container">
+    <div class="container-fluid container-contact100">
+        <div class="wrap-contact100">
+            <h3>Borrowing Details</h3>
+
+            <table class="table table-hover ">
+
+                <tr>
+                    <td>Patron Name: </td>
+                    <td>@borrowing.Patron.FullName</td>
+                </tr>
+
+                <tr>
+                    <td>Library Material Title: </td>
+                    <td>@borrowing.LibraryMaterial.Title</td>
+                </tr>
+
+                <tr>
+                    <td>Borrowing Date & Time:</td>
+                    <td>@borrowing.BorrowingDateTime</td>
+                </tr>
+
+                <tr>
+                    <td>Due Date & Time:</td>
+                    <td>@borrowing.DueDateTime</td>
+                </tr>
+
+                <tr>
+                    <td>Return Date & Time: </td>
+                    <td>@borrowing.ReturnDateTime</td>
+                </tr>
+
+                <tr>
+                    <td>Renwal Date & Time: </td>
+                    <td>@borrowing.RenwalDateTime</td>
+                </tr>
+
+                <tr>
+                    <td>Signarure File: </td>
+                    <td>@borrowing.SignatureFile</td>
+                </tr>
+
+                <tr>
+                    <td>Remark: </td>
+                    <td>@borrowing.Remark</td>
+                </tr>
+
+            </table>
+
+
+            <a href="/Librarian/Borrowing/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
+            <a href="/Librarian/Borrowing/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
+            <a href="/Librarian/Circulation" class="btn btn-outline-secondary" role="button">Back</a>
+            <div class="mt-4"></div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    Borrowing borrowing = new Borrowing();
+    List<Borrowing> borrowings = new List<Borrowing>();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    // Execute when component starts / initializes
+    protected override void OnInitialized()
+    {
+        //Get the borrowing detials
+        borrowing = BorrowingService.GetBorrowing(Id);
+    }
+}

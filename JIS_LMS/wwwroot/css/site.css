@@ -253,6 +253,21 @@ app {
     font-weight:bold;
 }
 
+.footer-homepage-layout {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.8rem;
+    text-align: center;
+    border-top-width: 1px;
+    border-top-style: solid;
+    padding: 1px;
+    background-color: #013E7E;
+    color: white;
+    font-weight: bold;
+}
+
 .jisheading {
     text-align: Left;
     /*   margin-right: 900px;*/
@@ -325,7 +340,8 @@ app {
 }
 
 .header2 {
+    position:initial;
     background-color: #F0D175;
-    width: 122%;
+    width: 100%;
     height: 4rem;
 }

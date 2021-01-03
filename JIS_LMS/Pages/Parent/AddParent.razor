@@ -119,11 +119,14 @@
                             <div class="form-group">
                                 <label for="Primary Contact Number">*Primary Contact Number:</label>
                                 <InputText id="Primary Contact Number" @bind-Value="parent.PrimaryContactNumber" class="form-control" placeholder="05xxxxxxxx" />
+                                <ValidationMessage For="@(() => parent.PrimaryContactNumber)" />
                             </div>
 
                             <div class="form-group">
                                 <label for="Secondary Contact Number">Secondary Contact Number:</label>
                                 <InputText id="Secondary Contact Number" @bind-Value="parent.SecondaryContactNumber" class="form-control" placeholder="05xxxxxxxx" />
+                                <ValidationMessage For="@(() => parent.SecondaryContactNumber)" />
+
                             </div>
 
                             <div class="form-group">

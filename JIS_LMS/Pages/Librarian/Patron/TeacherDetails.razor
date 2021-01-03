@@ -1,20 +1,16 @@
-﻿@*Page Name: Student Details
-  Page Description: This page is for showing the infromation and details of a student*@
+﻿@*Page Name: Teacher Details
+    Page Description: This page is for showing the infromation and details of a teacher*@
 
-@page "/Student/Details/{Id:int}"
-@layout SystemAdminLayout
+@page "/Librarian/Teacher/Details/{Id:int}"
+@layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject PatronService PatronService
-@inject StudentService StudentService
-
-
 
 <div class="container">
     <div class="container-fluid container-contact100">
         <div class="wrap-contact100">
             <h3>Patron Details</h3>
-
 
             <table class="table table-hover">
 
@@ -38,10 +34,12 @@
                     <td>@patron.LastName</td>
                 </tr>
 
+
                 <tr>
-                    <td>Student Id </td>
-                    <td>@patron.Student.StudentId</td>
+                    <td>Employee Id: </td>
+                    <td>@patron.Teacher.EmployeeId</td>
                 </tr>
+
 
                 <tr>
                     <td>Gender: </td>
@@ -93,43 +91,8 @@
                 </tr>
 
                 <tr>
-                    <td>Class Year: </td>
-                    <td>@patron.Student.ClassYear</td>
-                </tr>
-
-                <tr>
-                    <td>Class Name:</td>
-                    <td>@patron.Student.ClassName</td>
-                </tr>
-
-
-                <tr>
-                    <td>Homeroom Teacher: </td>
-                    <td>@patron.Student.HomeRoomTeacher</td>
-
-                </tr>
-
-                <tr>
-                    <td>Age Level: </td>
-                    <td>@patron.Student.AgeLevel</td>
-
-                </tr>
-
-                <tr>
                     <td> Registration Date : </td>
                     <td>@patron.RegistrationDate</td>
-
-                </tr>
-
-                <tr>
-                    <td> Username : </td>
-                    <td>@patron.UserName</td>
-
-                </tr>
-
-                <tr>
-                    <td> Password : </td>
-                    <td>@patron.Password</td>
 
                 </tr>
 
@@ -148,16 +111,15 @@
             </table>
 
 
-            <a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-            <a href="/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <a href="/Librarian/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
 
-<br>
-<br>
-<br>
 
 
 @code {
@@ -167,6 +129,8 @@
     Patron patron = new Patron();
     List<Patron> patrons = new List<Patron>();
 
+
+
     [Parameter]
     public int Id { get; set; }
 
@@ -175,7 +139,7 @@
     {
         patrons = PatronService.GetPatrons();
 
-        //Get the student detials 
+        //Get the teacher detials
         patron = PatronService.GetPatron(Id);
     }
 

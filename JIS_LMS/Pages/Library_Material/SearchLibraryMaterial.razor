@@ -38,26 +38,23 @@ else
     </div>
 
     <div style="visibility:@Bookvisible;">
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
-                    AllowSorting="true" Data="@books" TItem="Book" Value="@book" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="5"
+                    AllowSorting="true" Data="@libraryMaterialsBooks" TItem="Library_Material" Value="@catalog" ColumnWidth="200px" >
             <Columns>
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.ImageFile" Title="Photo" Sortable="false" Filterable="false">
+                <RadzenGridColumn TItem="Library_Material" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false" >
                     <Template Context="data">
-                        <RadzenImage Path="@data?.LibraryMaterial.ImageFile" />
+                        <RadzenImage Path="@data?.ImageFile" Style="width:60px; height:80px" />
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Title" Title="Title " />
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.AccessionNumber" Title="Accession Number" />
-                @*<RadzenGridColumn TItem="Book" Property="LibraryMaterial_Author.Author.FullName" Title="Author" />*@
-                <RadzenGridColumn TItem="Book" Property="ISBN" Title="ISBN" />
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.YearPublished" Title="Year Published" />
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Language" Title="Language" />
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Genre" Title="Genre" />
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Subject" Title="Subject" />
-                <RadzenGridColumn TItem="Book" Property="LibraryMaterial.Status" Title="Status" />
-                <RadzenGridColumn TItem="Book" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <RadzenGridColumn TItem="Library_Material" Property="Title" Title="Title " />
+                <RadzenGridColumn TItem="Library_Material" Property="AccessionNumber" Title="Accession Number" />
+                <RadzenGridColumn TItem="Library_Material" Property="Book.ISBN" Title="ISBN" />
+                <RadzenGridColumn TItem="Library_Material" Property="YearPublished" Title="Year Published" />
+                <RadzenGridColumn TItem="Library_Material" Property="Genre" Title="Genre" />
+                <RadzenGridColumn TItem="Library_Material" Property="Subject" Title="Subject" />
+                <RadzenGridColumn TItem="Library_Material" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                     <Template Context="data">
-                        <a href="/Book/Details/@data.LibraryMaterialId">
+                        <a href="/Catalog/Book/Details/@data.LibraryMaterialId">
                             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                         </a>
                     </Template>
@@ -66,27 +63,24 @@ else
         </RadzenGrid>
     </div>
 
-    <div style="visibility:@Journalvisible;margin-top:-80px">
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
-                    AllowSorting="true" Data="@journals" TItem="Journal" Value="@journal" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+    <div style="visibility:@Journalvisible;margin-top:-530px">
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="5"
+                    AllowSorting="true" Data="@libraryMaterialsJournals" TItem="Library_Material" Value="@catalog" ColumnWidth="200px" >
             <Columns>
-                <RadzenGridColumn TItem="Journal" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
+                <RadzenGridColumn TItem="Library_Material" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
                     <Template Context="data">
-                        <RadzenImage Path="@data?.LibraryMaterial.ImageFile" />
+                        <RadzenImage Path="@data?.ImageFile" Style="width:60px; height:80px" />
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="Journal" Property="Library_Material.Title" Title="Title " />
-                <RadzenGridColumn TItem="Journal" Property="Library_Material.AccessionNumber" Title="Accession Number" />
-                @*<RadzenGridColumn TItem="Journal" Property="LibraryMaterial_Author.Author.FullName" Title="Author" />*@
-                <RadzenGridColumn TItem="Journal" Property="ISSN" Title="ISSN" />
-                <RadzenGridColumn TItem="Journal" Property="Library_Material.YearPublished" Title="Year Published" />
-                <RadzenGridColumn TItem="Journal" Property="Library_Material.Language" Title="Language" />
-                <RadzenGridColumn TItem="Journal" Property="Library_Material.Genre" Title="Genre" />
-                <RadzenGridColumn TItem="Journal" Property="Library_Material.Subject" Title="Subject" />
-                <RadzenGridColumn TItem="Journal" Property="Library_Material.Status" Title="Status" />
-                <RadzenGridColumn TItem="Journal" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <RadzenGridColumn TItem="Library_Material" Property="Title" Title="Title " />
+                <RadzenGridColumn TItem="Library_Material" Property="AccessionNumber" Title="Accession Number" />
+                <RadzenGridColumn TItem="Library_Material" Property="Journal.ISSN" Title="ISSN" />
+                <RadzenGridColumn TItem="Library_Material" Property="YearPublished" Title="Year Published" />
+                <RadzenGridColumn TItem="Library_Material" Property="Genre" Title="Genre" />
+                <RadzenGridColumn TItem="Library_Material" Property="Subject" Title="Subject" />
+                <RadzenGridColumn TItem="Library_Material" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                     <Template Context="data">
-                        <a href="/Journal/Details/@data.LibraryMaterialId">
+                        <a href="/Catalog/Journal/Details/@data.LibraryMaterialId">
                             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                         </a>
                     </Template>
@@ -95,27 +89,24 @@ else
         </RadzenGrid>
     </div>
 
-    <div style="visibility:@CD_DVD_BR_visible;margin-top:-80px">
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="6"
-                    AllowSorting="true" Data="@cD_DVD_BRs" TItem="CD_DVD_BR" Value="@cD_DVD_BR" ColumnWidth="200px" Style=" font-family:'Courier New';font-weight:bolder">
+    <div style="visibility:@CD_DVD_BR_visible;margin-top:-600px">
+        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="5"
+                    AllowSorting="true" Data="@libraryMaterialsCD" TItem="Library_Material" Value="@catalog" ColumnWidth="200px" >
             <Columns>
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
+                <RadzenGridColumn TItem="Library_Material" Property="ImageFile" Title="Photo" Sortable="false" Filterable="false">
                     <Template Context="data">
-                        <RadzenImage Path="@data?.LibraryMaterial.ImageFile" />
+                        <RadzenImage Path="@data?.ImageFile" Style="width:60px; height:80px" />
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Title" Title="Title " />
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.AccessionNumber" Title="Accession Number" />
-                @*<RadzenGridColumn TItem="CD_DVD_BR" Property="LibraryMaterial_Author.Author.FullName" Title="Author" />*@
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="ISBN" Title="ISBN" />
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.YearPublished" Title="Year Published" />
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Language" Title="Language" />
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Genre" Title="Genre" />
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Subject" Title="Subject" />
-                <RadzenGridColumn TItem="CD_DVD_BR" Property="Library_Material.Status" Title="Status" />
-                <RadzenGridColumn TItem="CD_DVD_BR" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
+                <RadzenGridColumn TItem="Library_Material" Property="Title" Title="Title " />
+                <RadzenGridColumn TItem="Library_Material" Property="AccessionNumber" Title="Accession Number" />
+                <RadzenGridColumn TItem="Library_Material" Property="CD_DVD_BR.ISBN" Title="ISBN" />
+                <RadzenGridColumn TItem="Library_Material" Property="YearPublished" Title="Year Published" />
+                <RadzenGridColumn TItem="Library_Material" Property="Genre" Title="Genre" />
+                <RadzenGridColumn TItem="Library_Material" Property="Subject" Title="Subject" />
+                <RadzenGridColumn TItem="Library_Material" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                     <Template Context="data">
-                        <a href="/CD_DVD_BR/Details/@data.LibraryMaterialId">
+                        <a href="/Catalog/CD_DVD_BR/Details/@data.LibraryMaterialId">
                             <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                         </a>
                     </Template>
@@ -138,20 +129,11 @@ else
     //library material code
     IEnumerable<Library_Material> matrials;
     RadzenGrid<Library_Material> matrialsGrid;
-    Library_Material libraryMaterial;
-    IQueryable<Library_Material> libraryMaterials;
+    Library_Material catalog;
+    IQueryable<Library_Material> libraryMaterialsBooks;
+    IQueryable<Library_Material> libraryMaterialsJournals;
+    IQueryable<Library_Material> libraryMaterialsCD;
 
-    //Book code
-    Book book;
-    IQueryable<Book> books;
-
-    //Journal code
-    Journal journal;
-    IQueryable<Journal> journals;
-
-    // CD/DVD/BR code
-    CD_DVD_BR cD_DVD_BR;
-    IQueryable<CD_DVD_BR> cD_DVD_BRs;
 
     LMSDbContext db = new LMSDbContext();
 
@@ -163,17 +145,14 @@ else
 
     protected override void OnInitialized()
     {
-        //matrials = DbContext.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR").ToList();
+        matrials = DbContext.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR").ToList();
 
-        libraryMaterials = db.Library_Material.Include("Book").Include("Journal").Include("CD_DVD_BR");
+        libraryMaterialsBooks = db.Library_Material.Include("Book").Where(x => x.LibraryMaterialType==1);
 
-        books = db.Book.Include("Library_Material");
+        libraryMaterialsJournals = db.Library_Material.Include("Journal").Where(x => x.LibraryMaterialType == 2);
 
-        journals = db.Journal.Include("Library_Material");
+        libraryMaterialsCD = db.Library_Material.Include("CD_DVD_BR").Where(x => x.LibraryMaterialType == 3);
 
-        cD_DVD_BRs = db.CD_DVD_BR.Include("Library_Material");
-
-        libraryMaterial = libraryMaterials.FirstOrDefault();
     }
 
     //Method to change library matrial type

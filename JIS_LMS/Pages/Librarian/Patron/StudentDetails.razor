@@ -1,8 +1,8 @@
 ﻿@*Page Name: Student Details
-  Page Description: This page is for showing the infromation and details of a student*@
+    Page Description: This page is for showing the infromation and details of a student*@
 
-@page "/Student/Details/{Id:int}"
-@layout SystemAdminLayout
+@page "/Librarian/Student/Details/{Id:int}"
+@layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject PatronService PatronService
@@ -14,7 +14,6 @@
     <div class="container-fluid container-contact100">
         <div class="wrap-contact100">
             <h3>Patron Details</h3>
-
 
             <table class="table table-hover">
 
@@ -121,17 +120,6 @@
 
                 </tr>
 
-                <tr>
-                    <td> Username : </td>
-                    <td>@patron.UserName</td>
-
-                </tr>
-
-                <tr>
-                    <td> Password : </td>
-                    <td>@patron.Password</td>
-
-                </tr>
 
                 <tr>
                     <td> Type: </td>
@@ -148,8 +136,7 @@
             </table>
 
 
-            <a href="/Patron/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-            <a href="/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <a href="/Librarian/Patrons/Search" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>
     </div>
@@ -175,7 +162,7 @@
     {
         patrons = PatronService.GetPatrons();
 
-        //Get the student detials 
+        //Get the student detials
         patron = PatronService.GetPatron(Id);
     }
 

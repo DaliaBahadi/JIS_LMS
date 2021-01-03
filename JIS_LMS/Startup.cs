@@ -107,6 +107,9 @@ namespace JIS_LMS
             //Student_Parent Service
             services.AddScoped<StudentParentService>();
 
+            //Dialog Service
+            services.AddScoped<Radzen.DialogService>();
+
 
 
         }

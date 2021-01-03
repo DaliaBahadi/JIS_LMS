@@ -1,0 +1,70 @@
+﻿@page "/dialogcard/{PatronID}"
+
+
+@using Microsoft.EntityFrameworkCore
+@using JIS_LMS.Data;
+@using JIS_LMS.Model;
+@inject LMSDbContext dbContext
+@inject Radzen.DialogService dialogService
+
+<h1>Dialog with parameters</h1>
+
+<p>This page demonstrates <b>Dialog</b> component with parameters.</p>
+<h3>PatronID: @PatronID</h3>
+<RadzenCard Style="margin-bottom: 20px;">
+    <div class="row">
+        <div class="col-md-6">
+            <div>Patron:</div>
+            <b>@patron.Student?.StudentId</b>
+            <div style="margin-top:20px">Patron:</div>
+            <b>@(patron.Student?.ClassYear+ " " + patron.Student?.ClassName)</b>
+            <br />
+            @*<RadzenImage Path="@order.Employee?.Photo" Style="width:100px;" />*@
+        </div>
+        <div class="col-md-6">
+            @*<div>Freight:</div>
+            <b>@String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", order.Freight)</b>*@
+            <div style="margin-top:20px">Gender:</div>
+            <b>@(patron.Gender)</b>
+            <div style="margin-top:20px">Primary Email:</div>
+            <b>@(patron.PrimaryEmail)</b>
+            @*<div style="margin-top:20px">Ship name:</div>
+            <b>@(order.ShipName)</b>*@
+        </div>
+    </div>
+    @*<div class="row">
+        <div class="col-md-12">
+            <h3>Order Details</h3>
+            <RadzenGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        Data="@(orderDetails.Where(o => o.OrderID == OrderID))" TItem="OrderDetail" ColumnWidth="200px">
+                <Columns>
+                    <RadzenGridColumn TItem="OrderDetail" Property="Quantity" Title="Quantity" />
+                    <RadzenGridColumn TItem="OrderDetail" Property="Order.OrderDate" Title="OrderDate" />
+                    <RadzenGridColumn TItem="OrderDetail" Property="Discount" Title="Discount" FormatString="{0:P}" />
+                </Columns>
+            </RadzenGrid>
+        </div>
+    </div>*@
+</RadzenCard>
+<div class="row">
+    <div class="col-md-12">
+        @*<RadzenButton Click="@((args) => dialogService.Close(true))" Text="OK" Style="margin-bottom: 10px; width: 150px" />
+        <RadzenButton Click="@((args) => dialogService.Close(false))" ButtonStyle="ButtonStyle.Secondary" Text="Cancel" Style="margin-bottom: 10px; width: 150px" />*@
+    </div>
+</div>
+
+@code {
+    [Parameter] public int PatronID { get; set; }
+
+    Patron patron;
+    IEnumerable<Student> Students;
+
+    protected override void OnInitialized()
+    {
+        patron = dbContext.Patron.Where(o => o.PatronId == PatronID)
+                      .Include("Student")
+                      .Include("Teacher").FirstOrDefault();
+
+        Students = dbContext.Student.Include("Patron").ToList();
+    }
+}

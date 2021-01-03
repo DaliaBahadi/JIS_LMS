@@ -27,7 +27,6 @@ else
             <RadzenGridColumn TItem="Parent" Property="FullName" Title="Name  " />
             <RadzenGridColumn TItem="Parent" Property="PrimaryContactNumber" Title="Primary Contact Number" />
             <RadzenGridColumn TItem="Parent" Property="PrimaryEmail" Title="Primary Email" />
-            <RadzenGridColumn TItem="Parent" Property="Relation" Title="Relation" />
             <RadzenGridColumn TItem="Parent" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                 <Template Context="data">
                     <a href="/Parent/Details/@data.ParentId">
