@@ -20,14 +20,14 @@ namespace JIS_LMS.Model
 
         public string ISBN { get; set; }
         [Required]
-        [StringLength(80)]
+        [StringLength(80, ErrorMessage = "The length for the Format field is 80 characters")]
 
         public string Format { get; set; }
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "The length for the Runtime field is 50 characters")]
         public string Runtime { get; set; }
-        [StringLength(80)]
+        [StringLength(80, ErrorMessage = "The length for the Quality field is 80 characters")]
         public string Quality { get; set; }
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "The length for the Subtitles field is 100 characters")]
         public string Subtitles { get; set; }
         [Required]
         public int Type { get; set; }

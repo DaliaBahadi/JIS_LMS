@@ -22,7 +22,7 @@ namespace JIS_LMS.Model
         [Key]
         public int LibraryId { get; set; }
         [Required]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the Name field is 30 characters")]
         public string Name { get; set; }
         [Required]
         public int Section { get; set; }

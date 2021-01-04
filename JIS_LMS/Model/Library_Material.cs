@@ -35,23 +35,23 @@ namespace JIS_LMS.Model
         [Required(ErrorMessage = "The Title field is required ")]
         public string Title { get; set; }
         public int? NumberOfPages { get; set; }
-        [StringLength(150)]
+        [StringLength(150, ErrorMessage = "The length for the Source Of Fund field is 150 characters")]
         public string SourceOfFund { get; set; }
         [Column(TypeName = "decimal(8, 2)")]
         public decimal? CostPrice { get; set; }
         [Required(ErrorMessage = "The Year Published field is required ")]
-        [StringLength(4,ErrorMessage = "The length of the Year Published must be 4")]
+        [StringLength(4,ErrorMessage = "The length of the the Year Published field must be 4 characters")]
         public string YearPublished { get; set; }
         [Required(ErrorMessage = "The Language field is required ")]
         public int Language { get; set; }
         public string SubjectTranslationInEnglish { get; set; }
         [Required(ErrorMessage = "The Genre field is required ")]
-        [StringLength(80)]
+        [StringLength(80, ErrorMessage = "The length for the Genre field is 80 characters")]
         public string Genre { get; set; }
         [Required(ErrorMessage = "The Subject field is required ")]
-        [StringLength(80)]
+        [StringLength(80, ErrorMessage = "The length for the Subject field is 80 characters")]
         public string Subject { get; set; }
-        [StringLength(80)]
+        [StringLength(80, ErrorMessage = "The length for the City Published field is 80 characters")]
         public string CityPublished { get; set; }
         [Required(ErrorMessage = "The Age Level field is required ")]
         public int AgeLevel { get; set; }

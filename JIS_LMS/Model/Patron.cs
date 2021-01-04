@@ -27,15 +27,15 @@ namespace JIS_LMS.Model
         public int PatronId { get; set; }
 
         [Required(ErrorMessage = "The First Name field is required ")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the First Name field is 30 characters")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "The Middle Name field is required ")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the Middle Name field is 30 characters")]
         public string MiddleName { get; set; }
 
         [Required(ErrorMessage = "The Last Name field is required ")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the Last Name is field 30 characters")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "The Gender field is required ")]
@@ -57,10 +57,10 @@ namespace JIS_LMS.Model
         public string SecondaryContactNumber { get; set; }
 
         [Required(ErrorMessage = "The Primary Email Number field is required ")]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "The length for the Primary Email field is 100 characters")]
         [EmailAddress]
         public string PrimaryEmail { get; set; }
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "The length for the Secondary Email field is 100 characters")]
         [EmailAddress]
         public string SecondaryEmail { get; set; }
 
@@ -80,11 +80,11 @@ namespace JIS_LMS.Model
         public DateTime RegistrationDate { get; set; }
 
         [Required(ErrorMessage = "The UserName field is required ")]
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "The length for the UserName field is 10 characters")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "The Password field is required ")]
-        [StringLength(15)]
+        [StringLength(15, ErrorMessage = "The length for the Password field is 15 characters")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "The Patron Type field is required ")]

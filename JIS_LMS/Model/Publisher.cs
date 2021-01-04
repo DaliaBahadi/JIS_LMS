@@ -19,8 +19,8 @@ namespace JIS_LMS.Model
 
         [Key]
         public int PublisherId { get; set; }
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "The Name field is required ")]
+        [StringLength(100, ErrorMessage = "The length for the Name field is 100 characters")]
         public string Name { get; set; }
 
         [InverseProperty(nameof(Library_Material.Publisher))]

@@ -24,15 +24,15 @@ namespace JIS_LMS.Model
         [Required(ErrorMessage = "The StudentId field is required ")]
         public int StudentId { get; set; }
         [Required(ErrorMessage = "The Class Year field is required")]
-        [StringLength(5, ErrorMessage = "The length of the field is 5 ")]
+        [StringLength(5, ErrorMessage = "The length of the Class Year field is 5 characters")]
         public string ClassYear { get; set; }
         [Required(ErrorMessage = "The Class Name field is required")]
-        [StringLength(5, ErrorMessage = "The length of the field is 5")]
+        [StringLength(5, ErrorMessage = "The length of the Class Name field is 5 characters")]
         public string ClassName { get; set; }
         [Required(ErrorMessage = "The Age Level field is required")]
         public int AgeLevel { get; set; }
         [Required(ErrorMessage = "The Home Room Teacher Name field is required")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length of the Home Room Teacher Name field is 30 characters")]
         public string HomeRoomTeacher { get; set; }
 
         [ForeignKey(nameof(PatronId))]

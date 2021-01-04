@@ -20,19 +20,19 @@ namespace JIS_LMS.Model
         [Key]
         public int EmployeeId { get; set; }
         [Required(ErrorMessage = "The First Name field is required ")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the First Name field is 30 characters")]
         public string FirstName { get; set; }
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the Middle Name field is 30 characters")]
         public string MiddleName { get; set; }
         [Required(ErrorMessage = "The Last Name field is required ")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the Last Name field is 30 characters")]
         public string LastName { get; set; }
         [Column(TypeName = "date")]
         [Required(ErrorMessage = "The Date Of Birth field is required ")]
 
         public DateTime DateOfBirth { get; set; }
         [Required(ErrorMessage = "The Email field is required ")]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "The length for the Email field is 100 characters")]
         [EmailAddress]
         public string Email { get; set; }
         [Required(ErrorMessage = "The Mobile field is required ")]
@@ -44,14 +44,13 @@ namespace JIS_LMS.Model
         public int Language { get; set; }
         [Required(ErrorMessage = "The Gender field is required ")]
         public int Gender { get; set; }
-        [StringLength(15)]
-        [Range (1,10, ErrorMessage = "The range for Phone Extension is 10 character")]
+        [StringLength(15, ErrorMessage = "The length for the Phone Extension field is 15 characters")]
         public string PhoneExtension { get; set; }
         [Required(ErrorMessage = "The UserName field is required ")]
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "The length for the UserName field is 10 characters")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "The Password field is required ")]
-        [StringLength(15)]
+        [StringLength(15, ErrorMessage = "The length for the Password field is 15 characters")]
         public string Password { get; set; }
         [Required(ErrorMessage = "The Employee Type field is required ")]
         public int EmployeeType { get; set; }

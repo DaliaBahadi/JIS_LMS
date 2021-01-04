@@ -25,13 +25,13 @@ namespace JIS_LMS.Model
         public int? UnitNumber { get; set; }
         [Required(ErrorMessage = "The Street Name field is required ")]
         public string StreetName { get; set; }
-        [StringLength(10, ErrorMessage = "The length of the Zip Code must be 5", MinimumLength = 5)]
+        [StringLength(10, ErrorMessage = "The length for the Zip Code field is 5 characters", MinimumLength = 5)]
         public string ZipCode { get; set; }
         [Required(ErrorMessage = "The City field is required ")]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "The length for the City field is 100 characters")]
         public string City { get; set; }
         [Required(ErrorMessage = "The Country field is required ")]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "The length for the Country field is 100 characters")]
         public string Country { get; set; }
 
         [InverseProperty(nameof(Library.Address))]

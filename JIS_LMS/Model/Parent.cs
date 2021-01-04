@@ -23,13 +23,13 @@ namespace JIS_LMS.Model
         [Key]
         public int ParentId { get; set; }
         [Required(ErrorMessage = "The First Name field is required ")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the First Name field is 30 characters")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "The Middle Name field is required ")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the Middle Name field is 30 characters")]
         public string MiddleName { get; set; }
         [Required(ErrorMessage = "The Last Name field is required ")]
-        [StringLength(30)]
+        [StringLength(30, ErrorMessage = "The length for the Last Name field is 30 characters")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "The Gender field is required ")]
         public int Gender { get; set; }
@@ -45,10 +45,10 @@ namespace JIS_LMS.Model
 
         public string SecondaryContactNumber { get; set; }
         [Required(ErrorMessage = "The Primary Email field is required ")]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "The length for the Primary Email field is 100 characters")]
         [EmailAddress]
         public string PrimaryEmail { get; set; }
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "The length for the Secondary Email field is 100 characters")]
         [EmailAddress]
         public string SecondaryEmail { get; set; }
         [Required(ErrorMessage = "The Language field is required ")]

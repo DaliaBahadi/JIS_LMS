@@ -20,7 +20,7 @@ namespace JIS_LMS.Model
 
         public string ISBN { get; set; }
         public int? Edition { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Book Type field is required ")]
         public int BookType { get; set; }
 
         [ForeignKey(nameof(LibraryMaterialId))]
