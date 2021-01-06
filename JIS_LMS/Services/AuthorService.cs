@@ -62,12 +62,17 @@ namespace JIS_LMS.Services
         public bool DeleteAuthor(int id)
         {
             var author = db.Author.Find(id);
+           
             if (author != null)
             {
-                db.Author.Remove(author);
-                db.SaveChanges();
-                return true;
+               
+                    db.Author.Remove(author);
+                    db.SaveChanges();
+                    return true;
+
             }
+
+           
             return false;
         }
 

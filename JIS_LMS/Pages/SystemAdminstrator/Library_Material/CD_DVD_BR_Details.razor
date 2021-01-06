@@ -56,6 +56,11 @@
                     <td>@libraryMaterial.Publisher.Name</td>
                 </tr>
 
+                <tr>
+                    <td>Author: </td>
+                    <td>@authors</td>
+
+                </tr>
 
                 <tr>
                     <td>Number Of Pages: </td>
@@ -217,11 +222,13 @@
     Library_Material libraryMaterial = new Library_Material();
     List<Library_Material> libraryMaterials = new List<Library_Material>();
     LibraryMaterial_Author author = new LibraryMaterial_Author();
-
+    List<LibraryMaterial_Author> libraryMaterialAuthors = new List<LibraryMaterial_Author>();
 
 
     [Parameter]
     public int Id { get; set; }
+
+    string authors;
 
     // Execute when component starts / initializes
     protected override void OnInitialized()
@@ -229,6 +236,15 @@
         libraryMaterials = Library_MaterialService.GetLibraryMaterials();
 
         libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
+
+        //show library material author/s
+        libraryMaterialAuthors = db.LibraryMaterial_Author.Where(x => x.LibraryMaterialId == Id).ToList();
+
+        foreach (var x in libraryMaterialAuthors)
+        {
+            authors += " " + db.Author.Where(y => y.AuthorId == x.AuthorId).FirstOrDefault().FullName + ",";
+        }
+
 
         VariablesService.BorrowingMaterialId = Id;
 

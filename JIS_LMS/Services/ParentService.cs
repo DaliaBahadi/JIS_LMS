@@ -64,6 +64,16 @@ namespace JIS_LMS.Services
         public bool DeleteParent(int id)
         {
             var parent = db.Parent.Find(id);
+
+            //Delete parent patrons from Student_Parent table
+            List<Student_Parent> patrons = db.Student_Parent.Where(x => x.ParentId == id).ToList();
+
+            foreach (var x in patrons)
+            {
+                db.Student_Parent.Remove(x);
+                db.SaveChanges();
+            }
+
             if (parent != null)
             {
                 db.Parent.Remove(parent);

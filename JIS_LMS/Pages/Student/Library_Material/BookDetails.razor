@@ -1,5 +1,8 @@
-﻿@page "/Student/Catalog/Book/Details/{Id:int}"
-@layout StudentLayout
+﻿@*Page Name: Book Details
+    Page Description: This page is for showing the infromation and details of a book*@
+
+@page "/Student/Catalog/Book/Details/{Id:int}"
+@layout TeacherLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject Library_MaterialService Library_MaterialService
@@ -11,8 +14,8 @@
             <h3>Library Material Details</h3>
 
             <div style="margin-left:30em;margin-bottom:2em">
-                <a href="/Borrowing/Add" class="btn btn-outline-primary" role="button">Borrow</a>
-                <a href="/Hold/Add" class="btn btn-outline-primary" role="button">Hold</a>
+                <a href="/Teacher/Borrowing/Add" class="btn btn-outline-primary" role="button">Borrow</a>
+                <a href="/Teacher/Hold/Add" class="btn btn-outline-primary" role="button">Hold</a>
             </div>
 
             <table class="table table-hover">
@@ -20,7 +23,7 @@
 
                 <tr>
                     <td>Image: </td>
-                    <td><img src="@libraryMaterial.ImageFile" alt="patron image" width="200" height="250"></td>
+                    <td><img src="@libraryMaterial.ImageFile" alt="patron image"  width="100" height="150"></td>
                 </tr>
                 <tr>
                     <td>Accession Number: </td>
@@ -184,9 +187,7 @@
             </table>
 
             <br> <br>
-            <a href="/Catalog/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-            <a href="/Catalog/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
-            <a href="/Catalog/Search" class="btn btn-outline-secondary" role="button">Back</a>
+            <a href="/Teacher/Homepage" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>
     </div>

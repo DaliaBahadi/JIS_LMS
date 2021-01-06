@@ -1,5 +1,5 @@
 ﻿@page "/Teacher/Hold/Delete/{Id:int}"
-@layout SystemAdminLayout
+@layout TeacherLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject NavigationManager NavigationManager
@@ -14,10 +14,7 @@
     </div>
 
     <table>
-        <tr>
-            <td>Patron Name: </td>
-            <td>@hold.Patron.FullName</td>
-        </tr>
+       
         <tr>
             <td>Library Material Title: </td>
             <td>@hold.LibraryMaterial.Title</td>
@@ -29,7 +26,7 @@
     </table>
     <br />
     <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemoveHold">Delete Hold</button>
-    <a href="/Teacher/Circulation" class="btn btn-outline-secondary" role="button">Cancel</a>
+    <a href="/Teacher/MyLibraryMaterials" class="btn btn-outline-secondary" role="button">Cancel</a>
 
     <div class="mt-4"></div>
 </div>
@@ -45,7 +42,7 @@
     {
         HoldService.DeleteHold(Id);
 
-        NavigationManager.NavigateTo("/Teacher/Circulation");
+        NavigationManager.NavigateTo("/Teacher/MyLibraryMaterials");
     }
 
     protected override void OnInitialized()

@@ -14,10 +14,7 @@
     </div>
 
     <table>
-        <tr>
-            <td>Patron Name: </td>
-            <td>@hold.Patron.FullName</td>
-        </tr>
+       
         <tr>
             <td>Library Material Title: </td>
             <td>@hold.LibraryMaterial.Title</td>
@@ -45,7 +42,7 @@
     {
         HoldService.DeleteHold(Id);
 
-        NavigationManager.NavigateTo("/Circulation");
+        NavigationManager.NavigateTo("/Student/MyLibraryMaterials");
     }
 
     protected override void OnInitialized()

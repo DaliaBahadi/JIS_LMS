@@ -1,12 +1,15 @@
 ﻿@*Page Name:Delete Patron
-  Page Description: This page is for deleting a patron from the datbase*@
+    Page Description: This page is for deleting a patron from the database*@
 
 @page "/Patron/Delete/{Id:int}"
-@inject NavigationManager NavigationManager
-@inject PatronService PatronService
 @layout SystemAdminLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@inject NavigationManager NavigationManager
+@inject PatronService PatronService
+@inject StudentService StudentService
+@inject TeacherService TeacherService
+
 
 <div class="container" style="margin-left:1em">
     <h3>Delete Patron</h3>
@@ -31,7 +34,7 @@
     </table>
     <br />
     <button type="submit" class="btn btn-outline-danger " style=" width: 160px;" @onclick="RemovePatron">Delete Patron</button>
-    <a href="/Patron/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
+    <a href="/Patrons/Search" class="btn btn-outline-secondary" role="button">Cancel</a>
 
     <div class="mt-4"></div>
 </div>
@@ -52,7 +55,21 @@
     // Deleting a patron from the database
     private void RemovePatron()
     {
+        //check if patron is student or teacher to delete it
+        if (patron.PatronType == 1)
+        {
+            StudentService.DeleteStudent(Id);
+        }
+
+        else if (patron.PatronType == 2)
+        {
+            TeacherService.DeleteTeacher(Id);
+        }
+
+        //Delete patron
         PatronService.DeletePatron(Id);
+
+
 
         // May navigate to the patron Search Page
         NavigationManager.NavigateTo("/Patrons/Search");

@@ -1,11 +1,14 @@
-﻿@*Page Name:Delete Author 
-  Page Description: This page is for deleting an author from the datbase*@
+﻿@*Page Name:Delete Author
+    Page Description: This page is for deleting an author from the datbase*@
 
 @page "/Librarian/Author/Delete/{Id:int}"
 @layout LibrarianLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
+@using Microsoft.Extensions.Logging
+@using Syncfusion.Blazor.Popups
 @inject NavigationManager NavigationManager
+@inject ILogger<Author> Logger
 @inject AuthorService AuthorService
 
 
@@ -38,6 +41,9 @@
     [Parameter]
     public int Id { get; set; }
 
+    bool loadFailed;
+
+
     // Execute when component starts / initializes
     protected override void OnInitialized()
     {
@@ -45,10 +51,25 @@
     }
 
 
+
     // Deleting an author from the database
     private void RemoveAuthor()
     {
-        AuthorService.DeleteAuthor(Id);
+
+        try
+        {
+            loadFailed = false;
+            AuthorService.DeleteAuthor(Id);
+        }
+        catch (Exception ex)
+        {
+
+            loadFailed = true;
+            Logger.LogWarning(ex, "The author has written library materials that are in the system.Please Delete them first.", Id);
+
+
+        }
+        //AuthorService.DeleteAuthor(Id);
 
         // May navigate to the Author Search Page
         NavigationManager.NavigateTo("/Librarian/Authors/Search");

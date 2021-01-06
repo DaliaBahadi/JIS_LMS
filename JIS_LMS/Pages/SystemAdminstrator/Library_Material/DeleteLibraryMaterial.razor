@@ -1,5 +1,5 @@
 ﻿@*Page Name:Delete Library Material
-    Page Description: This page is for deleting a library material from the datbase*@
+    Page Description: This page is for deleting a library material from the database*@
 
 
 @page "/Catalog/Delete/{Id:int}"
@@ -8,6 +8,10 @@
 @using JIS_LMS.Model;
 @inject NavigationManager NavigationManager
 @inject Library_MaterialService Library_MaterialService
+@inject CD_DVD_BR_Service CD_DVD_BR_Service
+@inject BookService BookService
+@inject JournalService JournalService
+@inject LibraryMaterilaAuthorService LibraryMaterilaAuthorService
 
 
 <div class="container" style="margin-left:1em">
@@ -40,19 +44,42 @@
 
     Library_Material libraryMaterial = new Library_Material();
 
+    LibraryMaterial_Author libraryMaterialAuthor = new LibraryMaterial_Author();
+
     [Parameter]
     public int Id { get; set; }
+
+    public int authorId { get; set; }
 
     // Execute when component starts / initializes
     protected override void OnInitialized()
     {
         libraryMaterial = Library_MaterialService.GetLibraryMaterial(Id);
+
     }
 
     // Deleting a library material from the database
     private void RemoveLibraryMaterial()
     {
+
+        //check if library material is book or journal or cd/dvd/br to delete it
+        if (libraryMaterial.LibraryMaterialType == 1)
+        {
+            BookService.DeleteBook(Id);
+        }
+
+        else if (libraryMaterial.LibraryMaterialType == 2)
+        {
+            JournalService.DeleteJournal(Id);
+        }
+
+        else if (libraryMaterial.LibraryMaterialType == 3)
+        {
+            CD_DVD_BR_Service.DeleteCD_DVD_BR(Id);
+        }
+
         Library_MaterialService.DeleteLibraryMaterial(Id);
+
 
         // May navigate to the Catalog Search Page
         NavigationManager.NavigateTo("/Catalog/Search");
