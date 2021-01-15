@@ -1,4 +1,8 @@
-﻿@page  "/SystemAdmin/Account/{Id:int}"
+﻿@*Page Name:My Account Page
+    Page Description: This page allow the user to view their profile and information, and allow the user to change the password*@
+
+
+@page  "/SystemAdmin/Account/{Id:int}"
 @layout SystemAdminLayout
 @inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
@@ -36,7 +40,7 @@
 
                 <div class="form-group">
                     <label for="dateOfBirth">*Date Of Birth:</label>
-                    <InputDate id="date" @bind-Value="employee.DateOfBirth" class="form-control" disabled/>
+                    <InputDate id="date" @bind-Value="employee.DateOfBirth" class="form-control" disabled />
                 </div>
 
                 <div class="form-group">
@@ -174,6 +178,6 @@
     //Code for employee type drop down list
     IEnumerable<EmployeeType> type = Enum.GetValues(typeof(EmployeeType)).Cast<EmployeeType>();
 
-    
+
 }
 

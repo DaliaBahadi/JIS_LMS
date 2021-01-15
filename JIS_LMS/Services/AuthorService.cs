@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using JIS_LMS.Data;
 using JIS_LMS.Model;
+using Microsoft.Extensions.Logging;
 
 namespace JIS_LMS.Services
 {
@@ -12,6 +14,8 @@ namespace JIS_LMS.Services
     {
         // Instance of the db context
         private readonly LMSDbContext db;
+
+        //ILogger<String> Logger = new ILogger<String>() ;
 
         // Constructor using dependency injection
         public AuthorService(LMSDbContext context)
@@ -62,17 +66,26 @@ namespace JIS_LMS.Services
         public bool DeleteAuthor(int id)
         {
             var author = db.Author.Find(id);
-           
-            if (author != null)
+
+            try
             {
-               
+                if (author != null)
+                {
+
                     db.Author.Remove(author);
                     db.SaveChanges();
                     return true;
 
+                }
+
             }
 
-           
+
+            catch(DbUpdateException ex)
+            {
+                //Logger.LogWarning(ex, "Author is connected" );
+            }
+
             return false;
         }
 

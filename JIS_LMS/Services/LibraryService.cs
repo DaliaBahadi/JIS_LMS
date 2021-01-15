@@ -62,12 +62,21 @@ namespace JIS_LMS.Services
         public bool DeleteLibrary(int id)
         {
             var library = db.Library.Find(id);
-            if (library != null)
+
+            try
             {
-                db.Library.Remove(library);
-                db.SaveChanges();
-                return true;
+                if (library != null)
+                {
+                    db.Library.Remove(library);
+                    db.SaveChanges();
+                    return true;
+                }
+
             }
+            catch (DbUpdateException ex)
+            {
+            }
+            
             return false;
         }
 

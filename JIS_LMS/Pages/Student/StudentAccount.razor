@@ -1,4 +1,8 @@
-﻿@page  "/Student/Account/{Id:int}"
+﻿@*Page Name:My Account Page
+    Page Description: This page allow the user to view their profile and information, and allow the user to change the password*@
+
+
+@page  "/Student/Account/{Id:int}"
 @layout StudentLayout
 @inject NavigationManager NavigationManager
 @using JIS_LMS.Data;
@@ -42,13 +46,13 @@
 
                 <div class="form-group">
                     <label for="year">*Class Year:</label>
-                    <InputText id="year" @bind-Value="patron.Student.ClassYear" class="form-control" placeholder="Enter Student's Class Year" disabled/>
+                    <InputText id="year" @bind-Value="patron.Student.ClassYear" class="form-control" placeholder="Enter Student's Class Year" disabled />
                 </div>
 
 
                 <div class="form-group">
                     <label for="class-name">*Class Name:</label>
-                    <InputText id="class-name" @bind-Value="patron.Student.ClassName" class="form-control" placeholder="Enter Student's Class Name"disabled />
+                    <InputText id="class-name" @bind-Value="patron.Student.ClassName" class="form-control" placeholder="Enter Student's Class Name" disabled />
                 </div>
 
                 <div class="form-group">
@@ -202,12 +206,12 @@
         // Edit Patron
         PatronService.EditPatron(patron);
 
-        
+
 
     }
 
 
-    
+
 }
 
 @code{

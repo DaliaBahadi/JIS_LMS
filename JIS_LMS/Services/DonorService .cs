@@ -62,12 +62,21 @@ namespace JIS_LMS.Services
         public bool DeleteDonor(int id)
         {
             var donor = db.Donor.Find(id);
-            if (donor != null)
+
+            try
             {
-                db.Donor.Remove(donor);
-                db.SaveChanges();
-                return true;
+                if (donor != null)
+                {
+                    db.Donor.Remove(donor);
+                    db.SaveChanges();
+                    return true;
+                }
+
             }
+            catch (DbUpdateException ex)
+            {
+            }
+
             return false;
         }
 

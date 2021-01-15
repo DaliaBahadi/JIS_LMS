@@ -1,5 +1,5 @@
 ﻿@*Page Name:Delete Donor
-    Page Description: This page is for deleting an donor from the datbase*@
+    Page Description: This page is for deleting an donor from the database*@
 
 @page "/Librarian/Donor/Delete/{Id:int}"
 @layout LibrarianLayout
@@ -13,6 +13,9 @@
 
     <div class="alert alert-danger ">
         Do you want to Delete this Donor?
+        <br>
+        <br>
+        Note: This Donor will not be deleted if it is linked to a library material.
     </div>
 
     <table>

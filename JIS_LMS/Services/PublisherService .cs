@@ -62,12 +62,24 @@ namespace JIS_LMS.Services
         public bool DeletePublisher(int id)
         {
             var publisher = db.Publisher.Find(id);
-            if (publisher != null)
+
+            try
             {
-                db.Publisher.Remove(publisher);
-                db.SaveChanges();
-                return true;
+                if (publisher != null)
+                {
+                    db.Publisher.Remove(publisher);
+                    db.SaveChanges();
+                    return true;
+                }
+
+
             }
+
+
+            catch (DbUpdateException ex)
+            {
+            }
+
             return false;
         }
 

@@ -1,5 +1,5 @@
 ﻿@*Page Name:Delete Publisher
-    Page Description: This page is for deleting a publisher from the datbase*@
+    Page Description: This page is for deleting a publisher from the database*@
 
 @page "/Librarian/Publisher/Delete/{Id:int}"
 @layout LibrarianLayout
@@ -14,6 +14,9 @@
 
     <div class="alert alert-danger">
         Do you want to delete this Publisher?
+        <br>
+        <br>
+        Note: This Publisher will not be deleted if it is linked to a library material.
     </div>
 
     <table>

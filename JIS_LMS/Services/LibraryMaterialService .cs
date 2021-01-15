@@ -68,18 +68,27 @@ namespace JIS_LMS.Services
             //Delete library material authors from LibraryMaterial_Author table
             List<LibraryMaterial_Author> authors = db.LibraryMaterial_Author.Where(x => x.LibraryMaterialId == id).ToList();
 
-            foreach(var x in authors) 
+            try
             {
-                db.LibraryMaterial_Author.Remove(x);
-                db.SaveChanges();
+                foreach (var x in authors)
+                {
+                    db.LibraryMaterial_Author.Remove(x);
+                    db.SaveChanges();
+                }
+
+                if (library_Material != null)
+                {
+                    db.Library_Material.Remove(library_Material);
+                    db.SaveChanges();
+                    return true;
+                }
+
+            }
+            catch (DbUpdateException ex)
+            {
             }
 
-            if (library_Material != null)
-            {
-                db.Library_Material.Remove(library_Material);
-                db.SaveChanges();
-                return true;
-            }
+           
             return false;
         }
 

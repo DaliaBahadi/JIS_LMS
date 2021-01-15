@@ -1,5 +1,5 @@
 ﻿@*Page Name:Delete Library Material
-    Page Description: This page is for deleting a library material from the datbase*@
+    Page Description: This page is for deleting a library material from the database*@
 
 
 @page "/Librarian/Catalog/Delete/{Id:int}"
@@ -19,6 +19,10 @@
 
     <div class="alert alert-danger">
         Do you want to delete this Library Material?
+        <br>
+        <br>
+        Note: This Library Material will not be deleted if it is linked to a borrowing or a hold.
+
     </div>
 
     <table>

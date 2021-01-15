@@ -1,5 +1,5 @@
 ﻿@*Page Name:Delete Library
-  Page Description: This page is for deleting a library from the datbase*@
+  Page Description: This page is for deleting a library from the database*@
 
 @page "/Library/Delete/{Id:int}"
 @layout SystemAdminLayout
@@ -13,6 +13,10 @@
 
     <div class="alert alert-danger">
         Do you want to delete this  Library?
+        <br>
+        <br>
+        Note: This Library will not be deleted if it is linked to a patron, employee, library material, or hold.
+
     </div>
 
     <table>

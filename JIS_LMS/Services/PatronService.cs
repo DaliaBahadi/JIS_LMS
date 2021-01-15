@@ -63,12 +63,23 @@ namespace JIS_LMS.Services
         public bool DeletePatron(int id)
         {
             var patron = db.Patron.Find(id);
-            if (patron != null)
+
+            try
             {
-                db.Patron.Remove(patron);
-                db.SaveChanges();
-                return true;
+                if (patron != null)
+                {
+                    db.Patron.Remove(patron);
+                    db.SaveChanges();
+                    return true;
+                }
+
             }
+
+
+            catch (DbUpdateException ex)
+            {
+            }
+            
             return false;
         }
 

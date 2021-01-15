@@ -1,4 +1,8 @@
-﻿@page "/Teacher/Notifications"
+﻿@*Page Name:Notifications Page
+    Page Description: This page allow the user to view their notification and to direct them to the detials or delete notification pages*@
+
+
+@page "/Teacher/Notifications"
 @layout TeacherLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
@@ -18,7 +22,7 @@
 else
 {
     <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="8"
-                AllowSorting="true" Data="@notifications" TItem="Notification" ColumnWidth="200px" >
+                AllowSorting="true" Data="@notifications" TItem="Notification" ColumnWidth="200px">
         <Columns>
             <RadzenGridColumn TItem="Notification" Property="NotificationDateTime" Title="Notification Date & Time">
                 <Template Context="data">

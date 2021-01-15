@@ -1,5 +1,5 @@
 ﻿@*Page Name:Delete Employee
-    Page Description: This page is for deleting an employee from the datbase*@
+    Page Description: This page is for deleting an employee from the database*@
 
 @page "/Employee/Delete/{Id:int}"
 @layout SystemAdminLayout
@@ -14,6 +14,10 @@
 
     <div class="alert alert-danger ">
         Do you want to delete this Employee?
+        <br>
+        <br>
+        Note: This Employee will not be deleted if it is linked to a patron or a library.
+
     </div>
 
     <table>

@@ -62,12 +62,21 @@ namespace JIS_LMS.Services
         public bool DeleteEmployee(int id)
         {
             var employee = db.Employee.Find(id);
-            if (employee != null)
+
+            try
             {
-                db.Employee.Remove(employee);
-                db.SaveChanges();
-                return true;
+                if (employee != null)
+                {
+                    db.Employee.Remove(employee);
+                    db.SaveChanges();
+                    return true;
+                }
+
             }
+            catch (DbUpdateException ex)
+            {
+            }
+            
             return false;
         }
 
