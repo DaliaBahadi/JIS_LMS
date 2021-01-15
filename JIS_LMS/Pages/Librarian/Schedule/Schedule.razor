@@ -1,6 +1,7 @@
-﻿@page "/Schedule"
+﻿
 
-@layout SystemAdminLayout
+@page "/Librarian/Schedule"
+@layout LibrarianLayout
 @using Radzen
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -10,7 +11,7 @@
 
 
 
-    <a href="/Schedule/Add" style=" margin-top: 80px;color:#013E7E;font-weight: bolder;">
+    <a href="/Librarian/Schedule/Add" style=" margin-top: 80px;color:#013E7E;font-weight: bolder;">
         <h4 style="margin-left:1em"> <i class="oi oi-plus"></i> Add New Schedule</h4>
     </a>
 
@@ -23,7 +24,7 @@
 
     <div class="col-xl-6">
 
-        <RadzenScheduler @ref=@scheduler style="height: 740px; width:1500px" Data="@data" TItem="Time_Slot" StartProperty="StartTime" EndProperty="EndTime" TextProperty="Text" LoadData="@OnLoadData" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect>
+        <RadzenScheduler @ref=@scheduler style="height: 740px; width:1500px;" Data="@data" TItem="Time_Slot" StartProperty="StartTime" EndProperty="EndTime" TextProperty="Text" LoadData="@OnLoadData" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect>
 
 
 
@@ -49,62 +50,6 @@
 @code {
 
     RadzenScheduler<Time_Slot> scheduler;
-
-
-
-    //class DataItem
-
-    //{
-
-    //  public DateTime Start { get; set; }
-
-    //  public DateTime End { get; set; }
-
-    //  public string Text { get; set; }
-
-    //}
-
-
-
-    // DataItem[] data = new DataItem[]
-
-    // {
-
-    //new DataItem
-
-    //{
-
-    // Start = DateTime.Today,
-
-    // End = DateTime.Today.AddDays(1),
-
-    // Text = "Birthday"
-
-    //},
-
-    // };
-
-
-
-    //Time_Slot []data = new Time_Slot[]
-
-    // {
-
-    //new Time_Slot
-
-    //{
-
-    // StartTime = DateTime.Today,
-
-    // EndTime = DateTime.Today.AddDays(1),
-
-    // Text = "Birthday"
-
-    //},
-
-    // };
-
-
 
     IEnumerable<Time_Slot> data;
 
@@ -134,9 +79,9 @@
 
 
 
-        Time_Slot data = await DialogService.OpenAsync<AddAppointmentPage>("Add Time_Slot",
+        //Time_Slot data = await DialogService.OpenAsync<AddAppointmentPage>("Add Time_Slot",
 
-          new Dictionary<string, object> { { "StartTime", args.Start }, { "EndTime", args.End } });
+        //new Dictionary<string, object> { { "StartTime", args.Start }, { "EndTime", args.End } });
 
 
 
@@ -144,7 +89,7 @@
 
         {
 
-            MyAppointmentService.AddNewAppointment(data);
+            //MyAppointmentService.AddNewAppointment(data);
 
             // Either call the Reload method or reassign the Data property of the Scheduler
 
@@ -164,7 +109,7 @@
 
 
 
-        await DialogService.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Time_Slot", args.Data } });
+        //await DialogService.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Time_Slot", args.Data } });
 
 
 

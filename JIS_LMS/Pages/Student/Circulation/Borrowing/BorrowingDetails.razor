@@ -1,4 +1,7 @@
-﻿@page "/Student/Borrowing/Details/{Id:int}"
+﻿@*Page Name: Borrowing Details
+    Page Description: This page is for showing the infromation and details of a borrowing*@
+
+@page "/Student/Borrowing/Details/{Id:int}"
 @inject BorrowingService BorrowingService
 @layout StudentLayout
 @using JIS_LMS.Data;
@@ -11,7 +14,7 @@
 
             <table class="table table-hover ">
 
-               
+
                 <tr>
                     <td>Library Material Title: </td>
                     <td>@borrowing.LibraryMaterial.Title</td>

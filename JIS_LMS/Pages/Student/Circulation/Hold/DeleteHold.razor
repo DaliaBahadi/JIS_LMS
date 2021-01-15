@@ -1,4 +1,7 @@
-﻿@page "/Student/Hold/Delete/{Id:int}"
+﻿@*Page Name:Delete Hold
+    Page Description: This page is for deleting a hold from the database*@
+
+@page "/Student/Hold/Delete/{Id:int}"
 @layout StudentLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -14,7 +17,7 @@
     </div>
 
     <table>
-       
+
         <tr>
             <td>Library Material Title: </td>
             <td>@hold.LibraryMaterial.Title</td>

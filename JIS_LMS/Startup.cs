@@ -110,6 +110,12 @@ namespace JIS_LMS
             //Dialog Service
             services.AddScoped<Radzen.DialogService>();
 
+            //Time Slot Service
+            services.AddScoped<TimeSlotService>();
+
+            //Schedule Service
+            services.AddScoped<ScheduleService>();
+
 
 
         }

@@ -1,4 +1,8 @@
-﻿@page "/Teacher/MyLibraryMaterials"
+﻿@*Page Name: Teacher My LibraryMaterials
+    Page Description: This page is for listing and searching for the borrowings and the holdes that are specific to the user*@
+
+
+@page "/Teacher/MyLibraryMaterials"
 @layout TeacherLayout
 @using Microsoft.EntityFrameworkCore
 @using JIS_LMS.Data;
@@ -23,7 +27,7 @@
             else
             {
                 <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
-                            AllowSorting="true" Data="@borrowings" TItem="JIS_LMS.Model.Borrowing" Value="@borrowing" ColumnWidth="200px" >
+                            AllowSorting="true" Data="@borrowings" TItem="JIS_LMS.Model.Borrowing" Value="@borrowing" ColumnWidth="200px">
                     <Columns>
                         <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="LibraryMaterial.Title" Title="Library Material Title" />
                         <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Property="BorrowingDateTime" Title="Borrowing Date & Time">
@@ -38,7 +42,7 @@
                         </RadzenGridColumn>
                         <RadzenGridColumn TItem="JIS_LMS.Model.Borrowing" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                             <Template Context="data">
-                                <a href="/Tecaher/Borrowing/Details/@data.BorrowingId">
+                                <a href="Teacher/Borrowing/Details/@data.BorrowingId">
                                     <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                                 </a>
                             </Template>
@@ -65,7 +69,7 @@
             else
             {
                 <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
-                            AllowSorting="true" Data="@holds" TItem="JIS_LMS.Model.Hold" Value="@hold" ColumnWidth="200px" >
+                            AllowSorting="true" Data="@holds" TItem="JIS_LMS.Model.Hold" Value="@hold" ColumnWidth="200px">
                     <Columns>
                         <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="LibraryMaterial.Title" Title="Library Material Title" />
                         <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Property="HoldDateTime" Title="Hold Date & Time">
@@ -80,7 +84,7 @@
                         </RadzenGridColumn>
                         <RadzenGridColumn TItem="JIS_LMS.Model.Hold" Context="LMSDbContext" Title="Action" Bubble="false" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="100px">
                             <Template Context="data">
-                                <a href="/Tecaher/Hold/Details/@data.HoldId">
+                                <a href="Teacher/Hold/Details/@data.HoldId">
                                     <RadzenButton ButtonStyle="ButtonStyle.Secondary" Icon="list" Size="ButtonSize.Small" Text="Details"></RadzenButton>
                                 </a>
                             </Template>

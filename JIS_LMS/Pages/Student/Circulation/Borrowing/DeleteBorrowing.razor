@@ -1,4 +1,8 @@
-﻿@page "/Student/Borrowing/Delete/{Id:int}"
+﻿@*Page Name:Delete Borrowing
+    Page Description: This page is for deleting a borrowing from the database*@
+
+
+@page "/Student/Borrowing/Delete/{Id:int}"
 @layout StudentLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -14,7 +18,7 @@
     </div>
 
     <table>
-       
+
         <tr>
             <td>Library Material Title: </td>
             <td>@borrowing.LibraryMaterial.Title</td>

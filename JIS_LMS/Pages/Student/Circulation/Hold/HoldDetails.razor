@@ -1,4 +1,7 @@
-﻿@page "/Student/Hold/Details/{Id:int}"
+﻿@*Page Name: Hold Details
+    Page Description: This page is for showing the infromation and details of a hold*@
+
+@page "/Student/Hold/Details/{Id:int}"
 @inject HoldService HoldService
 @layout StudentLayout
 @using JIS_LMS.Data;
@@ -37,7 +40,7 @@
                     <td>@hold.HoldStatus</td>
                 </tr>
 
-                
+
                 <tr>
                     <td>Remark: </td>
                     <td>@hold.Remark</td>
@@ -47,7 +50,6 @@
 
 
             <a href="/Student/Hold/Edit/@Id" class="btn btn-outline-primary" role="button">Edit</a>
-            <a href="/Student/Hold/Delete/@Id" class="btn btn-outline-danger" role="button">Delete</a>
             <a href="/Student/MyLibraryMaterials" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>

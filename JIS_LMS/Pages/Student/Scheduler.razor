@@ -1,6 +1,6 @@
-﻿@page "/Schedule"
+﻿@page "/Student/Schedule"
 
-@layout SystemAdminLayout
+@layout StudentLayout
 @using Radzen
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
@@ -10,9 +10,6 @@
 
 
 
-    <a href="/Schedule/Add" style=" margin-top: 80px;color:#013E7E;font-weight: bolder;">
-        <h4 style="margin-left:1em"> <i class="oi oi-plus"></i> Add New Schedule</h4>
-    </a>
 
 
 <br>
@@ -51,61 +48,6 @@
     RadzenScheduler<Time_Slot> scheduler;
 
 
-
-    //class DataItem
-
-    //{
-
-    //  public DateTime Start { get; set; }
-
-    //  public DateTime End { get; set; }
-
-    //  public string Text { get; set; }
-
-    //}
-
-
-
-    // DataItem[] data = new DataItem[]
-
-    // {
-
-    //new DataItem
-
-    //{
-
-    // Start = DateTime.Today,
-
-    // End = DateTime.Today.AddDays(1),
-
-    // Text = "Birthday"
-
-    //},
-
-    // };
-
-
-
-    //Time_Slot []data = new Time_Slot[]
-
-    // {
-
-    //new Time_Slot
-
-    //{
-
-    // StartTime = DateTime.Today,
-
-    // EndTime = DateTime.Today.AddDays(1),
-
-    // Text = "Birthday"
-
-    //},
-
-    // };
-
-
-
     IEnumerable<Time_Slot> data;
 
 
@@ -134,9 +76,9 @@
 
 
 
-        Time_Slot data = await DialogService.OpenAsync<AddAppointmentPage>("Add Time_Slot",
+        //Time_Slot data = await DialogService.OpenAsync<AddAppointmentPage>("Add Time_Slot",
 
-          new Dictionary<string, object> { { "StartTime", args.Start }, { "EndTime", args.End } });
+        //new Dictionary<string, object> { { "StartTime", args.Start }, { "EndTime", args.End } });
 
 
 
@@ -144,7 +86,7 @@
 
         {
 
-            MyAppointmentService.AddNewAppointment(data);
+            //MyAppointmentService.AddNewAppointment(data);
 
             // Either call the Reload method or reassign the Data property of the Scheduler
 
@@ -164,7 +106,7 @@
 
 
 
-        await DialogService.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Time_Slot", args.Data } });
+        //await DialogService.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Time_Slot", args.Data } });
 
 
 
