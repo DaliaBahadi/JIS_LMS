@@ -3,7 +3,7 @@
 
 
 @page "/Student/Catalog/Journal/Details/{Id:int}"
-@layout TeacherLayout
+@layout StudentLayout
 @using JIS_LMS.Data;
 @using JIS_LMS.Model;
 @inject Library_MaterialService Library_MaterialService
@@ -17,8 +17,8 @@
             <h3>Library Material Details</h3>
 
             <div style="margin-left:30em;margin-bottom:2em">
-                <a href="/Teacher/Borrowing/Add" class="btn btn-outline-primary" role="button">Borrow</a>
-                <a href="/Teacher/Hold/Add" class="btn btn-outline-primary" role="button">Hold</a>
+                <a href="/Student/Borrowing/Add" class="btn btn-outline-primary" role="button">Borrow</a>
+                <a href="/Student/Hold/Add" class="btn btn-outline-primary" role="button">Hold</a>
             </div>
 
             <table class="table table-hover">
@@ -191,7 +191,7 @@
             </table>
 
             <br> <br>
-            <a href="/Teacher/Homepage" class="btn btn-outline-secondary" role="button">Back</a>
+            <a href="/Student/Homepage" class="btn btn-outline-secondary" role="button">Back</a>
             <div class="mt-4"></div>
         </div>
     </div>
