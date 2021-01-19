@@ -137,9 +137,9 @@
 
 
 
-        Time_Slot data = await DialogService.OpenAsync<AddAppointmentPage>("Add Time_Slot",
+        //Time_Slot data = await DialogService.OpenAsync<AddAppointmentPage>("Add Time_Slot",
 
-          new Dictionary<string, object> { { "StartTime", args.Start }, { "EndTime", args.End } });
+        //new Dictionary<string, object> { { "StartTime", args.Start }, { "EndTime", args.End } });
 
 
 
@@ -147,7 +147,7 @@
 
         {
 
-            MyAppointmentService.AddNewAppointment(data);
+            //MyAppointmentService.AddNewAppointment(data);
 
             // Either call the Reload method or reassign the Data property of the Scheduler
 
@@ -167,7 +167,7 @@
 
 
 
-        await DialogService.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Time_Slot", args.Data } });
+        //await DialogService.OpenAsync<EditAppointmentPage>("Edit Appointment", new Dictionary<string, object> { { "Time_Slot", args.Data } });
 
 
 

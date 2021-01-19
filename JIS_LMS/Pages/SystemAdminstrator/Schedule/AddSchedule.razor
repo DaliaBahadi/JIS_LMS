@@ -56,9 +56,9 @@
 
 
 @code {
-    Schedule schedule = new Schedule();
+    JIS_LMS.Model.Schedule schedule = new JIS_LMS.Model.Schedule();
 
-    private List<Schedule> schedules = new List<Schedule>();
+    private List<JIS_LMS.Model.Schedule> schedules = new List<JIS_LMS.Model.Schedule>();
 
     // Execute when component starts / initializes
     protected override void OnInitialized()
@@ -75,7 +75,7 @@
         ScheduleService.AddNewSchedule(schedule);
 
         // To empty the form
-        schedule = new Schedule();
+        schedule = new JIS_LMS.Model.Schedule();
 
         // May navigate to the Libraries component
         NavigationManager.NavigateTo("/Schedule");
