@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Time-Slot\" />
+    <Folder Include="Pages\Future Implemntation\Time-Slot\" />
   </ItemGroup>
 
   <ItemGroup>
